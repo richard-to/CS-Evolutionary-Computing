@@ -1,14 +1,16 @@
 package to.richard.test;
 
 import org.junit.Test;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import to.richard.XSquaredGenotype;
+
 /**
  * Author: Richard To
  * Date: 1/28/13
  */
+
+
 public class XSquaredGenotypeTest {
 
     @Test
