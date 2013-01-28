@@ -6,12 +6,15 @@ package to.richard;
  */
 
 /**
- * Represents a genotype for SGA of x squared
+ * Represents a genotype for SGA of x squared.
  */
 public class XSquaredGenotype {
 
     /**
-     * Converts int to padded bit array
+     * Converts int to padded bit array.
+     *
+     * If the value is greater than the bit array length, then
+     * there will overflow will occur.
      *
      * @param value  An integer
      * @param bitArrayLength Length of bit array
@@ -31,25 +34,25 @@ public class XSquaredGenotype {
         return bitArray;
     }
 
-    private int[] xValueBinary;
-    private int xValue;
-    private int xSquaredValue;
+    private int[] _xValueBinary;
+    private int _xValue;
+    private int _xSquaredValue;
 
     public XSquaredGenotype(int value, int bitStringLength) {
-        xValue = value;
-        xSquaredValue = xValue * xValue;
-        xValueBinary = XSquaredGenotype.convertIntToBitArray(xValue, bitStringLength);
+        _xValue = value;
+        _xSquaredValue = _xValue * _xValue;
+        _xValueBinary = XSquaredGenotype.convertIntToBitArray(_xValue, bitStringLength);
     }
 
     public int[] getGenes() {
-        return xValueBinary;
+        return _xValueBinary;
     }
 
     public int getValue() {
-        return xValue;
+        return _xValue;
     }
 
     public int getFitness() {
-        return xSquaredValue;
+        return _xSquaredValue;
     }
 }
