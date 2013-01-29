@@ -28,7 +28,7 @@ public class Random implements IRandom {
     }
 
     @Override
-    public double nextInt(int n) {
+    public int nextInt(int n) {
         return _random.nextInt(n);
     }
 

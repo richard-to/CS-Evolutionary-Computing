@@ -18,7 +18,7 @@ public interface IRandom {
      * @param n
      * @return
      */
-    public double nextInt(int n);
+    public int nextInt(int n);
 
     /**
      * Returns the next pseudorandom, uniformly distributed double value between 0.0 and 1.0 from this random number generator's sequence.

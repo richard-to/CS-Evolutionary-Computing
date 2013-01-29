@@ -40,7 +40,7 @@ public class MockRandom implements IRandom {
      *
      * Additionally, the n parameter is ignored. Make sure your numbers make sense.
      */
-    public double nextInt(int n) {
+    public int nextInt(int n) {
         return this._integerSequence.remove(0);
     }
 
