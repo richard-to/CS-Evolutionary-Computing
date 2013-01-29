@@ -23,6 +23,6 @@ public class GenePoolTest {
                 .addGenotype(new Genotype(27, 5));
         Genotype genotype = genePool.getGenotype(0);
         int[] expectedBitArray = new int[]{1, 0, 1, 0, 0};
-        assertArrayEquals(genotype.getGenes(), expectedBitArray);
+        assertArrayEquals(expectedBitArray, genotype.getGenes());
     }
 }

@@ -19,7 +19,7 @@ public class GenotypeTest {
         Genotype genotype = new Genotype(3, 5);
         int[] bitArray = genotype.convertIntToBitArray(20, 5);
         int[] expectedBitArray = new int[]{1, 0, 1, 0, 0};
-        assertArrayEquals(bitArray, expectedBitArray);
+        assertArrayEquals(expectedBitArray, bitArray);
     }
 
     @Test
@@ -27,15 +27,15 @@ public class GenotypeTest {
         Genotype genotype = new Genotype(3, 5);
         int[] bitArray = genotype.convertIntToBitArray(32, 5);
         int[] expectedBitArray = new int[]{0, 0, 0, 0, 0};
-        assertArrayEquals(bitArray, expectedBitArray);
+        assertArrayEquals(expectedBitArray, bitArray);
     }
 
     @Test
     public void testProperties() throws Exception {
         Genotype phenoType = new Genotype(3, 5);
         int[] expectedBitArray = new int[]{0, 0, 0, 1, 1};
-        assertArrayEquals(phenoType.getGenes(), expectedBitArray);
-        assertEquals(phenoType.getValue(), 3);
-        assertEquals(phenoType.getFitness(), 9);
+        assertArrayEquals(expectedBitArray, phenoType.getGenes());
+        assertEquals(3, phenoType.getValue());
+        assertEquals(9, phenoType.getFitness());
     }
 }
