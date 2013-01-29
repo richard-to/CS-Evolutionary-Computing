@@ -39,6 +39,8 @@ public class MockRandom implements IRandom {
      * needed for your test.
      *
      * Additionally, the n parameter is ignored. Make sure your numbers make sense.
+     *
+     * The sequence pops numbers of list in order.
      */
     public int nextInt(int n) {
         return this._integerSequence.remove(0);
@@ -48,6 +50,8 @@ public class MockRandom implements IRandom {
     /**
      * Make sure to set a list of doubles with at least the amount of numbers
      * needed for your test.
+     *
+     * The sequence pops numbers of list in order.
      */
     public double nextDouble() {
         return this._doubleSequence.remove(0);
