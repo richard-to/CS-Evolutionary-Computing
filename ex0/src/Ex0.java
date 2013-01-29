@@ -1,5 +1,3 @@
-import to.richard.XSquaredGenotype;
-
 /**
  * Author: Richard To
  * Date: 1/27/13
