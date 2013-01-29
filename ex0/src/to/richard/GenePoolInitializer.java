@@ -1,7 +1,5 @@
 package to.richard;
 
-import java.util.Random;
-
 /**
  * Author: Richard To
  * Date: 1/28/13
@@ -14,9 +12,9 @@ public class GenePoolInitializer {
 
     private int _maxValue;
     private int _populationSize;
-    private Random _random;
+    private IRandom _random;
 
-    public GenePoolInitializer(int maxValue, int populationSize, Random random) {
+    public GenePoolInitializer(int maxValue, int populationSize, IRandom random) {
         this._maxValue = maxValue;
         this._populationSize = populationSize;
         this._random = random;

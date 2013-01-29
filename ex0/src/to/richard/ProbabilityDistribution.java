@@ -1,7 +1,6 @@
 package to.richard;
 
 import java.util.Map;
-import java.util.Random;
 import java.util.TreeMap;
 
 /**
@@ -19,9 +18,9 @@ public class ProbabilityDistribution<E> {
 
     private TreeMap<Double, E> _distributionMap;
     private double _totalProbabilty;
-    private Random _random;
+    private IRandom _random;
 
-    public ProbabilityDistribution(Random random) {
+    public ProbabilityDistribution(IRandom random) {
         _distributionMap = new TreeMap<Double, E>();
         _totalProbabilty = 0.0;
         _random = random;
