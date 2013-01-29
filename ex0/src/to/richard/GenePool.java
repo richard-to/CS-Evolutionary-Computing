@@ -64,6 +64,14 @@ public class GenePool {
         return genotype.clone();
     }
 
+    /**
+     * Gets a copy of the genotypes in the gene pool.
+     * @return ArrayList<Genotype>
+     */
+    public ArrayList<Genotype> getGenotypeList() {
+        return (ArrayList<Genotype>)_genotypeList.clone();
+    }
+
     public int getMaxValue() {
         return _maxValue;
     }
