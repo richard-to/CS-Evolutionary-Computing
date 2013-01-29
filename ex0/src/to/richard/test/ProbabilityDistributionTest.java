@@ -1,6 +1,8 @@
 package to.richard.test;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
 import java.util.Random;
 import to.richard.*;
 
@@ -16,7 +18,7 @@ public class ProbabilityDistributionTest {
 
     @Test
     public void testProbabilityDistribution() throws Exception {
-        Random random = new Random(0);
+        MockRandom random = new MockRandom();
         ProbabilityDistribution<Integer> probabilityDistribution =
             new ProbabilityDistribution<Integer>(random);
         probabilityDistribution.add(.2, 20).add(.4, 40)
@@ -29,11 +31,18 @@ public class ProbabilityDistributionTest {
 
     @Test
     public void testProbabilityDistributionRand() throws Exception {
-        Random random = new Random(0);
+        MockRandom random = new MockRandom();
+        ArrayList<Double> sequence = new ArrayList<Double>();
+        sequence.add(0.1);
+        sequence.add(.35);
+        sequence.add(.89);
+        random.setDoubleSequence(sequence);
         ProbabilityDistribution<Integer> probabilityDistribution =
                 new ProbabilityDistribution<Integer>(random);
         probabilityDistribution.add(.2, 20).add(.4, 40)
                 .add(.15, 15).add(.25, 25);
-        assertEquals(new Integer(15), new Integer(probabilityDistribution.getRandom()));
+        assertEquals(new Integer(20), new Integer(probabilityDistribution.getRandom()));
+        assertEquals(new Integer(40), new Integer(probabilityDistribution.getRandom()));
+        assertEquals(new Integer(25), new Integer(probabilityDistribution.getRandom()));
     }
 }
