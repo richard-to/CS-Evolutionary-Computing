@@ -46,7 +46,7 @@ public class Genotype {
     }
 
     public int[] getGenes() {
-        return _xValueBinary;
+        return _xValueBinary.clone();
     }
 
     public int getValue() {
