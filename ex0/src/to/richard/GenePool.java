@@ -37,6 +37,18 @@ public class GenePool {
     }
 
     /**
+     * Updates gene pool with new genes
+     * @param genotypeList
+     */
+    public void updateGenePool(List<Genotype> genotypeList) {
+        _genotypeList.clear();
+        _genotypeSet.clear();
+        for (Genotype genotype : genotypeList) {
+            addGenotype(genotype);
+        }
+    }
+
+    /**
      * Adds genotype to gene pool.
      *
      * If the genotype has a value greater than max or if the pool has reached
