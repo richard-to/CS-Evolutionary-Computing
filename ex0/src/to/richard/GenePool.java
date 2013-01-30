@@ -58,7 +58,7 @@ public class GenePool {
      * @return GenePool
      */
     public GenePool addGenotype(Genotype genotype) {
-        if (genotype.getValue() < _maxValue &&
+        if (genotype.getValue() <= _maxValue &&
                 _genotypeSet.size() < _populationSize &&
                 _genotypeSet.add(genotype)) {
             _genotypeList.add(genotype);
