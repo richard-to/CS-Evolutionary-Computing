@@ -40,7 +40,7 @@ public class Genotype {
         int value = 0;
         int placeValue = 0;
         int bitLength = bitArray.length - 1;
-        for (int i = 0; i < bitLength; i++) {
+        for (int i = 0; i <= bitLength; i++) {
             placeValue += bitArray[i] * Math.pow(BASE_2, bitLength - i);
         }
         return placeValue;
