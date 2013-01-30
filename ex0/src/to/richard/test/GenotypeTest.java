@@ -31,6 +31,15 @@ public class GenotypeTest {
     }
 
     @Test
+    public void testConvertBitArrayToInt() throws Exception {
+        int[] expectedBitArray = new int[]{1, 0, 0, 1, 0};
+        Genotype genotype = new Genotype(expectedBitArray);
+        assertEquals(18, genotype.getValue());
+        assertEquals(324, genotype.getFitness());
+        assertArrayEquals(expectedBitArray, genotype.getGenes());
+    }
+
+    @Test
     public void testProperties() throws Exception {
         Genotype phenoType = new Genotype(3, 5);
         int[] expectedBitArray = new int[]{0, 0, 0, 1, 1};

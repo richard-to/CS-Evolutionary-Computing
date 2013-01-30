@@ -10,15 +10,40 @@ package to.richard;
  */
 public class Genotype {
 
+    public static int BASE_2 = 2;
+
     private int[] _xValueBinary;
     private int _xValue;
     private int _xSquaredValue;
     private int _bitStringLength;
+
     public Genotype(int value, int bitStringLength) {
         _xValue = value;
         _xSquaredValue = _xValue * _xValue;
         _xValueBinary = convertIntToBitArray(_xValue, bitStringLength);
         _bitStringLength = bitStringLength;
+    }
+
+    public Genotype(int[] genes) {
+        _xValue = convertBitArrayToInt(genes);
+        _xSquaredValue = _xValue * _xValue;
+        _bitStringLength = genes.length;
+        _xValueBinary = genes.clone();
+    }
+
+    /**
+     * Converts bit array to int
+     * @param bitArray
+     * @return
+     */
+    public int convertBitArrayToInt(int[] bitArray) {
+        int value = 0;
+        int placeValue = 0;
+        int bitLength = bitArray.length - 1;
+        for (int i = 0; i < bitLength; i++) {
+            placeValue += bitArray[i] * Math.pow(BASE_2, bitLength - i);
+        }
+        return placeValue;
     }
 
     /**
