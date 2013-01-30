@@ -13,16 +13,16 @@ import java.util.List;
  */
 public class Ex0 {
 
-    public static int MAX_RUNS = 1;
-    public static int MAX_VALUE = 32;
+    public static int MAX_RUNS = 100;
+    public static int MAX_VALUE = 31;
     public static int MAX_FITNESS = MAX_VALUE * MAX_VALUE;
     public static int MAX_POPULATION = 4;
     public static int MAX_PARENT_PAIRS = MAX_POPULATION / 2;
-    public static double MUTATION_RATE = 0.1;
+    public static double MUTATION_RATE = 0.05;
 
     public static void main(String[] args) {
         int runs = 1;
-        int maxFitness = 0;
+        double maxFitness = 0;
 
         FitnessResult fitnessResult = null;
         FitnessAnalyzer fitnessAnalyzer = new FitnessAnalyzer();
@@ -56,6 +56,9 @@ public class Ex0 {
             fitnessResult = fitnessAnalyzer.analyze(genotypesList);
             printFitness(fitnessResult);
 
+            genePool.updateGenePool(genotypesList);
+
+            maxFitness = fitnessResult.getMax();
             runs++;
         }
 
