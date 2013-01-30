@@ -11,6 +11,8 @@ import java.util.TreeMap;
 /**
  * Randomly distributes values based on probabilities
  * @param <E>
+ *
+ * @TODO(richard-to): use roulette wheel or tournament style.
  */
 public class ProbabilityDistribution<E> {
 
