@@ -4,6 +4,7 @@ import org.junit.Test;
 import to.richard.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -30,11 +31,8 @@ public class GenePoolInitializerTest {
     @Test
     public void testCreateGenePool() throws Exception {
         MockRandom rand = new MockRandom();
-        ArrayList<Integer> sequence = new ArrayList<Integer>();
-        sequence.add(21);
-        sequence.add(15);
-        sequence.add(3);
-        sequence.add(7);
+        ArrayList<Integer> sequence = new ArrayList<Integer>(Arrays.asList(
+                new Integer[]{21, 15, 3, 7}));
         rand.setIntegerSequence(sequence);
         GenePoolInitializer genePoolInitializer = new GenePoolInitializer(32, 4, rand);
         GenePool genePool = genePoolInitializer.initializeGenePool();

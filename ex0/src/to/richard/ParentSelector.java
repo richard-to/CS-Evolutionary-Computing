@@ -1,6 +1,7 @@
 package to.richard;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Richard To
@@ -20,13 +21,13 @@ public class ParentSelector {
         _random = random;
     }
 
-    public ArrayList<GenotypeParents> selectParents(GenePool genePool, int parentsCount) {
+    public List<GenotypeParents> selectParents(GenePool genePool, int parentsCount) {
 
         ArrayList<GenotypeParents> genotypeParentsList = new ArrayList<GenotypeParents>();
         Genotype parent1 = null;
         Genotype parent2 = null;
 
-        ArrayList<Genotype> genotypeList = genePool.getGenotypeList();
+        List<Genotype> genotypeList = genePool.getGenotypeList();
         double totalFitness = 0.0;
 
         ProbabilityDistribution<Genotype> genotypeProbabilityDistribution =

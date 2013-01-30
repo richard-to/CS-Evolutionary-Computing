@@ -6,6 +6,7 @@ package to.richard;
  */
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Mating Pool that uses 1-point crossover.
@@ -35,7 +36,7 @@ public class MatingPool {
      *
      * @param genotypeParentsList
      */
-    public ArrayList<Genotype> recombine(ArrayList<GenotypeParents> genotypeParentsList) {
+    public List<Genotype> recombine(List<GenotypeParents> genotypeParentsList) {
         int crossoverFloor = 1;
         int crossoverMax = 1;
         int crossoverIndex = 1;

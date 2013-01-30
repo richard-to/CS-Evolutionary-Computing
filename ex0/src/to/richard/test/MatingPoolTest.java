@@ -5,6 +5,7 @@ import org.junit.Test;
 import to.richard.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,7 +32,7 @@ public class MatingPoolTest {
             new Genotype(7, 5)   // 0 0 1 1 1
         ));
 
-        ArrayList<Genotype> genotypeList = matingPool.recombine(genotypeParentsList);
+        List<Genotype> genotypeList = matingPool.recombine(genotypeParentsList);
         assertEquals(21, genotypeList.get(0).getValue());
         assertEquals(441, genotypeList.get(0).getFitness());
         assertEquals(6, genotypeList.get(1).getValue());

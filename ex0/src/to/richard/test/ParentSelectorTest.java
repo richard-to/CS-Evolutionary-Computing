@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import to.richard.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Richard To
@@ -33,7 +34,7 @@ public class ParentSelectorTest {
                                                    // Total Fitness: 1158  Prob: 100%
 
         ParentSelector parentSelector = new ParentSelector(random);
-        ArrayList<GenotypeParents> genotypeParentsList = parentSelector.selectParents(genePool, 2);
+        List<GenotypeParents> genotypeParentsList = parentSelector.selectParents(genePool, 2);
 
         GenotypeParents genotypeParents = genotypeParentsList.get(0);
         assertEquals(20, genotypeParents.getParent1().getValue());

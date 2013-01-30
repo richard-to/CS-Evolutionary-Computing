@@ -7,6 +7,7 @@ package to.richard;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  * Represents a pool of genes for the current generation.
@@ -66,10 +67,10 @@ public class GenePool {
 
     /**
      * Gets a copy of the genotypes in the gene pool.
-     * @return ArrayList<Genotype>
+     * @return List<Genotype>
      */
-    public ArrayList<Genotype> getGenotypeList() {
-        return (ArrayList<Genotype>)_genotypeList.clone();
+    public List<Genotype> getGenotypeList() {
+        return (List<Genotype>)_genotypeList.clone();
     }
 
     public int getMaxValue() {
