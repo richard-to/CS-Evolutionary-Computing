@@ -85,4 +85,12 @@ public class Genotype {
     public Genotype clone() {
         return new Genotype(_xValue, _bitStringLength);
     }
+
+    public String getGenesString() {
+        StringBuilder genesString = new StringBuilder();
+        for (int bit : _xValueBinary) {
+            genesString.append(bit);
+        }
+        return genesString.toString();
+    }
 }
