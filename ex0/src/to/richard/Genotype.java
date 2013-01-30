@@ -93,4 +93,10 @@ public class Genotype {
         }
         return genesString.toString();
     }
+
+    public boolean equals(Object that) {
+        if (this == that) return true;
+        if (!(that instanceof Genotype)) return false;
+        return _xValue == ((Genotype)that).getValue();
+    }
 }
