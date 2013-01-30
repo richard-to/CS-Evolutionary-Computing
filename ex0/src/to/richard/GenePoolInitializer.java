@@ -39,7 +39,7 @@ public class GenePoolInitializer {
      * @return Genotype
      */
     public Genotype createRandomGenotype() {
-        int value = _random.nextInt(_maxValue);
+        int value = _random.nextInt(_maxValue + 1);
         int bitArrayLength = Integer.toBinaryString(_maxValue - 1).length();
         return new Genotype(value, bitArrayLength);
     }
