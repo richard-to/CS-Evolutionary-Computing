@@ -19,7 +19,7 @@ public class GenePoolTest {
 
     @Test
     public void testGenePool() throws Exception {
-        GenePool genePool = new GenePool(32, 4);
+        GenePool genePool = new GenePool(31, 4);
         genePool.addGenotype(new Genotype(20, 5))
                 .addGenotype(new Genotype(5, 5))
                 .addGenotype(new Genotype(2, 5))
@@ -31,13 +31,13 @@ public class GenePoolTest {
 
     @Test
     public void testUpdateGenePool() throws Exception {
-        GenePool genePool = new GenePool(32, 4);
+        GenePool genePool = new GenePool(31, 4);
         genePool.addGenotype(new Genotype(20, 5))
                 .addGenotype(new Genotype(5, 5))
                 .addGenotype(new Genotype(2, 5))
                 .addGenotype(new Genotype(27, 5));
         List<Genotype> newGenotypeList = Arrays.asList(new Genotype[]{
-                new Genotype(1, 5), new Genotype(32, 5)
+                new Genotype(1, 5), new Genotype(29, 5)
         });
         genePool.updateGenePool(newGenotypeList);
         List<Genotype> updatedGenePool = genePool.getGenotypeList();

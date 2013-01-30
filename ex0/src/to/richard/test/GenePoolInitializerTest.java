@@ -22,7 +22,7 @@ public class GenePoolInitializerTest {
         ArrayList<Integer> sequence = new ArrayList<Integer>();
         sequence.add(21);
         rand.setIntegerSequence(sequence);
-        GenePoolInitializer genePoolInitializer = new GenePoolInitializer(32, 4, rand);
+        GenePoolInitializer genePoolInitializer = new GenePoolInitializer(31, 4, rand);
         Genotype genotype = genePoolInitializer.createRandomGenotype();
         int[] expectedGenes = new int[]{1, 0, 1, 0, 1};
         assertArrayEquals(expectedGenes, genotype.getGenes());
@@ -34,9 +34,9 @@ public class GenePoolInitializerTest {
         ArrayList<Integer> sequence = new ArrayList<Integer>(Arrays.asList(
                 new Integer[]{21, 15, 3, 7}));
         rand.setIntegerSequence(sequence);
-        GenePoolInitializer genePoolInitializer = new GenePoolInitializer(32, 4, rand);
+        GenePoolInitializer genePoolInitializer = new GenePoolInitializer(31, 4, rand);
         GenePool genePool = genePoolInitializer.initializeGenePool();
-        assertEquals(new Integer(genePool.getMaxValue()), new Integer(32));
+        assertEquals(new Integer(genePool.getMaxValue()), new Integer(31));
         assertEquals(new Integer(genePool.getPopulationSize()), new Integer(4));
         Genotype genotype = genePool.getGenotype(0);
         int[] expectedGenes = new int[]{1, 0, 1, 0, 1};
