@@ -45,9 +45,9 @@ public class Errors {
     }
 
 
-    public static class AllelesDotMatchGenes extends Error {
-        public AllelesDotMatchGenes() {}
-        public AllelesDotMatchGenes(String msg) {
+    public static class AllelesDoNotMatchGenes extends Error {
+        public AllelesDoNotMatchGenes() {}
+        public AllelesDoNotMatchGenes(String msg) {
             super(msg);
         }
     }
