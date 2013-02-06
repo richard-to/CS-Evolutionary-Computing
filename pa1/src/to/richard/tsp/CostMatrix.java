@@ -1,20 +1,18 @@
 package to.richard.tsp;
 
-import sun.net.idn.StringPrep;
-
 /**
  * Author: Richard To
  * Date: 2/5/13
  */
 
 /**
- * Represents a cost matrix of flights from one destination to another.
+ * Represents a cost matrix of flights from one city to another.
  * This data structure is immutable. New prices and cities cannot be added.
  */
 public class CostMatrix {
 
-    String[] _cityNames;
-    int[][] _matrix;
+    private String[] _cityNames;
+    private int[][] _matrix;
 
     /**
      * Constructor to initialize cost matrix.
@@ -41,12 +39,12 @@ public class CostMatrix {
      * @param cityNames
      * @throws Exception
      */
-    public void CostMatrix(int[][] costMatrix,  String[] cityNames) throws Exception {
+    public CostMatrix(int[][] costMatrix,  String[] cityNames) throws Exception {
 
         if (costMatrix.length != cityNames.length) {
             throw new Exception("City names must equal the number of cities in CostMatrix");
         }
-        _cityNames = cityNames;
+        _cityNames = cityNames.clone();
         initCostMatrix(costMatrix);
     }
 
@@ -58,7 +56,7 @@ public class CostMatrix {
         if (costMatrix.length != costMatrix[0].length) {
             throw new Exception("Number of rows must equal the number of columns.");
         }
-        _matrix = costMatrix;
+        _matrix = costMatrix.clone();
     }
 
     /**
@@ -84,12 +82,12 @@ public class CostMatrix {
      * @throws IndexOutOfBoundsException
      */
     public String getCityName(int cityIndex)  {
-        if (cityIndex < 0 || cityIndex >= _cityNames.length) {
+        if (_cityNames != null && (cityIndex < 0 || cityIndex >= _cityNames.length)) {
             throw new IndexOutOfBoundsException();
         }
 
         if (_cityNames != null) {
-            return _cityNames[cityIndex];
+            return new String(_cityNames[cityIndex]);
         } else {
             return Integer.toString(cityIndex);
         }
