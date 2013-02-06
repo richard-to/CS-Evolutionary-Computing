@@ -35,6 +35,25 @@ public class CostMatrixBuilderTest {
         assertEquals(80, costMatrix.getCost(1, 0));
     }
 
+    @Test
+    public void testBuildMatrixWithCityNames() throws Exception {
+        int size = 2;
+        int minPrice = 10;
+        int maxPrice = 30;
+        ArrayList<Integer> sequence = new ArrayList<Integer>(Arrays.asList(
+                new Integer[]{30, 50, 70, 60}));
+        MockRandom random = new MockRandom();
+        random.setIntegerSequence(sequence);
+
+        String[] cityNames = {"City0", "City1"};
+        CostMatrixBuilder costMatrixBuilder = new CostMatrixBuilder(random);
+        CostMatrix costMatrix = costMatrixBuilder.buildMatrix(size, minPrice, maxPrice, cityNames);
+
+        assertEquals(60, costMatrix.getCost(0, 1));
+        assertEquals(80, costMatrix.getCost(1, 0));
+        assertEquals("City0", costMatrix.getCityName(0));
+    }
+
     @Test(expected = Errors.MinPriceGreaterThanMaxPrice.class)
     public void testMinPriceGreaterThan() throws Exception {
         MockRandom random = new MockRandom();
