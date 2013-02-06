@@ -32,17 +32,21 @@ public class CostMatrix {
      *
      * An exception is thrown if the number of city names does not match the cost matrix size.
      *
+     * If cityNames is null, then no exception will be thrown. Instead cityNames will be null and
+     * revert to using the index as stated.
+     *
      * The cost matrix must also have the same rows and columns.
      *
      * @param costMatrix
      * @param cityNames
      */
     public CostMatrix(int[][] costMatrix,  String[] cityNames) {
-
-        if (costMatrix.length != cityNames.length) {
-            throw new Errors.MatrixRowsNotEqualToCityNames();
+        if (cityNames != null) {
+            if (costMatrix.length != cityNames.length) {
+                throw new Errors.MatrixRowsNotEqualToCityNames();
+            }
+            _cityNames = cityNames.clone();
         }
-        _cityNames = cityNames.clone();
         initCostMatrix(costMatrix);
     }
 
@@ -51,7 +55,6 @@ public class CostMatrix {
      * @param costMatrix
      */
     private void initCostMatrix(int[][] costMatrix) {
-
         if (costMatrix.length != costMatrix[0].length) {
             throw new Errors.MatrixColumnsNotEqualToRows();
         }
@@ -64,7 +67,6 @@ public class CostMatrix {
      * @param from
      * @param to
      * @return
-     * @throws IndexOutOfBoundsException
      */
     public int getCost(int from, int to) {
         if (from < 0 || from >= _matrix.length || to < 0 || to >= _matrix.length) {
