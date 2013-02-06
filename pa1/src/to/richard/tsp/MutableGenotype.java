@@ -37,7 +37,6 @@ public class MutableGenotype extends Genotype {
      * The length of alleles must match length of genes.
      * @param alleles
      * @throws Exception
-     * @TODO: Change generic exception to more specific one.
      */
     public void setAlleles(int[] alleles) throws Exception {
         if (alleles.length != _genes.length) {
