@@ -38,9 +38,9 @@ public class MutableGenotype extends Genotype {
      * @param alleles
      * @throws Exception
      */
-    public void setAlleles(int[] alleles) throws Exception {
+    public void setAlleles(int[] alleles) {
         if (alleles.length != _genes.length) {
-            throw new Exception("Alleles must match number of gene positions.");
+            throw new Errors.AllelesDotMatchGenes();
         }
         _genes = alleles.clone();
     }
@@ -49,9 +49,8 @@ public class MutableGenotype extends Genotype {
      * Sets allele value by gene index.
      * @param value
      * @param geneIndex 0 is the start index
-     * @throws IndexOutOfBoundsException
      */
-    public void setAllele(int value, int geneIndex) throws IndexOutOfBoundsException {
+    public void setAllele(int value, int geneIndex) {
         if (geneIndex < 0 || geneIndex >= _genes.length) {
             throw new IndexOutOfBoundsException();
         }

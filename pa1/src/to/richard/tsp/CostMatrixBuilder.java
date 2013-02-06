@@ -28,16 +28,15 @@ public class CostMatrixBuilder {
      * @param minPrice
      * @param maxPrice
      * @return CostMatrix
-     * @throws Exception
      */
-    public CostMatrix buildMatrix(int size, int minPrice, int maxPrice) throws Exception {
+    public CostMatrix buildMatrix(int size, int minPrice, int maxPrice) {
 
         if (minPrice < 1 || maxPrice < 1) {
-            throw new Exception("Prices must be be greater than 0.");
+            throw new Errors.PriceLessThanZero();
         }
 
         if (minPrice > maxPrice) {
-            throw new Exception("Min price must be less than or equal to max price");
+            throw new Errors.MinPriceGreaterThanMaxPrice();
         }
 
         int[][] matrix = new int[size][size];
