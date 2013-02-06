@@ -3,6 +3,7 @@ package to.richard.tsp.test;
 import org.junit.Test;
 
 import to.richard.tsp.CostMatrix;
+import to.richard.tsp.Errors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -51,7 +52,7 @@ public class CostMatrixTest {
         costMatrix.getCost(5, 2);
     }
 
-    @Test(expected = Exception.class)
+    @Test(expected = Errors.MatrixRowsNotEqualToCityNames.class)
     public void testCityNamesNotEqualToMatrix() throws Exception {
         int[][] matrix = {{10, 20}, {30, 40}};
         String[] cityNames = {"City0", "City1", "City3"};
