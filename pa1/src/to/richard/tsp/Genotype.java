@@ -36,9 +36,8 @@ public class Genotype {
      *
      * @param geneIndex 0 is the start index
      * @return Allele value
-     * @throws IndexOutOfBoundsException
      */
-    public int getAllele(int geneIndex) throws IndexOutOfBoundsException {
+    public int getAllele(int geneIndex) {
         if (geneIndex < 0 || geneIndex >= _genes.length) {
             throw new IndexOutOfBoundsException();
         }
