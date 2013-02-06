@@ -3,6 +3,8 @@ package to.richard.tsp.test;
 import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+
+import to.richard.tsp.Errors;
 import to.richard.tsp.Genotype;
 import to.richard.tsp.MutableGenotype;
 
@@ -67,5 +69,11 @@ public class GenotypeTest {
     public void testIndexOutOfBoundsOver() {
         Genotype genotype = new Genotype(new int[]{0, 1, 2, 3, 4});
         genotype.getAllele(20);
+    }
+
+    @Test(expected = Errors.AllelesDoNotMatchGenes.class)
+    public void testAllelesDoNotMatchGenes() {
+        MutableGenotype genotype = new MutableGenotype(new int[]{0, 1, 2, 3, 4});
+        genotype.setAlleles(new int[]{2,2});
     }
 }
