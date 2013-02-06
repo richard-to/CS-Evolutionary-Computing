@@ -21,15 +21,15 @@ public class CostMatrixBuilder {
     }
 
     /**
-     * Builds a cost matrix with a certain size and price range.
+     * Builds a cost matrix with a certain size and price range. Also includes cityNames.
      *
-     * Not that minPrice and maxPrice are not checked.
      * @param size
      * @param minPrice
      * @param maxPrice
+     * @param cityNames
      * @return CostMatrix
      */
-    public CostMatrix buildMatrix(int size, int minPrice, int maxPrice) {
+    public CostMatrix buildMatrix(int size, int minPrice, int maxPrice, String[] cityNames) {
 
         if (minPrice < 1 || maxPrice < 1) {
             throw new Errors.PriceLessThanZero();
@@ -45,7 +45,20 @@ public class CostMatrixBuilder {
                 matrix[i][g] = _random.nextInt(maxPrice - minPrice + 1) + minPrice;
             }
         }
-        return new CostMatrix(matrix);
+        return new CostMatrix(matrix, cityNames);
+    }
+
+    /**
+     * Builds a cost matrix with a certain size and price range.
+     *
+     * Not that minPrice and maxPrice are not checked.
+     * @param size
+     * @param minPrice
+     * @param maxPrice
+     * @return CostMatrix
+     */
+    public CostMatrix buildMatrix(int size, int minPrice, int maxPrice) {
+        return buildMatrix(size, minPrice, maxPrice, null);
     }
 
 }
