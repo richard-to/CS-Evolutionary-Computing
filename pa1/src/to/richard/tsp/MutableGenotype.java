@@ -36,11 +36,10 @@ public class MutableGenotype extends Genotype {
      * Sets allele values for entire gene.
      * The length of alleles must match length of genes.
      * @param alleles
-     * @throws Exception
      */
     public void setAlleles(int[] alleles) {
         if (alleles.length != _genes.length) {
-            throw new Errors.AllelesDotMatchGenes();
+            throw new Errors.AllelesDoNotMatchGenes();
         }
         _genes = alleles.clone();
     }
