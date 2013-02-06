@@ -18,9 +18,8 @@ public class CostMatrix {
      * Constructor to initialize cost matrix.
      *
      * @param costMatrix
-     * @throws Exception
      */
-    public CostMatrix(int[][] costMatrix) throws Exception {
+    public CostMatrix(int[][] costMatrix) {
         initCostMatrix(costMatrix);
         _cityNames = null;
     }
@@ -37,12 +36,11 @@ public class CostMatrix {
      *
      * @param costMatrix
      * @param cityNames
-     * @throws Exception
      */
-    public CostMatrix(int[][] costMatrix,  String[] cityNames) throws Exception {
+    public CostMatrix(int[][] costMatrix,  String[] cityNames) {
 
         if (costMatrix.length != cityNames.length) {
-            throw new Exception("City names must equal the number of cities in CostMatrix");
+            throw new Errors.MatrixRowsNotEqualToCityNames();
         }
         _cityNames = cityNames.clone();
         initCostMatrix(costMatrix);
@@ -52,9 +50,10 @@ public class CostMatrix {
      * Sets cost matrix and makes sure the rows and columns are equal.
      * @param costMatrix
      */
-    private void initCostMatrix(int[][] costMatrix) throws Exception {
+    private void initCostMatrix(int[][] costMatrix) {
+
         if (costMatrix.length != costMatrix[0].length) {
-            throw new Exception("Number of rows must equal the number of columns.");
+            throw new Errors.MatrixColumnsNotEqualToRows();
         }
         _matrix = costMatrix.clone();
     }
@@ -79,7 +78,6 @@ public class CostMatrix {
      * If no city name is provided, the index will be returned as the name of the city.
      * @param cityIndex
      * @return Name of city
-     * @throws IndexOutOfBoundsException
      */
     public String getCityName(int cityIndex)  {
         if (_cityNames != null && (cityIndex < 0 || cityIndex >= _cityNames.length)) {
