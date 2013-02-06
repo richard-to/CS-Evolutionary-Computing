@@ -9,6 +9,7 @@ import sun.net.idn.StringPrep;
 
 /**
  * Represents a cost matrix of flights from one destination to another.
+ * This data structure is immutable. New prices and cities cannot be added.
  */
 public class CostMatrix {
 
@@ -23,6 +24,7 @@ public class CostMatrix {
      */
     public CostMatrix(int[][] costMatrix) throws Exception {
         initCostMatrix(costMatrix);
+        _cityNames = null;
     }
 
     /**
@@ -67,10 +69,29 @@ public class CostMatrix {
      * @return
      * @throws IndexOutOfBoundsException
      */
-    public int getCost(int from, int to) throws IndexOutOfBoundsException {
+    public int getCost(int from, int to) {
         if (from < 0 || from >= _matrix.length || to < 0 || to >= _matrix.length) {
             throw new IndexOutOfBoundsException();
         }
         return _matrix[from][to];
+    }
+
+    /**
+     * Gets the name of the city.
+     * If no city name is provided, the index will be returned as the name of the city.
+     * @param cityIndex
+     * @return Name of city
+     * @throws IndexOutOfBoundsException
+     */
+    public String getCityName(int cityIndex)  {
+        if (cityIndex < 0 || cityIndex >= _cityNames.length) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (_cityNames != null) {
+            return _cityNames[cityIndex];
+        } else {
+            return Integer.toString(cityIndex);
+        }
     }
 }
