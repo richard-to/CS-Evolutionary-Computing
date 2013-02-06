@@ -14,7 +14,7 @@ public class GenotypeTest {
 
     @Test
     public void testGetAllele() throws Exception {
-        int[] alleles = new int[]{0, 1, 2, 3, 4};
+        int[] alleles = {0, 1, 2, 3, 4};
         Genotype genotype = new Genotype(alleles);
         int value = genotype.getAllele(3);
         value = 5;
