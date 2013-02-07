@@ -21,7 +21,7 @@ public class FitnessEvaluatorTest {
         FitnessEvaluator fitnessEvaluator = new FitnessEvaluator(costMatrix);
 
         // 0,1 - 1,2 - 2,0
-        // 30  + 23 + 42
+        // 30  + 23  + 42
         int expectedFitness = 95;
         assertEquals(expectedFitness, fitnessEvaluator.evaluate(genotype));
     }
