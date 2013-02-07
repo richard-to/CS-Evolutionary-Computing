@@ -38,8 +38,9 @@ public class GenotypeValidator {
      */
     public GenotypeValidator(CostMatrix costMatrix) {
         _alleleValueSet = new HashSet<Integer>();
-        for (int i = 1; i < costMatrix.size(); i++) {
-            _alleleValueSet.add(i);
+        int[] alleles = costMatrix.getAlleles();
+        for (int i = 0; i < alleles.length; i++) {
+            _alleleValueSet.add(alleles[i]);
         }
         _geneLength = _alleleValueSet.size();
     }

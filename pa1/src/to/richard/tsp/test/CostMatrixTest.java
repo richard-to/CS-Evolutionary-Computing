@@ -23,9 +23,9 @@ public class CostMatrixTest {
         cost = 0;
         assertEquals(20, costMatrix.getCost(0, 1));
 
-        String city1 = costMatrix.getCityName(1);
+        String city1 = costMatrix.getAlleleName(1);
         city1 = "City2";
-        assertEquals("City1", costMatrix.getCityName(1));
+        assertEquals("City1", costMatrix.getAlleleName(1));
 
         assertEquals(2, costMatrix.size());
     }
@@ -35,7 +35,7 @@ public class CostMatrixTest {
         int[][] matrix = {{10, 20}, {30, 40}};
         CostMatrix costMatrix = new CostMatrix(matrix);
         assertEquals(20, costMatrix.getCost(0, 1));
-        assertEquals("1", costMatrix.getCityName(1));
+        assertEquals("1", costMatrix.getAlleleName(1));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -43,7 +43,7 @@ public class CostMatrixTest {
         int[][] matrix = {{10, 20}, {30, 40}};
         String[] cityNames = {"City0", "City1"};
         CostMatrix costMatrix = new CostMatrix(matrix, cityNames);
-        costMatrix.getCityName(5);
+        costMatrix.getAlleleName(5);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -54,7 +54,7 @@ public class CostMatrixTest {
         costMatrix.getCost(5, 2);
     }
 
-    @Test(expected = Errors.MatrixRowsNotEqualToCityNames.class)
+    @Test(expected = Errors.MatrixRowsNotEqualToNamedAlleles.class)
     public void testCityNamesNotEqualToMatrix() throws Exception {
         int[][] matrix = {{10, 20}, {30, 40}};
         String[] cityNames = {"City0", "City1", "City3"};

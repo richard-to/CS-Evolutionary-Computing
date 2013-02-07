@@ -51,24 +51,24 @@ public class CostMatrixBuilderTest {
 
         assertEquals(60, costMatrix.getCost(0, 1));
         assertEquals(80, costMatrix.getCost(1, 0));
-        assertEquals("City0", costMatrix.getCityName(0));
+        assertEquals("City0", costMatrix.getAlleleName(0));
     }
 
-    @Test(expected = Errors.MinPriceGreaterThanMaxPrice.class)
+    @Test(expected = Errors.MinValueGreaterThanMaxValue.class)
     public void testMinPriceGreaterThan() throws Exception {
         MockRandom random = new MockRandom();
         CostMatrixBuilder costMatrixBuilder = new CostMatrixBuilder(random);
         CostMatrix costMatrix = costMatrixBuilder.buildMatrix(2, 40, 20);
     }
 
-    @Test(expected = Errors.PriceLessThanZero.class)
+    @Test(expected = Errors.ValueLessThanZero.class)
     public void testPriceLessThanZeroMin() throws Exception {
         MockRandom random = new MockRandom();
         CostMatrixBuilder costMatrixBuilder = new CostMatrixBuilder(random);
         CostMatrix costMatrix = costMatrixBuilder.buildMatrix(2, -20, 20);
     }
 
-    @Test(expected = Errors.PriceLessThanZero.class)
+    @Test(expected = Errors.ValueLessThanZero.class)
     public void testPriceLessThanZeroMax() throws Exception {
         MockRandom random = new MockRandom();
         CostMatrixBuilder costMatrixBuilder = new CostMatrixBuilder(random);

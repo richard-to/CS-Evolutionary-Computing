@@ -16,16 +16,16 @@ package to.richard.tsp;
  */
 public class Errors {
 
-    public static class PriceLessThanZero extends Error {
-        public PriceLessThanZero() {}
-        public PriceLessThanZero(String msg) {
+    public static class ValueLessThanZero extends Error {
+        public ValueLessThanZero() {}
+        public ValueLessThanZero(String msg) {
             super(msg);
         }
     }
 
-    public static class MinPriceGreaterThanMaxPrice extends Error {
-        public MinPriceGreaterThanMaxPrice() {}
-        public MinPriceGreaterThanMaxPrice(String msg) {
+    public static class MinValueGreaterThanMaxValue extends Error {
+        public MinValueGreaterThanMaxValue() {}
+        public MinValueGreaterThanMaxValue(String msg) {
             super(msg);
         }
     }
@@ -37,9 +37,9 @@ public class Errors {
         }
     }
 
-    public static class MatrixRowsNotEqualToCityNames extends Error {
-        public MatrixRowsNotEqualToCityNames() {}
-        public MatrixRowsNotEqualToCityNames(String msg) {
+    public static class MatrixRowsNotEqualToNamedAlleles extends Error {
+        public MatrixRowsNotEqualToNamedAlleles() {}
+        public MatrixRowsNotEqualToNamedAlleles(String msg) {
             super(msg);
         }
     }

@@ -21,44 +21,42 @@ public class CostMatrixBuilder {
     }
 
     /**
-     * Builds a cost matrix with a certain size and price range. Also includes cityNames.
+     * Builds a cost matrix with a certain size and value range. Also includes alleleNames.
      *
      * @param size
-     * @param minPrice
-     * @param maxPrice
-     * @param cityNames
+     * @param minValue
+     * @param maxValue
+     * @param allelNames
      * @return CostMatrix
      */
-    public CostMatrix buildMatrix(int size, int minPrice, int maxPrice, String[] cityNames) {
+    public CostMatrix buildMatrix(int size, int minValue, int maxValue, String[] allelNames) {
 
-        if (minPrice < 1 || maxPrice < 1) {
-            throw new Errors.PriceLessThanZero();
+        if (minValue < 1 || maxValue < 1) {
+            throw new Errors.ValueLessThanZero();
         }
 
-        if (minPrice > maxPrice) {
-            throw new Errors.MinPriceGreaterThanMaxPrice();
+        if (minValue > maxValue) {
+            throw new Errors.MinValueGreaterThanMaxValue();
         }
 
         int[][] matrix = new int[size][size];
         for (int i = 0; i < size; i++) {
             for (int g = 0; g < size; g++) {
-                matrix[i][g] = _random.nextInt(maxPrice - minPrice + 1) + minPrice;
+                matrix[i][g] = _random.nextInt(maxValue - minValue + 1) + minValue;
             }
         }
-        return new CostMatrix(matrix, cityNames);
+        return new CostMatrix(matrix, allelNames);
     }
 
     /**
-     * Builds a cost matrix with a certain size and price range.
-     *
-     * Not that minPrice and maxPrice are not checked.
+     * Builds a cost matrix with a certain size and value range.
      * @param size
-     * @param minPrice
-     * @param maxPrice
+     * @param minValue
+     * @param maxValue
      * @return CostMatrix
      */
-    public CostMatrix buildMatrix(int size, int minPrice, int maxPrice) {
-        return buildMatrix(size, minPrice, maxPrice, null);
+    public CostMatrix buildMatrix(int size, int minValue, int maxValue) {
+        return buildMatrix(size, minValue, maxValue, null);
     }
 
 }

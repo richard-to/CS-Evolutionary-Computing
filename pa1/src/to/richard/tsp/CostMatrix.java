@@ -6,14 +6,14 @@ package to.richard.tsp;
  */
 
 /**
- * Represents a cost matrix of flights from one city to another.
- * This data structure is immutable. New prices and cities cannot be added.
+ * Represents a cost matrix of values from mixing two alleles
+ * This data structure is immutable. New values and alleles cannot be added.
  *
- * Home city is always index 0.
+ * Home allele is always index 0.
  */
 public class CostMatrix {
 
-    private String[] _cityNames;
+    private String[] _alleleNames;
     private int[][] _matrix;
 
     /**
@@ -23,31 +23,31 @@ public class CostMatrix {
      */
     public CostMatrix(int[][] costMatrix) {
         initCostMatrix(costMatrix);
-        _cityNames = null;
+        _alleleNames = null;
     }
 
     /**
-     * Constructor to initialize cost matrix with city names corresponding to index.
+     * Constructor to initialize cost matrix with named alleles  corresponding to index.
      *
-     * Using city names is optional. If no city names are provided, then the index will
-     * be used as the city name.
+     * Using named alleles is optional. If no named allele are provided, then the index will
+     * be used as the allele name.
      *
-     * An exception is thrown if the number of city names does not match the cost matrix size.
+     * An exception is thrown if the number of alleles names does not match the cost matrix size.
      *
-     * If cityNames is null, then no exception will be thrown. Instead cityNames will be null and
+     * If alleleNames is null, then no exception will be thrown. Instead alleleNames will be null and
      * revert to using the index as stated.
      *
      * The cost matrix must also have the same rows and columns.
      *
      * @param costMatrix
-     * @param cityNames
+     * @param alleleNames
      */
-    public CostMatrix(int[][] costMatrix,  String[] cityNames) {
-        if (cityNames != null) {
-            if (costMatrix.length != cityNames.length) {
-                throw new Errors.MatrixRowsNotEqualToCityNames();
+    public CostMatrix(int[][] costMatrix,  String[] alleleNames) {
+        if (alleleNames != null) {
+            if (costMatrix.length != alleleNames.length) {
+                throw new Errors.MatrixRowsNotEqualToNamedAlleles();
             }
-            _cityNames = cityNames.clone();
+            _alleleNames = alleleNames.clone();
         }
         initCostMatrix(costMatrix);
     }
@@ -64,44 +64,59 @@ public class CostMatrix {
     }
 
     /**
-     * Gets the cost of a trip from one place to another using cost matrix.
+     * Gets the cost of a mixing two alleles.
      *
-     * Allows from and to to be the same city. Doesn't make sense, but is allowed here.
-     *
-     * @param from
-     * @param to
+     * @param firstAllele
+     * @param secondAllele
      * @return
      */
-    public int getCost(int from, int to) {
-        if (from < 0 || from >= _matrix.length || to < 0 || to >= _matrix.length) {
+    public int getCost(int firstAllele, int secondAllele) {
+        if (firstAllele < 0 || firstAllele >= _matrix.length || secondAllele < 0 || secondAllele >= _matrix.length) {
             throw new IndexOutOfBoundsException();
         }
-        return _matrix[from][to];
+        return _matrix[firstAllele][secondAllele];
     }
 
     /**
-     * Gets the name of the city.
-     * If no city name is provided, the index will be returned as the name of the city.
-     * @param cityIndex
-     * @return Name of city
+     * Gets the name of the allele.
+     * If no allele name is provided, the index will be returned as the name of the allele.
+     * @param alleleIndex
+     * @return Name of allele
      */
-    public String getCityName(int cityIndex)  {
-        if (_cityNames != null && (cityIndex < 0 || cityIndex >= _cityNames.length)) {
+    public String getAlleleName(int alleleIndex)  {
+        if (_alleleNames != null && (alleleIndex < 0 || alleleIndex >= _alleleNames.length)) {
             throw new IndexOutOfBoundsException();
         }
 
-        if (_cityNames != null) {
-            return new String(_cityNames[cityIndex]);
+        if (_alleleNames != null) {
+            return new String(_alleleNames[alleleIndex]);
         } else {
-            return Integer.toString(cityIndex);
+            return Integer.toString(alleleIndex);
         }
     }
 
     /**
-     * Gets number of destination cities in matrix.
+     * Gets number of distinct alleles in matrix.
      * @return
      */
     public int size() {
         return _matrix.length;
+    }
+
+    /**
+     * Gets an array of alleles.
+     *
+     * This returns an array of alleles from one to the number of alleles.
+     *
+     * This basically just excludes the home allele and helps avoid mistakenly generating
+     * an array with the 0 index.
+     * @return
+     */
+    public int[] getAlleles() {
+        int[] cities = new int[_matrix.length - 1];
+        for (int i = 1; i < _matrix.length; i++) {
+            cities[i - 1] = i;
+        }
+        return cities;
     }
 }
