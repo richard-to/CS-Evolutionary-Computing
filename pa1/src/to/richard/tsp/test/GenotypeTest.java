@@ -8,6 +8,8 @@ import to.richard.tsp.Errors;
 import to.richard.tsp.Genotype;
 import to.richard.tsp.MutableGenotype;
 
+import java.util.ArrayList;
+
 /**
  * Author: Richard To
  * Date: 2/5/13
@@ -75,5 +77,17 @@ public class GenotypeTest {
     public void testAllelesDoNotMatchGenes() {
         MutableGenotype genotype = new MutableGenotype(new int[]{0, 1, 2, 3, 4});
         genotype.setAlleles(new int[]{2,2});
+    }
+
+    @Test
+    public void testGeneIterator() {
+        int[] expectedAlleles = {0, 1, 2, 3, 4};
+        MutableGenotype genotype = new MutableGenotype(expectedAlleles);
+
+        ArrayList<Integer> visitedAlleles = new ArrayList<Integer>();
+        for (int allele : genotype) {
+            visitedAlleles.add(allele);
+        }
+        assertEquals(expectedAlleles[4], visitedAlleles.get(4).intValue());
     }
 }
