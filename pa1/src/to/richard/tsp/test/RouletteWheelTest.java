@@ -59,4 +59,29 @@ public class RouletteWheelTest {
         assertEquals(new Integer(40), sampledIntegers.get(1));
         assertEquals(new Integer(25), sampledIntegers.get(2));
     }
+
+    @Test
+    public void testSampleDuplicate() throws Exception {
+        MockRandom random = new MockRandom();
+        ArrayList<Double> sequence = new ArrayList<Double>();
+        sequence.add(0.1);
+        sequence.add(.35);
+        sequence.add(.89);
+        random.setDoubleSequence(sequence);
+
+        ArrayList<Pair<Double, Integer>> valueMap = new ArrayList<Pair<Double, Integer>>() {{
+            add(new Pair<Double,Integer>(25.0, 20));
+            add(new Pair<Double,Integer>(25.0, 40));
+            add(new Pair<Double,Integer>(25.0, 15));
+            add(new Pair<Double,Integer>(25.0, 25));
+        }};
+
+        RouletteWheel<Integer> sampler =
+                new RouletteWheel<Integer>(random);
+        ArrayList<Integer> sampledIntegers = sampler.sample(valueMap, 3);
+
+        assertEquals(new Integer(20), sampledIntegers.get(0));
+        assertEquals(new Integer(40), sampledIntegers.get(1));
+        assertEquals(new Integer(25), sampledIntegers.get(2));
+    }
 }
