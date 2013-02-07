@@ -5,6 +5,7 @@ package to.richard.tsp;
  * Date: 2/5/13
  */
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -32,7 +33,16 @@ public class Genotype implements Iterable<Integer> {
      * @param alleles
      */
     public Genotype(int[] alleles) {
-        _genes = alleles.clone();
+        _genes = Arrays.copyOf(alleles, alleles.length);
+        _genotypeString = buildGenotypeString(_genes);
+    }
+
+    /**
+     * Copy constructor
+     * @param genotype
+     */
+    public Genotype(Genotype genotype) {
+        _genes = Arrays.copyOf(genotype._genes.clone(), genotype._genes.length);
         _genotypeString = buildGenotypeString(_genes);
     }
 
@@ -85,7 +95,7 @@ public class Genotype implements Iterable<Integer> {
      * @return MutableGenotype
      */
     public MutableGenotype copyMutable() {
-        return new MutableGenotype(_genes.clone());
+        return new MutableGenotype(this);
     }
 
     /**

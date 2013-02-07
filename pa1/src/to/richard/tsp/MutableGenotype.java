@@ -5,6 +5,8 @@ package to.richard.tsp;
  * Date: 2/5/13
  */
 
+import java.util.Arrays;
+
 /**
  * Mutable Genotype that allows a genotype to be
  * built incrementally and modified.
@@ -33,6 +35,15 @@ public class MutableGenotype extends Genotype {
     }
 
     /**
+     * Copy constructor
+     * @param genotype
+     */
+    public MutableGenotype(Genotype genotype) {
+        _genes = Arrays.copyOf(genotype._genes.clone(), genotype._genes.length);
+        _genotypeString = buildGenotypeString(_genes);
+    }
+
+    /**
      * Sets allele values for entire gene.
      * The length of alleles must match length of genes.
      * @param alleles
@@ -41,7 +52,7 @@ public class MutableGenotype extends Genotype {
         if (alleles.length != _genes.length) {
             throw new Errors.AllelesDoNotMatchGenes();
         }
-        _genes = alleles.clone();
+        _genes = Arrays.copyOf(alleles, alleles.length);
         _genotypeString = buildGenotypeString(_genes);
     }
 
@@ -63,6 +74,6 @@ public class MutableGenotype extends Genotype {
      * @return Genotype
      */
     public Genotype copy() {
-        return new Genotype(_genes.clone());
+        return new Genotype(this);
     }
 }
