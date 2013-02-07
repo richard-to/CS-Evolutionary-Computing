@@ -21,7 +21,6 @@ public class Random implements IRandom {
 
     /**
      * Construct a random number generator with specific seed.
-     * @param seed
      */
     public Random(long seed) {
         _random = new java.util.Random(seed);

@@ -9,7 +9,8 @@ import java.util.List;
  */
 
 /**
- * Initializes List of Genotypes for initial gene pool for generation 0.
+ * Factory to randomly generate a list of genotypes for generation 0.
+ * Duplicates are allowed.
  */
 public class GenePoolInitializer {
 
@@ -27,12 +28,6 @@ public class GenePoolInitializer {
         }
     }
 
-    /**
-     * Initializes random gene pool.
-     *
-     * Population size and cost matrix are set in constructor.
-     * @return
-     */
     public List<Genotype> initializeGenePool() {
         ArrayList<Genotype> genotypes = new ArrayList<Genotype>();
         for (int i = 0; i < _populationSize; i++) {
@@ -43,7 +38,6 @@ public class GenePoolInitializer {
 
     /**
      * Create a random genotype by shuffling the order of alleles.
-     * @return Genotype
      */
     public Genotype createRandomGenotype() {
         ArrayList<Integer> allelesCopy = new ArrayList<Integer>(_orderedAlleles);

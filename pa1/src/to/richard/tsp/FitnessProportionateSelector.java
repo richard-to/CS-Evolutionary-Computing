@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Implements parent selection using Fitness Proportionate selection.
- * Currently only use basic roulette wheel implementation.
+ * Currently only uses basic roulette wheel implementation.
  */
 public class FitnessProportionateSelector {
     private IRandom _random;
@@ -24,11 +24,6 @@ public class FitnessProportionateSelector {
         _fitnessEvaluator = fitnessEvaluator;
     }
 
-    /**
-     * Selects parents to create children for next generation.
-     * @param genotypes
-     * @return parents to create children for next generation
-     */
     public List<Genotype> selectParents(List<Genotype> genotypes) {
         int populationSize = genotypes.size();
         double fitness = 0.0;

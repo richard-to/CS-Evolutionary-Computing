@@ -32,9 +32,7 @@ public class GenotypeValidator {
     /**
      * Constructor accepts a cost matrix, which will
      * allow the validator to get the needed validation
-     * criteria.
-     *
-     * @param costMatrix
+     * criteria (length, valid alleles, distinctness)
      */
     public GenotypeValidator(CostMatrix costMatrix) {
         _alleleValueSet = new HashSet<Integer>();
@@ -45,20 +43,10 @@ public class GenotypeValidator {
         _geneLength = _alleleValueSet.size();
     }
 
-    /**
-     * Validates a single genotype.
-     * @param genotype
-     * @return
-     */
     public boolean validate(Genotype genotype) {
         return validate(Arrays.asList(new Genotype[]{genotype}));
     }
 
-    /**
-     * Validates a list of genotypes.
-     * @param genotypes
-     * @return
-     */
     public boolean validate(List<Genotype> genotypes) {
         HashSet<Integer> duplicationCheck = new HashSet<Integer>();
         for (Genotype genotype : genotypes) {

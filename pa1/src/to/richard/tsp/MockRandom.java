@@ -28,7 +28,6 @@ public class MockRandom implements IRandom {
      * Construct a random number generator with specific seed.
      * This is necessary for when we need to use the Random
      * class in the Java library.
-     * @param seed
      */
     public MockRandom(long seed) {
         _random = new java.util.Random(seed);
@@ -36,7 +35,6 @@ public class MockRandom implements IRandom {
 
     /**
      * If using getDouble, make sure to set the sequence of doubles.
-     * @param doubleSequence
      */
     public MockRandom setDoubleSequence(ArrayList<Double> doubleSequence) {
         this._doubleSequence = doubleSequence;
@@ -45,7 +43,6 @@ public class MockRandom implements IRandom {
 
     /**
      * If using getInt(int n), make sure to set the sequence of integers first.
-     * @param integerSequence
      */
     public MockRandom setIntegerSequence(ArrayList<Integer> integerSequence) {
         this._integerSequence = integerSequence;

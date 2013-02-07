@@ -18,8 +18,6 @@ public class MutableGenotype extends Genotype {
     /**
      * Default constructor. Need to supply gene length at minimum,
      * since this is not mutable.
-     *
-     * @param length
      */
     public MutableGenotype(int length) {
         _genes = new int[length];
@@ -27,8 +25,6 @@ public class MutableGenotype extends Genotype {
 
     /**
      * Construct a genotype with allele values for genes.
-     *
-     * @param alleles
      */
     public MutableGenotype(int[] alleles) {
         super(alleles);
@@ -36,7 +32,6 @@ public class MutableGenotype extends Genotype {
 
     /**
      * Copy constructor
-     * @param genotype
      */
     public MutableGenotype(Genotype genotype) {
         _genes = Arrays.copyOf(genotype._genes.clone(), genotype._genes.length);
@@ -45,8 +40,8 @@ public class MutableGenotype extends Genotype {
 
     /**
      * Sets allele values for entire gene.
-     * The length of alleles must match length of genes.
-     * @param alleles
+     * The length of alleles must match length of genes. If not
+     * an error is thrown.
      */
     public void setAlleles(int[] alleles) {
         if (alleles.length != _genes.length) {
@@ -58,8 +53,8 @@ public class MutableGenotype extends Genotype {
 
     /**
      * Sets allele value by gene index.
-     * @param value
-     * @param geneIndex 0 is the start index
+     *
+     * If index is out of bounds, an error is thrown.
      */
     public void setAllele(int value, int geneIndex) {
         if (geneIndex < 0 || geneIndex >= _genes.length) {
@@ -71,7 +66,6 @@ public class MutableGenotype extends Genotype {
 
     /**
      * Makes an immutable copy of genotype.
-     * @return Genotype
      */
     public Genotype copy() {
         return new Genotype(this);

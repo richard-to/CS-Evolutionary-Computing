@@ -11,13 +11,13 @@ import java.util.List;
 /**
  * Evaluates fitness of a genotype using CostMatrix.
  *
- * Class is immutable. If a new CostMatrix needs to be used, a new one
+ * Class is immutable. If a new CostMatrix needs to be used, a new instance
  * should be instantiated.
  *
  * FitnessEvaluator will cache fitness values based on genotype toString() value;
  *
- * Needs to be named more specifically. CostMatrixFitnessEvaluator?
- * Probably need to add an interface IFitnessEvaluator later.
+ * This class works specifically for Permutations with cost matrix, such as TSP problem.
+ * Probably should be renamed!
  */
 public class FitnessEvaluator {
     private CostMatrix _costMatrix;
@@ -28,11 +28,6 @@ public class FitnessEvaluator {
         fitnessCache = new HashMap<String, Double>();
     }
 
-    /**
-     * Evaluate the fitness of a genotype using cost matrix.
-     * @param genotype
-     * @return
-     */
     public double evaluate(Genotype genotype) {
         int home = 0;
         int fromAllele = home;

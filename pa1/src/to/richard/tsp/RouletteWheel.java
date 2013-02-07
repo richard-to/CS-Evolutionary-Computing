@@ -17,8 +17,6 @@ import java.util.TreeMap;
  *
  * Windowing, sigma scaling, and ranking can be
  * applied before adding points.
- *
- * @param <E>
  */
 public class RouletteWheel<E> implements ISampler<E> {
 
@@ -26,8 +24,6 @@ public class RouletteWheel<E> implements ISampler<E> {
 
     /**
      * Constructs a roulette wheel to randomly select objects, based on their weight.
-     *
-     * @param random
      */
     public RouletteWheel(IRandom random) {
         _random = random;
@@ -37,8 +33,6 @@ public class RouletteWheel<E> implements ISampler<E> {
      * Picks one random element from distribution.
      *
      * Object is returned by reference.
-     *
-     * @return E
      */
     public E sampleOne(List<Pair<Double, E>> valueMap) {
         TreeMap<Double, E> wheel = buildRouletteWheel(valueMap);
@@ -51,9 +45,6 @@ public class RouletteWheel<E> implements ISampler<E> {
      * Samples n elements from roulette wheel.
      *
      * Object is returned by reference.
-     *
-     * @param n
-     * @return E
      */
     public ArrayList<E> sample(List<Pair<Double, E>> valueMap, int n) {
         TreeMap<Double, E> wheel = buildRouletteWheel(valueMap);

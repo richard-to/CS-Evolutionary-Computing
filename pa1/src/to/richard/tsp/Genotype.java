@@ -12,7 +12,7 @@ import java.util.Iterator;
  * Immutable Genotype for Traveling Sales Person problem.
  *
  * Representation of genes is permutations.
- * Alleles represent the index of the city in the cost matrix.
+ *
  * Alleles must be distinct. This is not checked by Genotype.
  * Use GenotypeValidator to validate Genotype (length, valid values, distinctness).
  * Fitness is evaluated using a FitnessEvaluator.
@@ -23,14 +23,12 @@ public class Genotype implements Iterable<Integer> {
     protected String _genotypeString;
 
     /**
-     * Protected constructor. Only used for inheritance.
+     * Protected constructor. Only used to make inheritance work.
      */
     protected Genotype() {}
 
     /**
      * Construct a genotype with allele values for genes.
-     *
-     * @param alleles
      */
     public Genotype(int[] alleles) {
         _genes = Arrays.copyOf(alleles, alleles.length);
@@ -38,8 +36,8 @@ public class Genotype implements Iterable<Integer> {
     }
 
     /**
-     * Copy constructor
-     * @param genotype
+     * Copy constructor. Mainly needed to MutableGenotype copy method.
+     * Otherwise kind of pointless.
      */
     public Genotype(Genotype genotype) {
         _genes = Arrays.copyOf(genotype._genes.clone(), genotype._genes.length);
@@ -47,10 +45,8 @@ public class Genotype implements Iterable<Integer> {
     }
 
     /**
-     * Builds string representation of genotype
-     *
-     * @param genes
-     * @return
+     * Helper to build a string representation of genotype. This is basically
+     * a sequence of alleles in string format instead of array format.
      */
     protected String buildGenotypeString(int[] genes) {
         StringBuilder genotypeStringBuilder = new StringBuilder();
@@ -62,9 +58,8 @@ public class Genotype implements Iterable<Integer> {
 
     /**
      * Gets allele value by gene index.
-     *
-     * @param geneIndex 0 is the start index
-     * @return Allele value
+     * Index starts at 0. Out of bounds exception is thrown if
+     * index is out bounds.
      */
     public int getAllele(int geneIndex) {
         if (geneIndex < 0 || geneIndex >= _genes.length) {
@@ -75,7 +70,6 @@ public class Genotype implements Iterable<Integer> {
 
     /**
      * Gets length of genes.
-     * @return length of genes
      */
     public int length() {
         return _genes.length;
@@ -83,7 +77,6 @@ public class Genotype implements Iterable<Integer> {
 
     /**
      * Gets the gene sequence in string format. Returns a copy of the string.
-     * @return
      */
     public String toString() {
         return new String(_genotypeString);
@@ -91,18 +84,11 @@ public class Genotype implements Iterable<Integer> {
 
     /**
      * Copies genotype and returns mutable version.
-     *
-     * @return MutableGenotype
      */
     public MutableGenotype copyMutable() {
         return new MutableGenotype(this);
     }
 
-    /**
-     * Implements "geneIterator."
-     * For now, just leaving it as Integer for simplicity.
-     * @return
-     */
     @Override
     public Iterator<Integer> iterator() {
         Iterator<Integer> geneIterator = new Iterator<Integer>() {

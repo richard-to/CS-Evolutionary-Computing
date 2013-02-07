@@ -7,7 +7,6 @@ package to.richard.tsp;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Interface for sampling from gene pool
