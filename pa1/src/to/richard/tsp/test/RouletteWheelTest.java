@@ -1,12 +1,10 @@
 package to.richard.tsp.test;
 
 import org.junit.Test;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.TreeMap;
 
 import to.richard.tsp.*;
 
