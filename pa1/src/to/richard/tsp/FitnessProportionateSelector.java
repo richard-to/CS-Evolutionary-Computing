@@ -12,7 +12,7 @@ import java.util.List;
  * Implements parent selection using Fitness Proportionate selection.
  * Currently only uses basic roulette wheel implementation.
  */
-public class FitnessProportionateSelector {
+public class FitnessProportionateSelector implements ISelector {
     private IRandom _random;
     private ISampler<Genotype> _sampler;
     private FitnessEvaluator _fitnessEvaluator;
