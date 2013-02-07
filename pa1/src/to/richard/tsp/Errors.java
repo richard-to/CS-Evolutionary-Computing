@@ -44,10 +44,16 @@ public class Errors {
         }
     }
 
-
     public static class AllelesDoNotMatchGenes extends Error {
         public AllelesDoNotMatchGenes() {}
         public AllelesDoNotMatchGenes(String msg) {
+            super(msg);
+        }
+    }
+
+    public static class DuplicateObjectFound extends Error {
+        public DuplicateObjectFound() {}
+        public DuplicateObjectFound(String msg) {
             super(msg);
         }
     }
