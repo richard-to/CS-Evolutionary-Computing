@@ -10,8 +10,10 @@ import java.util.List;
 
 /**
  * Represents a pool of genes for the current generation.
- *
- * Gene pool does not contain duplicates.
+ * Note that duplicates are allowed in GenePool. This means that
+ * during initialization for generation 0, there could be a chance
+ * that the same gene is generated. Not sure if this is the way to
+ * go or not.
  */
 public class GenePool {
 
@@ -19,22 +21,14 @@ public class GenePool {
 
     /**
      * GenePool constructor
-     *
-     * If genotype list contains duplicates, an error be thrown.
      * @param genotypes
      */
     public GenePool(List<Genotype> genotypes) {
-        HashSet<Genotype> duplicateCheck = new HashSet<Genotype>();
-        if (!duplicateCheck.addAll(_genotypes)) {
-            throw new Errors.DuplicateObjectFound();
-        }
         _genotypes = genotypes;
     }
 
     /**
      * Gets a genotype at the specified index.
-     *
-     * An IndexOutOfBounds exception is thrown.
      *
      * @param index
      * @return Genotype
