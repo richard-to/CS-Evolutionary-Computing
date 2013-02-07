@@ -2,13 +2,14 @@ package to.richard.tsp;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 /**
  * Author: Richard To
  * Date: 2/6/13
  */
 
 /**
- * Initializes GenePool for generation 0.
+ * Initializes List of Genotypes for initial gene pool for generation 0.
  */
 public class GenePoolInitializer {
 
@@ -32,12 +33,12 @@ public class GenePoolInitializer {
      * Population size and cost matrix are set in constructor.
      * @return
      */
-    public GenePool initializeGenePool() {
+    public List<Genotype> initializeGenePool() {
         ArrayList<Genotype> genotypes = new ArrayList<Genotype>();
         for (int i = 0; i < _populationSize; i++) {
             genotypes.add(createRandomGenotype());
         }
-        return new GenePool(genotypes);
+        return genotypes;
     }
 
     /**
