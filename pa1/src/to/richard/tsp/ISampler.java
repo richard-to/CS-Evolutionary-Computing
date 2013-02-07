@@ -6,12 +6,13 @@ package to.richard.tsp;
  */
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Interface for sampling from gene pool
  */
 public interface ISampler<E> {
-    public E sampleOne(Map<Integer, E> valueMap);
-    public ArrayList<E> sample(Map<Integer, E> valueMap, int n);
+    public E sampleOne(List<Pair<Double, E>> valueMap);
+    public ArrayList<E> sample(List<Pair<Double, E>> valueMap, int n);
 }
