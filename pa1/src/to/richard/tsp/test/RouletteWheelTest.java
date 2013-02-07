@@ -14,22 +14,6 @@ import to.richard.tsp.*;
  */
 public class RouletteWheelTest {
     @Test
-    public void testPick() throws Exception {
-        MockRandom random = new MockRandom();
-        LinkedHashMap<Integer, Integer> valueMap = new LinkedHashMap<Integer, Integer>() {{
-            put(20, 20);
-            put(40, 40);
-            put(15, 15);
-            put(25, 25);
-        }};
-        RouletteWheel<Integer> sampler = new RouletteWheel<Integer>(valueMap, random);
-        assertEquals(new Integer(20), new Integer(sampler.pick(.1)));
-        assertEquals(new Integer(40), new Integer(sampler.pick(.35)));
-        assertEquals(new Integer(15), new Integer(sampler.pick(.65)));
-        assertEquals(new Integer(25), new Integer(sampler.pick(.89)));
-    }
-
-    @Test
     public void testSampleOne() throws Exception {
         MockRandom random = new MockRandom();
         ArrayList<Double> sequence = new ArrayList<Double>();
@@ -45,12 +29,11 @@ public class RouletteWheelTest {
             put(25, 25);
         }};
 
-        RouletteWheel<Integer> sampler =
-                new RouletteWheel<Integer>(valueMap, random);
+        RouletteWheel<Integer> sampler = new RouletteWheel<Integer>(random);
 
-        assertEquals(new Integer(20), new Integer(sampler.sampleOne()));
-        assertEquals(new Integer(40), new Integer(sampler.sampleOne()));
-        assertEquals(new Integer(25), new Integer(sampler.sampleOne()));
+        assertEquals(new Integer(20), new Integer(sampler.sampleOne(valueMap)));
+        assertEquals(new Integer(40), new Integer(sampler.sampleOne(valueMap)));
+        assertEquals(new Integer(25), new Integer(sampler.sampleOne(valueMap)));
     }
 
     @Test
@@ -70,8 +53,8 @@ public class RouletteWheelTest {
         }};
 
         RouletteWheel<Integer> sampler =
-                new RouletteWheel<Integer>(valueMap, random);
-        ArrayList<Integer> sampledIntegers = sampler.sample(3);
+                new RouletteWheel<Integer>(random);
+        ArrayList<Integer> sampledIntegers = sampler.sample(valueMap, 3);
 
         assertEquals(new Integer(20), sampledIntegers.get(0));
         assertEquals(new Integer(40), sampledIntegers.get(1));
