@@ -72,11 +72,11 @@ public class Genotype implements Iterable<Integer> {
     }
 
     /**
-     * Gets the gene sequence in string format.
+     * Gets the gene sequence in string format. Returns a copy of the string.
      * @return
      */
     public String toString() {
-        return _genotypeString;
+        return new String(_genotypeString);
     }
 
     /**
