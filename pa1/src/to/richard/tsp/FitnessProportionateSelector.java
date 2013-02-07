@@ -37,6 +37,6 @@ public class FitnessProportionateSelector {
             fitness = _fitnessEvaluator.evaluate(genotype);
             fitnessPairs.add(new Pair<Double, Genotype>(fitness, genotype));
         }
-        return _sampler.sample(fitnessPairs, populationSize);
+        return (List<Genotype>)_sampler.sample(fitnessPairs, populationSize).clone();
     }
 }
