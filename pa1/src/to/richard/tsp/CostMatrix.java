@@ -92,4 +92,12 @@ public class CostMatrix {
             return Integer.toString(cityIndex);
         }
     }
+
+    /**
+     * Gets number of cities in matrix
+     * @return
+     */
+    public int size() {
+        return _matrix.length;
+    }
 }
