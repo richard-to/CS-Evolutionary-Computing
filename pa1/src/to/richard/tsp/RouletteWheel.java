@@ -1,6 +1,7 @@
 package to.richard.tsp;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -16,13 +17,6 @@ import java.util.TreeMap;
  *
  * Windowing, sigma scaling, and ranking can be
  * applied before adding points.
- *
- * The valueMap parameter is a Map. The key is an integer representing the weight of the
- * object. The higher the weight in proportion to the objects, the bigger the
- * roulette wheel slice. The value of the Map is any object.
- *
- * Pass in a LinkedHashMap to valueMap if insertion order is important. Seems only necessary
- * for testing.
  *
  * @param <E>
  */
@@ -46,7 +40,7 @@ public class RouletteWheel<E> implements ISampler<E> {
      *
      * @return E
      */
-    public E sampleOne(Map<Integer, E> valueMap) {
+    public E sampleOne(List<Pair<Double, E>> valueMap) {
         TreeMap<Double, E> wheel = buildRouletteWheel(valueMap);
         double probability = _random.nextDouble();
         Map.Entry<Double, E> entry = wheel.higherEntry(probability);
@@ -61,7 +55,7 @@ public class RouletteWheel<E> implements ISampler<E> {
      * @param n
      * @return E
      */
-    public ArrayList<E> sample(Map<Integer, E> valueMap, int n) {
+    public ArrayList<E> sample(List<Pair<Double, E>> valueMap, int n) {
         TreeMap<Double, E> wheel = buildRouletteWheel(valueMap);
         ArrayList<E> sampledObjects = new ArrayList<E>();
         Map.Entry<Double, E> entry;
@@ -74,19 +68,20 @@ public class RouletteWheel<E> implements ISampler<E> {
         return sampledObjects;
     }
 
-    public TreeMap<Double, E> buildRouletteWheel(Map<Integer, E> valueMap) {
+    public TreeMap<Double, E> buildRouletteWheel(List<Pair<Double, E>> valueMap) {
         TreeMap<Double, E> wheel = new TreeMap<Double, E>();
         double totalProbability = 0.0;
         double probability = 0.0;
         double totalWeight = 0;
 
-        for (Integer weight : valueMap.keySet()) {
-            totalWeight += weight;
+        for (Pair<Double, E> pair : valueMap) {
+            totalWeight += pair.getFirstValue();
         }
-        for (Map.Entry<Integer, E> entry : valueMap.entrySet()) {
-            probability = entry.getKey() / totalWeight;
+
+        for (Pair<Double, E> pair : valueMap) {
+            probability = pair.getFirstValue() / totalWeight;
             totalProbability += probability;
-            wheel.put(totalProbability, entry.getValue());
+            wheel.put(totalProbability, pair.getSecondValue());
         }
         return wheel;
     }
