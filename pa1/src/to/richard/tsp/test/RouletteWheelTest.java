@@ -57,6 +57,26 @@ public class RouletteWheelTest {
 
     @Test
     public void testSample() throws Exception {
+        MockRandom random = new MockRandom();
+        ArrayList<Double> sequence = new ArrayList<Double>();
+        sequence.add(0.1);
+        sequence.add(.35);
+        sequence.add(.89);
+        random.setDoubleSequence(sequence);
 
+        LinkedHashMap<Integer, Integer> valueMap = new LinkedHashMap<Integer, Integer>() {{
+            put(20, 20);
+            put(40, 40);
+            put(15, 15);
+            put(25, 25);
+        }};
+
+        RouletteWheel<Integer> sampler =
+                new RouletteWheel<Integer>(valueMap, random);
+        ArrayList<Integer> sampledIntegers = sampler.sample(3);
+
+        assertEquals(new Integer(20), sampledIntegers.get(0));
+        assertEquals(new Integer(40), sampledIntegers.get(1));
+        assertEquals(new Integer(25), sampledIntegers.get(2));
     }
 }
