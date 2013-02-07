@@ -4,7 +4,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 import to.richard.tsp.*;
 
@@ -22,11 +21,11 @@ public class RouletteWheelTest {
         sequence.add(.89);
         random.setDoubleSequence(sequence);
 
-        LinkedHashMap<Integer, Integer> valueMap = new LinkedHashMap<Integer, Integer>() {{
-            put(20, 20);
-            put(40, 40);
-            put(15, 15);
-            put(25, 25);
+        ArrayList<Pair<Double, Integer>> valueMap = new ArrayList<Pair<Double, Integer>>() {{
+            add(new Pair<Double,Integer>(20.0, 20));
+            add(new Pair<Double,Integer>(40.0, 40));
+            add(new Pair<Double,Integer>(15.0, 15));
+            add(new Pair<Double,Integer>(25.0, 25));
         }};
 
         RouletteWheel<Integer> sampler = new RouletteWheel<Integer>(random);
@@ -45,11 +44,11 @@ public class RouletteWheelTest {
         sequence.add(.89);
         random.setDoubleSequence(sequence);
 
-        LinkedHashMap<Integer, Integer> valueMap = new LinkedHashMap<Integer, Integer>() {{
-            put(20, 20);
-            put(40, 40);
-            put(15, 15);
-            put(25, 25);
+        ArrayList<Pair<Double, Integer>> valueMap = new ArrayList<Pair<Double, Integer>>() {{
+            add(new Pair<Double,Integer>(20.0, 20));
+            add(new Pair<Double,Integer>(40.0, 40));
+            add(new Pair<Double,Integer>(15.0, 15));
+            add(new Pair<Double,Integer>(25.0, 25));
         }};
 
         RouletteWheel<Integer> sampler =
