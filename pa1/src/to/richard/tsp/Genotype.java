@@ -63,6 +63,11 @@ public class Genotype implements Iterable<Integer> {
         return new MutableGenotype(_genes.clone());
     }
 
+    /**
+     * Implements "geneIterator."
+     * For now, just leaving it as Integer for simplicity.
+     * @return
+     */
     @Override
     public Iterator<Integer> iterator() {
         Iterator<Integer> geneIterator = new Iterator<Integer>() {
