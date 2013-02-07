@@ -20,6 +20,10 @@ import java.util.TreeMap;
  * @param <E>
  */
 public class RouletteWheel<E> {
+
+    /**
+     * TreeMap used to keep order of probability segments. So .3, .5 .8 1.0.
+     */
     private TreeMap<Double, E> _distributionMap;
     private IRandom _random;
 
@@ -30,20 +34,22 @@ public class RouletteWheel<E> {
      * object. The higher the weight in proportion to the objects, the bigger the
      * roulette wheel slice. The value of the TreeMap is any object.
      *
+     * Pass in a LinkedHashMap to valueMap if insertion order is important. Seems only necessary
+     * for testing.
+     *
      * @param valueMap
      * @param random
      */
-    public RouletteWheel(TreeMap<Integer, E> valueMap, IRandom random) {
+    public RouletteWheel(Map<Integer, E> valueMap, IRandom random) {
         _distributionMap = new TreeMap<Double, E>();
         _random = random;
         double totalProbability = 0.0;
         double probability = 0.0;
-        int totalWeight = 0;
+        double totalWeight = 0;
 
         for (Integer weight : valueMap.keySet()) {
             totalWeight += weight;
         }
-
         for (Map.Entry<Integer, E> entry : valueMap.entrySet()) {
             probability = entry.getKey() / totalWeight;
             totalProbability += probability;
@@ -52,14 +58,14 @@ public class RouletteWheel<E> {
     }
 
     /**
-     * Gets value within a distribution point
+     * Picks a value within a distribution point
      *
      * Object is returned by reference.
      *
      * @param point
      * @return E
      */
-    public E get(double point){
+    public E pick(double point){
         Map.Entry<Double, E> entry = _distributionMap.higherEntry(point);
         if(entry != null){
             return entry.getValue();
@@ -74,9 +80,9 @@ public class RouletteWheel<E> {
      *
      * @return E
      */
-    public E select() {
+    public E sampleOne() {
         double probability = _random.nextDouble();
-        return get(probability);
+        return pick(probability);
     }
 
     /**
@@ -92,7 +98,7 @@ public class RouletteWheel<E> {
         double probability;
         for (int i = 0; i < n; i++) {
             probability = _random.nextDouble();
-            sampledObjects.add(get(probability));
+            sampledObjects.add(pick(probability));
         }
         return sampledObjects;
     }
