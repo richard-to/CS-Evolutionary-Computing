@@ -5,6 +5,7 @@ package to.richard.tsp;
  * Date: 2/6/13
  */
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,13 +14,18 @@ import java.util.List;
  * Class is immutable. If a new CostMatrix needs to be used, a new one
  * should be instantiated.
  *
+ * FitnessEvaluator will cache fitness values based on genotype toString() value;
+ *
  * Needs to be named more specifically. CostMatrixFitnessEvaluator?
  * Probably need to add an interface IFitnessEvaluator later.
  */
 public class FitnessEvaluator {
     private CostMatrix _costMatrix;
+    private HashMap<String, Double> fitnessCache;
+
     public FitnessEvaluator(CostMatrix costMatrix) {
         _costMatrix = costMatrix;
+        fitnessCache = new HashMap<String, Double>();
     }
 
     /**
@@ -27,16 +33,21 @@ public class FitnessEvaluator {
      * @param genotype
      * @return
      */
-    public int evaluate(Genotype genotype) {
+    public double evaluate(Genotype genotype) {
         int home = 0;
         int fromAllele = home;
-        int fitness = 0;
+        double fitness = 0.0;
 
-        for (int toAllele : genotype) {
-            fitness += _costMatrix.getCost(fromAllele, toAllele);
-            fromAllele = toAllele;
+        if (fitnessCache.containsKey(genotype.toString())) {
+            fitness = fitnessCache.get(genotype.toString());
+        } else {
+            for (int toAllele : genotype) {
+                fitness += _costMatrix.getCost(fromAllele, toAllele);
+                fromAllele = toAllele;
+            }
+            fitness += _costMatrix.getCost(fromAllele, home);
+            fitnessCache.put(genotype.toString(), fitness);
         }
-        fitness += _costMatrix.getCost(fromAllele, home);
         return fitness;
     }
 }
