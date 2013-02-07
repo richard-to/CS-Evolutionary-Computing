@@ -23,6 +23,6 @@ public class FitnessEvaluatorTest {
         // 0,1 - 1,2 - 2,0
         // 30  + 23  + 42
         int expectedFitness = 95;
-        assertEquals(expectedFitness, fitnessEvaluator.evaluate(genotype));
+        assertEquals(expectedFitness, fitnessEvaluator.evaluate(genotype), 0.1);
     }
 }
