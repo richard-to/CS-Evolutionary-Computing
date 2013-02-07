@@ -5,6 +5,8 @@ package to.richard.tsp;
  * Date: 2/5/13
  */
 
+import java.util.Iterator;
+
 /**
  * Immutable Genotype for Traveling Sales Person problem.
  *
@@ -13,7 +15,7 @@ package to.richard.tsp;
  * Alleles must be distinct. This is not checked by Genotype.
  * Use GenotypeValidator to validate Genotype (length, valid values, distinctness).
  */
-public class Genotype {
+public class Genotype implements Iterable<Integer> {
 
     protected int[] _genes;
 
@@ -59,5 +61,29 @@ public class Genotype {
      */
     public MutableGenotype copyMutable() {
         return new MutableGenotype(_genes.clone());
+    }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        Iterator<Integer> geneIterator = new Iterator<Integer>() {
+
+            private int currentIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < length();
+            }
+
+            @Override
+            public Integer next() {
+                return getAllele(currentIndex++);
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return geneIterator;
     }
 }
