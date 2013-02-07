@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class CostMatrixTest {
 
     @Test
-    public void testGetCostAndCityName() throws Exception {
+    public void testGetCostAndCityNameAndSize() throws Exception {
         int[][] matrix = {{10, 20}, {30, 40}};
         String[] cityNames = {"City0", "City1"};
         CostMatrix costMatrix = new CostMatrix(matrix, cityNames);
@@ -26,6 +26,8 @@ public class CostMatrixTest {
         String city1 = costMatrix.getCityName(1);
         city1 = "City2";
         assertEquals("City1", costMatrix.getCityName(1));
+
+        assertEquals(2, costMatrix.size());
     }
 
     @Test
