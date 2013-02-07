@@ -42,6 +42,7 @@ public class MutableGenotype extends Genotype {
             throw new Errors.AllelesDoNotMatchGenes();
         }
         _genes = alleles.clone();
+        _genotypeString = buildGenotypeString(_genes);
     }
 
     /**
@@ -54,6 +55,7 @@ public class MutableGenotype extends Genotype {
             throw new IndexOutOfBoundsException();
         }
         _genes[geneIndex] = value;
+        _genotypeString = buildGenotypeString(_genes);
     }
 
     /**

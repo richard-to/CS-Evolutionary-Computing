@@ -19,6 +19,7 @@ import java.util.Iterator;
 public class Genotype implements Iterable<Integer> {
 
     protected int[] _genes;
+    protected String _genotypeString;
 
     /**
      * Protected constructor. Only used for inheritance.
@@ -32,6 +33,21 @@ public class Genotype implements Iterable<Integer> {
      */
     public Genotype(int[] alleles) {
         _genes = alleles.clone();
+        _genotypeString = buildGenotypeString(_genes);
+    }
+
+    /**
+     * Builds string representation of genotype
+     *
+     * @param genes
+     * @return
+     */
+    protected String buildGenotypeString(int[] genes) {
+        StringBuilder genotypeStringBuilder = new StringBuilder();
+        for (int i = 0; i < genes.length; i++) {
+            genotypeStringBuilder.append(genes[i]);
+        }
+        return genotypeStringBuilder.toString();
     }
 
     /**
@@ -53,6 +69,14 @@ public class Genotype implements Iterable<Integer> {
      */
     public int length() {
         return _genes.length;
+    }
+
+    /**
+     * Gets the gene sequence in string format.
+     * @return
+     */
+    public String toString() {
+        return _genotypeString;
     }
 
     /**
