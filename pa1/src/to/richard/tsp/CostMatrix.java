@@ -8,6 +8,8 @@ package to.richard.tsp;
 /**
  * Represents a cost matrix of flights from one city to another.
  * This data structure is immutable. New prices and cities cannot be added.
+ *
+ * Home city is always index 0.
  */
 public class CostMatrix {
 
@@ -64,6 +66,8 @@ public class CostMatrix {
     /**
      * Gets the cost of a trip from one place to another using cost matrix.
      *
+     * Allows from and to to be the same city. Doesn't make sense, but is allowed here.
+     *
      * @param from
      * @param to
      * @return
@@ -94,7 +98,7 @@ public class CostMatrix {
     }
 
     /**
-     * Gets number of cities in matrix
+     * Gets number of destination cities in matrix.
      * @return
      */
     public int size() {
