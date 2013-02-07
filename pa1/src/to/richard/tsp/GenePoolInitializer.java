@@ -45,7 +45,7 @@ public class GenePoolInitializer {
      * @return Genotype
      */
     public Genotype createRandomGenotype() {
-        ArrayList<Integer> allelesCopy = (ArrayList<Integer>)_orderedAlleles.clone();
+        ArrayList<Integer> allelesCopy = new ArrayList<Integer>(_orderedAlleles);
         Collections.shuffle(allelesCopy, _random.getJavaRandom());
         int[] shuffledAlleles = new int[allelesCopy.size()];
         for (int i = 0; i < shuffledAlleles.length; i++) {

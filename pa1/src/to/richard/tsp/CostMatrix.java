@@ -5,6 +5,8 @@ package to.richard.tsp;
  * Date: 2/5/13
  */
 
+import java.util.Arrays;
+
 /**
  * Represents a cost matrix of values from mixing two alleles
  * This data structure is immutable. New values and alleles cannot be added.
@@ -47,7 +49,7 @@ public class CostMatrix {
             if (costMatrix.length != alleleNames.length) {
                 throw new Errors.MatrixRowsNotEqualToNamedAlleles();
             }
-            _alleleNames = alleleNames.clone();
+            _alleleNames = Arrays.copyOf(alleleNames, alleleNames.length);
         }
         initCostMatrix(costMatrix);
     }
@@ -60,7 +62,10 @@ public class CostMatrix {
         if (costMatrix.length != costMatrix[0].length) {
             throw new Errors.MatrixColumnsNotEqualToRows();
         }
-        _matrix = costMatrix.clone();
+        _matrix = new int[costMatrix.length][costMatrix.length];
+        for (int i = 0; i < costMatrix.length; i++) {
+            _matrix[i] = Arrays.copyOf(costMatrix[i], costMatrix[i].length);
+        }
     }
 
     /**
