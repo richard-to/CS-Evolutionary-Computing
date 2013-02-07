@@ -14,6 +14,25 @@ public class MockRandom implements IRandom {
 
     ArrayList<Double> _doubleSequence;
     ArrayList<Integer> _integerSequence;
+    private java.util.Random _random;
+
+    /**
+     * Default constructor can be used if you are not testing the
+     * against a class that requires java.util.Random.
+     */
+    public MockRandom() {
+        _random = new java.util.Random();
+    }
+
+    /**
+     * Construct a random number generator with specific seed.
+     * This is necessary for when we need to use the Random
+     * class in the Java library.
+     * @param seed
+     */
+    public MockRandom(long seed) {
+        _random = new java.util.Random(seed);
+    }
 
     /**
      * If using getDouble, make sure to set the sequence of doubles.
@@ -55,5 +74,9 @@ public class MockRandom implements IRandom {
      */
     public double nextDouble() {
         return this._doubleSequence.remove(0);
+    }
+
+    public java.util.Random getJavaRandom() {
+        return _random;
     }
 }

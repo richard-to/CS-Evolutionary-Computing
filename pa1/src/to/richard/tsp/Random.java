@@ -36,4 +36,8 @@ public class Random implements IRandom {
     public double nextDouble() {
         return _random.nextDouble();
     }
+
+    public java.util.Random getJavaRandom() {
+        return _random;
+    }
 }
