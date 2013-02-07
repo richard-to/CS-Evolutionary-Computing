@@ -19,9 +19,11 @@ public class CostMatrix {
     private int[][] _matrix;
 
     /**
-     * Constructor to initialize cost matrix.
+     * A cost matrix is a basically a 2-D array of integers.
+     * Rows and columns must be equal in size.
      *
-     * @param costMatrix
+     * Integer values should be greater than 0, but this is not enforced
+     * currently.
      */
     public CostMatrix(int[][] costMatrix) {
         initCostMatrix(costMatrix);
@@ -29,20 +31,10 @@ public class CostMatrix {
     }
 
     /**
-     * Constructor to initialize cost matrix with named alleles  corresponding to index.
+     * Same as other constructor, but allows the addition of
+     * named alleles.
      *
-     * Using named alleles is optional. If no named allele are provided, then the index will
-     * be used as the allele name.
-     *
-     * An exception is thrown if the number of alleles names does not match the cost matrix size.
-     *
-     * If alleleNames is null, then no exception will be thrown. Instead alleleNames will be null and
-     * revert to using the index as stated.
-     *
-     * The cost matrix must also have the same rows and columns.
-     *
-     * @param costMatrix
-     * @param alleleNames
+     * The number of names must match the rows of the matrix.
      */
     public CostMatrix(int[][] costMatrix,  String[] alleleNames) {
         if (alleleNames != null) {
@@ -56,7 +48,7 @@ public class CostMatrix {
 
     /**
      * Sets cost matrix and makes sure the rows and columns are equal.
-     * @param costMatrix
+     * A copy is made of the matrix to ensure immutability.
      */
     private void initCostMatrix(int[][] costMatrix) {
         if (costMatrix.length != costMatrix[0].length) {
@@ -69,11 +61,10 @@ public class CostMatrix {
     }
 
     /**
-     * Gets the cost of a mixing two alleles.
+     * Gets the cost of two allele pairs. First allele corresponds to rows,
+     * and second allele corresponds to columns.
      *
-     * @param firstAllele
-     * @param secondAllele
-     * @return
+     * An error is thrown is alleles are out of bounds of matrix.
      */
     public int getCost(int firstAllele, int secondAllele) {
         if (firstAllele < 0 || firstAllele >= _matrix.length || secondAllele < 0 || secondAllele >= _matrix.length) {
@@ -85,8 +76,6 @@ public class CostMatrix {
     /**
      * Gets the name of the allele.
      * If no allele name is provided, the index will be returned as the name of the allele.
-     * @param alleleIndex
-     * @return Name of allele
      */
     public String getAlleleName(int alleleIndex)  {
         if (_alleleNames != null && (alleleIndex < 0 || alleleIndex >= _alleleNames.length)) {
@@ -102,20 +91,15 @@ public class CostMatrix {
 
     /**
      * Gets number of distinct alleles in matrix.
-     * @return
      */
     public int size() {
         return _matrix.length;
     }
 
     /**
-     * Gets an array of alleles.
+     * Gets a copy of the array of alleles, excluding the allele 0.
      *
-     * This returns an array of alleles from one to the number of alleles.
-     *
-     * This basically just excludes the home allele and helps avoid mistakenly generating
-     * an array with the 0 index.
-     * @return
+     * This helps avoid mistakenly generating an array with the 0 index included.
      */
     public int[] getAlleles() {
         int[] cities = new int[_matrix.length - 1];

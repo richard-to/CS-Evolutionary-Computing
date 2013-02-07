@@ -16,20 +16,25 @@ public class CostMatrixBuilder {
         _random = new Random();
     }
 
+    /**
+     * IRandom is used to randomly generate costs for row/column pairs.
+     */
     public CostMatrixBuilder(IRandom random) {
         _random = random;
     }
 
     /**
-     * Builds a cost matrix with a certain size and value range. Also includes alleleNames.
+     * Builds a cost matrix with a certain size and value range. Also includes alleleNames to
+     * correspond to indexes if desired.
      *
-     * @param size
-     * @param minValue
-     * @param maxValue
-     * @param allelNames
-     * @return CostMatrix
+     * Size obviously cannot be less than 0. Size will be used for rows and columns of matrix.
+     * Size is the number of alleles for the problem.
+     *
+     * Min and max values cannot be less than 0.
+     *
+     * The number of allele names must batch the size.
      */
-    public CostMatrix buildMatrix(int size, int minValue, int maxValue, String[] allelNames) {
+    public CostMatrix buildMatrix(int size, int minValue, int maxValue, String[] alleleNames) {
 
         if (minValue < 1 || maxValue < 1) {
             throw new Errors.ValueLessThanZero();
@@ -45,15 +50,11 @@ public class CostMatrixBuilder {
                 matrix[i][g] = _random.nextInt(maxValue - minValue + 1) + minValue;
             }
         }
-        return new CostMatrix(matrix, allelNames);
+        return new CostMatrix(matrix, alleleNames);
     }
 
     /**
-     * Builds a cost matrix with a certain size and value range.
-     * @param size
-     * @param minValue
-     * @param maxValue
-     * @return CostMatrix
+     * Builds a cost matrix without corresponding allele names.
      */
     public CostMatrix buildMatrix(int size, int minValue, int maxValue) {
         return buildMatrix(size, minValue, maxValue, null);
