@@ -14,6 +14,7 @@ import java.util.Iterator;
  * Alleles represent the index of the city in the cost matrix.
  * Alleles must be distinct. This is not checked by Genotype.
  * Use GenotypeValidator to validate Genotype (length, valid values, distinctness).
+ * Fitness is evaluated using a FitnessEvaluator.
  */
 public class Genotype implements Iterable<Integer> {
 
