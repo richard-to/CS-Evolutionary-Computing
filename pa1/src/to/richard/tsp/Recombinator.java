@@ -18,12 +18,12 @@ import java.util.List;
 public class Recombinator {
     private IRandom _random;
     private double _recombinationRate;
-    private ICrossoverStrategy _recombinationStrategy;
+    private ICrossoverOperator _crossoverOperator;
 
-    public Recombinator(double recombinationRate, ICrossoverStrategy recombinationStrategy, IRandom random) {
+    public Recombinator(double recombinationRate, ICrossoverOperator crossoverOperator, IRandom random) {
         _random = random;
         _recombinationRate = recombinationRate;
-        recombinationStrategy = recombinationStrategy;
+        crossoverOperator = crossoverOperator;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Recombinator {
             index2 = i * 2 + 1;
             probability = _random.nextDouble();
             if (probability < _recombinationRate) {
-                newGenotypes.addAll(_recombinationStrategy.crossover(genotypes.get(index1), genotypes.get(index2)));
+                newGenotypes.addAll(_crossoverOperator.crossover(genotypes.get(index1), genotypes.get(index2), _random));
             } else {
                 newGenotypes.add(genotypes.get(index1));
                 newGenotypes.add(genotypes.get(index2));
