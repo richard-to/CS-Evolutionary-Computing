@@ -10,6 +10,8 @@ import java.util.List;
 
 /**
  * Performs inversion mutation on genotypes.
+ *
+ * Start and end points selected are inclusive.
  */
 public class InversionMutation implements IMutationStrategy {
     public Genotype mutate(Genotype genotype, IRandom random) {
