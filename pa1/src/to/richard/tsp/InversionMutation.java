@@ -1,8 +1,5 @@
 package to.richard.tsp;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Author: Richard To
  * Date: 2/7/13
@@ -13,7 +10,7 @@ import java.util.List;
  *
  * Start and end points selected are inclusive.
  */
-public class InversionMutation implements IMutationStrategy {
+public class InversionMutation implements IMutationOperator {
     public Genotype mutate(Genotype genotype, IRandom random) {
         int start = random.nextInt(genotype.length());
         int end = random.nextInt(genotype.length());

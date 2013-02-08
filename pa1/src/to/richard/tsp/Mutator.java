@@ -27,12 +27,12 @@ public class Mutator {
 
     private IRandom _random;
     private double _mutationRate;
-    private IMutationStrategy _mutationStrategy;
+    private IMutationOperator _mutationOperator;
 
-    public Mutator(double mutationRate, IMutationStrategy mutationStrategy, IRandom random) {
+    public Mutator(double mutationRate, IMutationOperator mutationOperator, IRandom random) {
         _random = random;
         _mutationRate = mutationRate;
-        _mutationStrategy = mutationStrategy;
+        _mutationOperator = mutationOperator;
     }
 
     public List<Genotype> mutate(List<Genotype> genotypes) {
@@ -41,7 +41,7 @@ public class Mutator {
         for (Genotype genotype : genotypes) {
             probability = _random.nextDouble();
             if (probability < _mutationRate) {
-                newGenotypes.add(_mutationStrategy.mutate(genotype, _random));
+                newGenotypes.add(_mutationOperator.mutate(genotype, _random));
             } else {
                 newGenotypes.add(genotype);
             }
