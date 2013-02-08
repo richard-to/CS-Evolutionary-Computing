@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Abstract class that handles some boiler plate initialization for mutation.
+ * Handles some boiler plate initialization for mutation.
  *
  * Mutation rate should be between 0-1. But this is not checked.
  * A mutation less than 0 means that same as a 0% probability. And a mutation
@@ -36,11 +36,11 @@ public class Mutator {
     }
 
     public List<Genotype> mutate(List<Genotype> genotypes) {
-        double probabilty = 0.0;
+        double probability = 0.0;
         ArrayList<Genotype> newGenotypes = new ArrayList<Genotype>();
         for (Genotype genotype : genotypes) {
-            probabilty = _random.nextDouble();
-            if (probabilty < _mutationRate) {
+            probability = _random.nextDouble();
+            if (probability < _mutationRate) {
                 newGenotypes.add(_mutationStrategy.mutate(genotype, _random));
             } else {
                 newGenotypes.add(genotype);
