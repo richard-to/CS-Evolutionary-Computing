@@ -4,10 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 
-import to.richard.tsp.CostMatrixBuilder;
-import to.richard.tsp.CostMatrix;
-import to.richard.tsp.Errors;
-import to.richard.tsp.MockRandom;
+import to.richard.tsp.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,8 +28,8 @@ public class CostMatrixBuilderTest {
         CostMatrixBuilder costMatrixBuilder = new CostMatrixBuilder(random);
         CostMatrix costMatrix = costMatrixBuilder.buildMatrix(size, minPrice, maxPrice);
 
-        assertEquals(60, costMatrix.getCost(0, 1));
-        assertEquals(80, costMatrix.getCost(1, 0));
+        assertEquals(60, costMatrix.getCost(new Allele(0), new Allele(1)), 0.1);
+        assertEquals(80, costMatrix.getCost(new Allele(1), new Allele(0)), 0.1);
     }
 
     @Test
@@ -49,9 +46,9 @@ public class CostMatrixBuilderTest {
         CostMatrixBuilder costMatrixBuilder = new CostMatrixBuilder(random);
         CostMatrix costMatrix = costMatrixBuilder.buildMatrix(size, minPrice, maxPrice, cityNames);
 
-        assertEquals(60, costMatrix.getCost(0, 1));
-        assertEquals(80, costMatrix.getCost(1, 0));
-        assertEquals("City0", costMatrix.getAlleleName(0));
+        assertEquals(60, costMatrix.getCost(new Allele(0), new Allele(1)), 0.1);
+        assertEquals(80, costMatrix.getCost(new Allele(1), new Allele(0)), 0.1);
+        assertEquals("City0", costMatrix.getAlleleName(new Allele(0)));
     }
 
     @Test(expected = Errors.MinValueGreaterThanMaxValue.class)

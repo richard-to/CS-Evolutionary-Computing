@@ -1,6 +1,7 @@
 package to.richard.tsp.test;
 
 import org.junit.Test;
+import to.richard.tsp.Allele;
 import to.richard.tsp.CostMatrix;
 import to.richard.tsp.FitnessEvaluator;
 import to.richard.tsp.Genotype;
@@ -17,7 +18,7 @@ public class FitnessEvaluatorTest {
     public void testEvaluate() throws Exception {
         int[][] costMatrixArray = {{20, 30, 10}, {40, 21, 23}, {42, 11, 101}};
         CostMatrix costMatrix = new CostMatrix(costMatrixArray);
-        Genotype genotype = new Genotype(new int[]{1, 2});
+        Genotype genotype = new Genotype(new Allele[]{new Allele(1), new Allele(2)});
         FitnessEvaluator fitnessEvaluator = new FitnessEvaluator(costMatrix);
 
         // 0,1 - 1,2 - 2,0

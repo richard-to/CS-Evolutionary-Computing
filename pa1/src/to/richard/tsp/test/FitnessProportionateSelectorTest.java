@@ -33,10 +33,10 @@ public class FitnessProportionateSelectorTest {
         ArrayList<Genotype> genotypes = new ArrayList<Genotype>() {{
             // 0,1 - 1,2 - 2,0
             // 30 + 10 + 42 = 82 (57%)
-            add(new Genotype(new int[]{1, 2}));
+            add(new Genotype(new Allele[]{new Allele(1), new Allele(2)}));
             // 0,2 - 2,1 - 1,0
             // 10 + 11 + 40 = 61 (43%)
-            add(new Genotype(new int[]{2, 1}));
+            add(new Genotype(new Allele[]{new Allele(2), new Allele(1)}));
         }};
 
         List<Genotype> parentGenotypes = fps.selectParents(genotypes);

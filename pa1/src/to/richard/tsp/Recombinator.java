@@ -23,7 +23,7 @@ public class Recombinator {
     public Recombinator(double recombinationRate, ICrossoverOperator crossoverOperator, IRandom random) {
         _random = random;
         _recombinationRate = recombinationRate;
-        crossoverOperator = crossoverOperator;
+        _crossoverOperator = crossoverOperator;
     }
 
     /**

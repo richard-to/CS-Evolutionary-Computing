@@ -29,8 +29,10 @@ public class MutatorTest {
         Mutator mutator = new Mutator(mutationRate, mutationStrategy, random);
 
         ArrayList<Genotype> genotypes = new ArrayList<Genotype>() {{
-            add(new Genotype(new int[]{0,1,2,3,4,5,6,7}));
-            add(new Genotype(new int[]{0,1,5,3,4,6,2,7}));
+            add(new Genotype(new Allele[]{new Allele(0),new Allele(1),new Allele(2),
+                    new Allele(3),new Allele(4),new Allele(5),new Allele(6),new Allele(7)}));
+            add(new Genotype(new Allele[]{new Allele(0),new Allele(1),new Allele(5),
+                    new Allele(3),new Allele(4),new Allele(6),new Allele(2),new Allele(7)}));
         }};
         List<Genotype> genotypesNew = mutator.mutate(genotypes);
         assertEquals("43210567", genotypesNew.get(0).toString());
@@ -43,7 +45,8 @@ public class MutatorTest {
         ArrayList<Integer> sequence = new ArrayList<Integer>(Arrays.asList(
                 new Integer[]{0, 4, 0, 0, 3, 1}));
         random.setIntegerSequence(sequence);
-        Genotype genotype = new Genotype(new int[]{0,1,2,3,4,5,6,7});
+        Genotype genotype = new Genotype(new Allele[]{new Allele(0),new Allele(1),new Allele(2),
+                new Allele(3),new Allele(4),new Allele(5),new Allele(6),new Allele(7)});
         InversionMutation inversion = new InversionMutation();
 
         Genotype newGenotype = inversion.mutate(genotype, random);

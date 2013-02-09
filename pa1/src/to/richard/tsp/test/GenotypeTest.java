@@ -1,9 +1,12 @@
 package to.richard.tsp.test;
 
 import org.junit.Test;
+
+import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
+import to.richard.tsp.Allele;
 import to.richard.tsp.Errors;
 import to.richard.tsp.Genotype;
 import to.richard.tsp.MutableGenotype;
@@ -18,76 +21,83 @@ public class GenotypeTest {
 
     @Test
     public void testGetAllele() throws Exception {
-        int[] alleles = {0, 1, 2, 3, 4};
+        Allele[] alleles = {new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)};
         Genotype genotype = new Genotype(alleles);
-        int value = genotype.getAllele(3);
-        value = 5;
-        alleles[3] = 10;
-        assertEquals(3, genotype.getAllele(3));
+        Allele value = genotype.getAllele(3);
+        value = new Allele(20);
+        alleles[3] = new Allele(50);
+        assertEquals(new Allele(3), genotype.getAllele(3));
     }
 
     @Test
     public void testLength() throws Exception {
-        Genotype genotype = new Genotype(new int[]{0, 1, 2, 3, 4});
+        Genotype genotype = new Genotype(new Allele[]{
+                new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)});
         assertEquals(5, genotype.length());
     }
 
     @Test
     public void testCopyMutable() throws Exception {
-        Genotype genotype = new Genotype(new int[]{0, 1, 2, 3, 4});
+        Genotype genotype = new Genotype(new Allele[]{
+                new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)});
         MutableGenotype mutableGenotype = genotype.copyMutable();
-        assertEquals(3, mutableGenotype.getAllele(3));
-        mutableGenotype.setAllele(10, 3);
-        assertEquals(3, genotype.getAllele(3));
-        assertEquals(10, mutableGenotype.getAllele(3));
+        assertEquals(new Allele(3), mutableGenotype.getAllele(3));
+        mutableGenotype.setAllele(new Allele(10), 3);
+        assertEquals(new Allele(3), genotype.getAllele(3));
+        assertEquals(new Allele(10), mutableGenotype.getAllele(3));
     }
 
     @Test
     public void testSetAllele() throws Exception {
         MutableGenotype mutableGenotype = new MutableGenotype(3);
-        mutableGenotype.setAllele(10, 1);
-        assertEquals(0, mutableGenotype.getAllele(0));
-        assertEquals(10, mutableGenotype.getAllele(1));
-        mutableGenotype.setAllele(20, 1);
-        assertEquals(20, mutableGenotype.getAllele(1));
+        mutableGenotype.setAllele(new Allele(10), 1);
+        assertNull(mutableGenotype.getAllele(0));
+        assertEquals(new Allele(10), mutableGenotype.getAllele(1));
+        mutableGenotype.setAllele(new Allele(20), 1);
+        assertEquals(new Allele(20), mutableGenotype.getAllele(1));
     }
 
     @Test
     public void testCopy() throws Exception {
         MutableGenotype mutableGenotype =
-            new MutableGenotype(new int[]{0, 1, 2, 3, 4});
+            new MutableGenotype(new Allele[]{
+                    new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)});
         Genotype genotype = mutableGenotype.copy();
-        mutableGenotype.setAllele(10, 1);
-        assertEquals(1, genotype.getAllele(1));
+        mutableGenotype.setAllele(new Allele(10), 1);
+        assertEquals(new Allele(1), genotype.getAllele(1));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testIndexOutOfBoundsNegative() {
-        Genotype genotype = new Genotype(new int[]{0, 1, 2, 3, 4});
+        Genotype genotype = new Genotype(new Allele[]{
+                new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)});
         genotype.getAllele(-1);
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testIndexOutOfBoundsOver() {
-        Genotype genotype = new Genotype(new int[]{0, 1, 2, 3, 4});
+        Genotype genotype = new Genotype(new Allele[]{
+                new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)});
         genotype.getAllele(20);
     }
 
     @Test(expected = Errors.AllelesDoNotMatchGenes.class)
     public void testAllelesDoNotMatchGenes() {
-        MutableGenotype genotype = new MutableGenotype(new int[]{0, 1, 2, 3, 4});
-        genotype.setAlleles(new int[]{2,2});
+        MutableGenotype genotype = new MutableGenotype(new Allele[]{
+                new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)});
+        genotype.setAlleles(new Allele[]{new Allele(2),new Allele(2)});
     }
 
     @Test
     public void testGeneIterator() {
-        int[] expectedAlleles = {0, 1, 2, 3, 4};
+        Allele[] expectedAlleles = new Allele[]{
+                new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)};
         MutableGenotype genotype = new MutableGenotype(expectedAlleles);
 
-        ArrayList<Integer> visitedAlleles = new ArrayList<Integer>();
-        for (int allele : genotype) {
+        ArrayList<Allele> visitedAlleles = new ArrayList<Allele>();
+        for (Allele allele : genotype) {
             visitedAlleles.add(allele);
         }
-        assertEquals(expectedAlleles[4], visitedAlleles.get(4).intValue());
+        assertEquals(expectedAlleles[4], visitedAlleles.get(4));
     }
 }

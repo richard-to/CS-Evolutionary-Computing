@@ -16,15 +16,15 @@ public class GenePoolInitializer {
 
     private int _populationSize;
     private IRandom _random;
-    private ArrayList<Integer> _orderedAlleles;
+    private ArrayList<Allele> _orderedAlleles;
 
     public GenePoolInitializer(int populationSize, CostMatrix costMatrix, IRandom random) {
         _populationSize = populationSize;
         _random = random;
-        _orderedAlleles = new ArrayList<Integer>();
-        int[] alleles = costMatrix.getAlleles();
-        for (int i = 0; i < alleles.length; i++) {
-            _orderedAlleles.add(alleles[i]);
+        _orderedAlleles = new ArrayList<Allele>();
+        Allele[] alleles = costMatrix.getAlleles();
+        for (Allele allele : alleles) {
+            _orderedAlleles.add(allele);
         }
     }
 
@@ -40,9 +40,9 @@ public class GenePoolInitializer {
      * Create a random genotype by shuffling the order of alleles.
      */
     public Genotype createRandomGenotype() {
-        ArrayList<Integer> allelesCopy = new ArrayList<Integer>(_orderedAlleles);
+        List<Allele> allelesCopy = new ArrayList<Allele>(_orderedAlleles);
         Collections.shuffle(allelesCopy, _random.getJavaRandom());
-        int[] shuffledAlleles = new int[allelesCopy.size()];
+        Allele[] shuffledAlleles = new Allele[allelesCopy.size()];
         for (int i = 0; i < shuffledAlleles.length; i++) {
             shuffledAlleles[i] = allelesCopy.get(i);
         }

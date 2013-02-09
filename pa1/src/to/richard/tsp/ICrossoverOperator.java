@@ -12,5 +12,6 @@ import java.util.List;
  * flexible enough for the case where there is more than 2 parents.
  */
 public interface ICrossoverOperator {
+    public int numberOfOffspring();
     public List<Genotype> crossover(Genotype genotype1, Genotype genotype2, IRandom random);
 }

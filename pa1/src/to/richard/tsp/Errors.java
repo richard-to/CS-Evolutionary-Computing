@@ -51,9 +51,31 @@ public class Errors {
         }
     }
 
+    public static class AlleleNotFound extends Error {
+        public AlleleNotFound() {}
+        public AlleleNotFound(String msg) {
+            super(msg);
+        }
+    }
+
     public static class DuplicateObjectFound extends Error {
         public DuplicateObjectFound() {}
         public DuplicateObjectFound(String msg) {
+            super(msg);
+        }
+    }
+
+    /**
+     * This error is a bit too generic. But basically handles the
+     * case where a crossover algorithm failed. This is mostly for
+     * debugging purposes.
+     *
+     * But it's possible a crossover error could occur with invalid
+     * genes.
+     */
+    public static class CrossoverFailed extends Error {
+        public CrossoverFailed() {}
+        public CrossoverFailed(String msg) {
             super(msg);
         }
     }

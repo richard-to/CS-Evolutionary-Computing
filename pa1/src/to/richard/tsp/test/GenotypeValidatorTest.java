@@ -1,6 +1,7 @@
 package to.richard.tsp.test;
 
 import org.junit.Test;
+import to.richard.tsp.Allele;
 import to.richard.tsp.CostMatrix;
 import to.richard.tsp.Genotype;
 import to.richard.tsp.GenotypeValidator;
@@ -19,7 +20,7 @@ public class GenotypeValidatorTest {
     public void testValidateTrue() throws Exception {
         int[][] costMatrixArray = {{20, 30, 10}, {40, 21, 23}, {42, 11, 101}};
         CostMatrix costMatrix = new CostMatrix(costMatrixArray);
-        Genotype genotype = new Genotype(new int[]{1, 2});
+        Genotype genotype = new Genotype(new Allele[]{new Allele(1), new Allele(2)});
         GenotypeValidator genotypeValidator = new GenotypeValidator(costMatrix);
         assertEquals(true, genotypeValidator.validate(genotype));
     }
@@ -28,8 +29,8 @@ public class GenotypeValidatorTest {
     public void testValidateTrueList() throws Exception {
         int[][] costMatrixArray = {{20, 30, 10}, {40, 21, 10}, {42, 11, 101}};
         CostMatrix costMatrix = new CostMatrix(costMatrixArray);
-        Genotype genotype = new Genotype(new int[]{1, 2});
-        Genotype genotype2 = new Genotype(new int[]{2, 1});
+        Genotype genotype = new Genotype(new Allele[]{new Allele(1), new Allele(2)});
+        Genotype genotype2 = new Genotype(new Allele[]{new Allele(2), new Allele(1)});
         GenotypeValidator genotypeValidator = new GenotypeValidator(costMatrix);
         assertEquals(true, genotypeValidator.validate(
                 Arrays.asList(new Genotype[]{genotype2, genotype})));
@@ -39,8 +40,8 @@ public class GenotypeValidatorTest {
     public void testValidateFalseList() throws Exception {
         int[][] costMatrixArray = {{20, 30, 10}, {40, 21, 23}, {42, 11, 101}};
         CostMatrix costMatrix = new CostMatrix(costMatrixArray);
-        Genotype genotype = new Genotype(new int[]{1, 0});
-        Genotype genotype2 = new Genotype(new int[]{0, 3});
+        Genotype genotype = new Genotype(new Allele[]{new Allele(1), new Allele(0)});
+        Genotype genotype2 = new Genotype(new Allele[]{new Allele(0), new Allele(3)});
         GenotypeValidator genotypeValidator = new GenotypeValidator(costMatrix);
         assertEquals(false, genotypeValidator.validate(
                 Arrays.asList(new Genotype[]{genotype2, genotype})));
@@ -50,7 +51,7 @@ public class GenotypeValidatorTest {
     public void testValidateFalseLength() throws Exception {
         int[][] costMatrixArray = {{20, 30, 10}, {40, 21, 23}, {42, 11, 101}};
         CostMatrix costMatrix = new CostMatrix(costMatrixArray);
-        Genotype genotype = new Genotype(new int[]{1, 2, 4});
+        Genotype genotype = new Genotype(new Allele[]{new Allele(1), new Allele(2), new Allele(4)});
         GenotypeValidator genotypeValidator = new GenotypeValidator(costMatrix);
         assertEquals(false, genotypeValidator.validate(genotype));
     }
@@ -59,7 +60,7 @@ public class GenotypeValidatorTest {
     public void testValidateFalseAllele() throws Exception {
         int[][] costMatrixArray = {{20, 30, 10}, {40, 21, 23}, {42, 11, 101}};
         CostMatrix costMatrix = new CostMatrix(costMatrixArray);
-        Genotype genotype = new Genotype(new int[]{1, 3});
+        Genotype genotype = new Genotype(new Allele[]{new Allele(1), new Allele(3)});
         GenotypeValidator genotypeValidator = new GenotypeValidator(costMatrix);
         assertEquals(false, genotypeValidator.validate(genotype));
     }
@@ -68,7 +69,7 @@ public class GenotypeValidatorTest {
     public void testValidateFalseDupes() throws Exception {
         int[][] costMatrixArray = {{20, 30, 10}, {40, 21, 24}, {42, 11, 101}};
         CostMatrix costMatrix = new CostMatrix(costMatrixArray);
-        Genotype genotype = new Genotype(new int[]{1, 1});
+        Genotype genotype = new Genotype(new Allele[]{new Allele(1), new Allele(1)});
         GenotypeValidator genotypeValidator = new GenotypeValidator(costMatrix);
         assertEquals(false, genotypeValidator.validate(genotype));
     }

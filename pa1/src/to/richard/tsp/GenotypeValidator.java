@@ -27,7 +27,7 @@ import java.util.List;
 public class GenotypeValidator {
 
     private int _geneLength;
-    private HashSet<Integer> _alleleValueSet;
+    private HashSet<Allele> _alleleValueSet;
 
     /**
      * Constructor accepts a cost matrix, which will
@@ -35,10 +35,10 @@ public class GenotypeValidator {
      * criteria (length, valid alleles, distinctness)
      */
     public GenotypeValidator(CostMatrix costMatrix) {
-        _alleleValueSet = new HashSet<Integer>();
-        int[] alleles = costMatrix.getAlleles();
-        for (int i = 0; i < alleles.length; i++) {
-            _alleleValueSet.add(alleles[i]);
+        _alleleValueSet = new HashSet<Allele>();
+        Allele[] alleles = costMatrix.getAlleles();
+        for (Allele allele : alleles) {
+            _alleleValueSet.add(allele);
         }
         _geneLength = _alleleValueSet.size();
     }
@@ -48,7 +48,7 @@ public class GenotypeValidator {
     }
 
     public boolean validate(List<Genotype> genotypes) {
-        HashSet<Integer> duplicationCheck = new HashSet<Integer>();
+        HashSet<Allele> duplicationCheck = new HashSet<Allele>();
         for (Genotype genotype : genotypes) {
             duplicationCheck.clear();
 
@@ -56,7 +56,7 @@ public class GenotypeValidator {
                 return false;
             }
 
-            for (int allele : genotype) {
+            for (Allele allele : genotype) {
                 if (!_alleleValueSet.contains(allele)) {
                     return false;
                 }

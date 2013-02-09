@@ -61,31 +61,25 @@ public class CostMatrix {
     }
 
     /**
-     * Gets the cost of two allele pairs. First allele corresponds to rows,
+     * Gets the cost of two allele value pairs. First allele corresponds to rows,
      * and second allele corresponds to columns.
      *
      * An error is thrown is alleles are out of bounds of matrix.
      */
-    public int getCost(int firstAllele, int secondAllele) {
-        if (firstAllele < 0 || firstAllele >= _matrix.length || secondAllele < 0 || secondAllele >= _matrix.length) {
-            throw new IndexOutOfBoundsException();
-        }
-        return _matrix[firstAllele][secondAllele];
+    public double getCost(Allele firstAllele, Allele secondAllele) {
+        return _matrix[firstAllele.getValue()][secondAllele.getValue()];
     }
 
     /**
      * Gets the name of the allele.
-     * If no allele name is provided, the index will be returned as the name of the allele.
+     * If no allele name is provided, the allele value will be returned as
+     * the name of the allele.
      */
-    public String getAlleleName(int alleleIndex)  {
-        if (_alleleNames != null && (alleleIndex < 0 || alleleIndex >= _alleleNames.length)) {
-            throw new IndexOutOfBoundsException();
-        }
-
+    public String getAlleleName(Allele allele)  {
         if (_alleleNames != null) {
-            return new String(_alleleNames[alleleIndex]);
+            return new String(_alleleNames[allele.getValue()]);
         } else {
-            return Integer.toString(alleleIndex);
+            return Integer.toString(allele.getValue());
         }
     }
 
@@ -101,11 +95,11 @@ public class CostMatrix {
      *
      * This helps avoid mistakenly generating an array with the 0 index included.
      */
-    public int[] getAlleles() {
-        int[] cities = new int[_matrix.length - 1];
+    public Allele[] getAlleles() {
+        Allele[] alleles = new Allele[_matrix.length - 1];
         for (int i = 1; i < _matrix.length; i++) {
-            cities[i - 1] = i;
+            alleles[i - 1] = new Allele(i);
         }
-        return cities;
+        return alleles;
     }
 }

@@ -12,6 +12,12 @@ import java.util.Arrays;
  * built incrementally and modified.
  *
  * This is useful for Recombination, Mutation, etc.
+ *
+ * Currently there is the issue of using alleles that are
+ * primitive integers. This prevents the use of nulls,
+ * and forces 0 to be considered an empty value.
+ *
+ * This may not work for all cases. Maybe add an Allele class.
  */
 public class MutableGenotype extends Genotype {
 
@@ -20,13 +26,13 @@ public class MutableGenotype extends Genotype {
      * since this is not mutable.
      */
     public MutableGenotype(int length) {
-        _genes = new int[length];
+        _genes = new Allele[length];
     }
 
     /**
      * Construct a genotype with allele values for genes.
      */
-    public MutableGenotype(int[] alleles) {
+    public MutableGenotype(Allele[] alleles) {
         super(alleles);
     }
 
@@ -43,7 +49,7 @@ public class MutableGenotype extends Genotype {
      * The length of alleles must match length of genes. If not
      * an error is thrown.
      */
-    public void setAlleles(int[] alleles) {
+    public void setAlleles(Allele[] alleles) {
         if (alleles.length != _genes.length) {
             throw new Errors.AllelesDoNotMatchGenes();
         }
@@ -56,12 +62,20 @@ public class MutableGenotype extends Genotype {
      *
      * If index is out of bounds, an error is thrown.
      */
-    public void setAllele(int value, int geneIndex) {
+    public void setAllele(Allele value, int geneIndex) {
         if (geneIndex < 0 || geneIndex >= _genes.length) {
             throw new IndexOutOfBoundsException();
         }
         _genes[geneIndex] = value;
         _genotypeString = buildGenotypeString(_genes);
+    }
+
+    /**
+     * Checks if an allele exists.
+     */
+    public boolean hasAllele(int pos) {
+        Allele allele = getAllele(pos);
+        return (allele.getValue() > 0) ? true : false;
     }
 
     /**

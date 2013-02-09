@@ -29,14 +29,14 @@ public class FitnessEvaluator {
     }
 
     public double evaluate(Genotype genotype) {
-        int home = 0;
-        int fromAllele = home;
+        Allele home = new Allele(0);
+        Allele fromAllele = home;
         double fitness = 0.0;
 
         if (fitnessCache.containsKey(genotype.toString())) {
             fitness = fitnessCache.get(genotype.toString());
         } else {
-            for (int toAllele : genotype) {
+            for (Allele toAllele : genotype) {
                 fitness += _costMatrix.getCost(fromAllele, toAllele);
                 fromAllele = toAllele;
             }
