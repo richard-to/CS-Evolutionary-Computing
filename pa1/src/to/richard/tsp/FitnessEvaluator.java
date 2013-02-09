@@ -21,11 +21,11 @@ import java.util.List;
  */
 public class FitnessEvaluator {
     private CostMatrix _costMatrix;
-    private HashMap<String, Double> fitnessCache;
+    private HashMap<Genotype, Double> fitnessCache;
 
     public FitnessEvaluator(CostMatrix costMatrix) {
         _costMatrix = costMatrix;
-        fitnessCache = new HashMap<String, Double>();
+        fitnessCache = new HashMap<Genotype, Double>();
     }
 
     public double evaluate(Genotype genotype) {
@@ -33,15 +33,15 @@ public class FitnessEvaluator {
         Allele fromAllele = home;
         double fitness = 0.0;
 
-        if (fitnessCache.containsKey(genotype.toString())) {
-            fitness = fitnessCache.get(genotype.toString());
+        if (fitnessCache.containsKey(genotype)) {
+            fitness = fitnessCache.get(genotype);
         } else {
             for (Allele toAllele : genotype) {
                 fitness += _costMatrix.getCost(fromAllele, toAllele);
                 fromAllele = toAllele;
             }
             fitness += _costMatrix.getCost(fromAllele, home);
-            fitnessCache.put(genotype.toString(), fitness);
+            fitnessCache.put(genotype, fitness);
         }
         return fitness;
     }
