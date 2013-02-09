@@ -28,7 +28,7 @@ public class GenotypeValidator {
 
     private int _geneLength;
     private HashSet<Allele> _alleleValueSet;
-
+    private HashSet<Genotype> _genotypeCache;
     /**
      * Constructor accepts a cost matrix, which will
      * allow the validator to get the needed validation
@@ -36,6 +36,7 @@ public class GenotypeValidator {
      */
     public GenotypeValidator(CostMatrix costMatrix) {
         _alleleValueSet = new HashSet<Allele>();
+        _genotypeCache = new HashSet<Genotype>();
         Allele[] alleles = costMatrix.getAlleles();
         for (Allele allele : alleles) {
             _alleleValueSet.add(allele);
@@ -50,20 +51,23 @@ public class GenotypeValidator {
     public boolean validate(List<Genotype> genotypes) {
         HashSet<Allele> duplicationCheck = new HashSet<Allele>();
         for (Genotype genotype : genotypes) {
-            duplicationCheck.clear();
+            if (!_genotypeCache.contains(genotype)) {
+                duplicationCheck.clear();
 
-            if (genotype.length() != _geneLength) {
-                return false;
-            }
-
-            for (Allele allele : genotype) {
-                if (!_alleleValueSet.contains(allele)) {
+                if (genotype.length() != _geneLength) {
                     return false;
                 }
 
-                if (!duplicationCheck.add(allele)) {
-                    return false;
+                for (Allele allele : genotype) {
+                    if (!_alleleValueSet.contains(allele)) {
+                        return false;
+                    }
+
+                    if (!duplicationCheck.add(allele)) {
+                        return false;
+                    }
                 }
+                _genotypeCache.add(genotype);
             }
         }
         return true;
