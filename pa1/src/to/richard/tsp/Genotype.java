@@ -112,8 +112,14 @@ public class Genotype implements Iterable<Allele> {
     /**
      * Gets the gene sequence in string format. Returns a copy of the string.
      */
+    @Override
     public String toString() {
         return new String(_genotypeString);
+    }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
     }
 
     /**
