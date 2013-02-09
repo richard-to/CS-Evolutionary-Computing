@@ -84,7 +84,7 @@ public class Genotype implements Iterable<Allele> {
      * Finds the allele and returns the gene position.
      * If allele is not found. Throw an error.
      */
-    public Integer findAllele(Allele allele) {
+    public int findAllele(Allele allele) {
         Integer position = null;
         Allele currentAllele = null;
         for (int i = 0; i < _genes.length; i++) {
