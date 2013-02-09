@@ -1,6 +1,9 @@
 package to.richard.tsp;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Author: Richard To
@@ -25,17 +28,15 @@ import java.util.List;
  * 6. Creating O2 is the same as creating O1. The difference is we start with P1.
  */
 public class PartiallyMappedCrossover implements ICrossoverOperator {
+
+    private int _numberOfOffspring = 2;
+
+    public int numberOfOffspring() {
+        return _numberOfOffspring;
+    }
+
     public List<Genotype> crossover(Genotype genotype1, Genotype genotype2, IRandom random) {
-        int start = random.nextInt(genotype1.length());
-        int end = random.nextInt(genotype1.length());
 
-        if (start > end) {
-            int temp = start;
-            start = end;
-            end = temp;
-        }
-
-        MutableGenotype offspring1 = new MutableGenotype(genotype1.length());
-
+        return null;
     }
 }
