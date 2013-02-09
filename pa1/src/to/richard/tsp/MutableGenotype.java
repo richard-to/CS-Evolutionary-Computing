@@ -27,6 +27,7 @@ public class MutableGenotype extends Genotype {
      */
     public MutableGenotype(int length) {
         _genes = new Allele[length];
+        _genotypeString = buildGenotypeString(_genes);
     }
 
     /**
@@ -70,12 +71,14 @@ public class MutableGenotype extends Genotype {
         _genotypeString = buildGenotypeString(_genes);
     }
 
+
     /**
-     * Checks if an allele exists.
+     * Checks if an allele exists. If position is out of bounds, an
+     * ArrayIndexOutOfBounds exception will be thrown.
      */
-    public boolean hasAllele(int pos) {
+    public boolean hasAlleleAt(int pos) {
         Allele allele = getAllele(pos);
-        return (allele.getValue() > 0) ? true : false;
+        return (allele != null) ? true : false;
     }
 
     /**

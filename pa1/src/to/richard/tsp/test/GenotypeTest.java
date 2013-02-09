@@ -100,4 +100,39 @@ public class GenotypeTest {
         }
         assertEquals(expectedAlleles[4], visitedAlleles.get(4));
     }
+
+    @Test
+    public void testFindAllele() {
+        Allele[] alleles = {new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)};
+        Genotype genotype = new Genotype(alleles);
+        int index = genotype.findAllele(new Allele(2));
+        assertEquals(new Allele(2), genotype.getAllele(index));
+    }
+
+    @Test(expected = Errors.AlleleNotFound.class)
+    public void testFindAlleleNotFound() {
+        Allele[] alleles = {new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)};
+        Genotype genotype = new Genotype(alleles);
+        int index = genotype.findAllele(new Allele(10));
+    }
+
+    @Test
+    public void testGenotypeToString() {
+        Allele[] alleles = {new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)};
+        Genotype genotype = new Genotype(alleles);
+        assertEquals("01234", genotype.toString());
+    }
+
+    @Test
+    public void testMutableGenotypeToString() {
+        MutableGenotype genotype = new MutableGenotype(3);
+        assertEquals("___", genotype.toString());
+    }
+
+    @Test
+    public void testHasAllele() {
+        Allele[] alleles = {new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)};
+        MutableGenotype genotype = new MutableGenotype(3);
+        assertEquals(false, genotype.hasAlleleAt(2));
+    }
 }
