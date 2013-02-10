@@ -258,4 +258,35 @@ public class RecombinatorTest {
 
         assertEquals("156287394", newGenotypes.get(0).toString());
     }
+
+    @Test
+    public void testRecombineEXwithRecombinator() throws Exception {
+        double Pc = .3;
+        EdgeCrossover ex = new EdgeCrossover();
+        MockRandom random = new MockRandom();
+        ArrayList<Double> sequence = new ArrayList<Double>(Arrays.asList(
+                new Double[]{.5, .2, .94, .31}));
+        ArrayList<Integer> sequenceInt = new ArrayList<Integer>(Arrays.asList(
+                new Integer[]{0,0,1}));
+        random.setDoubleSequence(sequence);
+        random.setIntegerSequence(sequenceInt);
+        Recombinator recombinator = new Recombinator(Pc, ex, random);
+
+        ArrayList<Genotype> genotypes = new ArrayList<Genotype>() {{
+            add(new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                    new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)}));
+            add(new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                    new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)}));
+            add(new Genotype(new Allele[]{new Allele(9),new Allele(3),new Allele(7),
+                    new Allele(8),new Allele(2),new Allele(6),new Allele(5),new Allele(1),new Allele(4)}));
+            add(new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                    new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)}));
+        }};
+        List<Genotype> newGenotypes = recombinator.recombine(genotypes);
+
+        assertEquals("123456789", newGenotypes.get(0).toString());
+        assertEquals("156287394", newGenotypes.get(1).toString());
+        assertEquals("937826514", newGenotypes.get(2).toString());
+        assertEquals("123456789", newGenotypes.get(3).toString());
+    }
 }
