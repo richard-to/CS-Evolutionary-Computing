@@ -44,4 +44,9 @@ public class FitnessEvaluator {
         }
         return fitness;
     }
+
+    public Pair<Double, Genotype> evaluateAsPair(Genotype genotype) {
+        double fitness = evaluate(genotype);
+        return new Pair<Double, Genotype>(fitness, genotype);
+    }
 }
