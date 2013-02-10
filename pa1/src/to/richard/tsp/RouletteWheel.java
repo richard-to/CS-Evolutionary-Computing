@@ -24,7 +24,9 @@ import java.util.TreeMap;
  */
 public class RouletteWheel<E> implements ISampler<E> {
 
-    private IRandom _random;
+    protected IRandom _random;
+
+    protected RouletteWheel() {}
 
     /**
      * Constructs a roulette wheel to randomly select objects, based on their weight.
