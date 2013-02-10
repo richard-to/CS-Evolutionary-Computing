@@ -20,11 +20,10 @@ import java.util.List;
  */
 public class OrderCrossover implements ICrossoverOperator {
 
-    private int _numberOfOffspring = 2;
-
-    public int numberOfOffspring() {
-        return _numberOfOffspring;
+    public Recombinator.OFFSPRING numberOfOffspring() {
+        return Recombinator.OFFSPRING.PAIR;
     }
+
     public List<Genotype> crossover(Genotype genotype1, Genotype genotype2, IRandom random) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }

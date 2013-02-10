@@ -22,10 +22,8 @@ import java.util.List;
  */
 public class EdgeCrossover implements ICrossoverOperator {
 
-    private int _numberOfOffspring = 1;
-
-    public int numberOfOffspring() {
-        return _numberOfOffspring;
+    public Recombinator.OFFSPRING numberOfOffspring() {
+        return Recombinator.OFFSPRING.SINGLE;
     }
 
     public List<Genotype> crossover(Genotype genotype1, Genotype genotype2, IRandom random) {

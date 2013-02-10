@@ -19,10 +19,8 @@ import java.util.List;
  * 7. For every other cycle, swap alleles.
  */
 public class CycleCrossover implements ICrossoverOperator {
-    private int _numberOfOffspring = 2;
-
-    public int numberOfOffspring() {
-        return _numberOfOffspring;
+    public Recombinator.OFFSPRING numberOfOffspring() {
+        return Recombinator.OFFSPRING.PAIR;
     }
 
     public List<Genotype> crossover(Genotype genotype1, Genotype genotype2, IRandom random) {
