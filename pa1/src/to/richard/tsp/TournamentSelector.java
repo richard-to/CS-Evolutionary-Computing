@@ -17,6 +17,9 @@ import java.util.List;
  *
  * Population size is currently determined by the size of the genotype list
  * passed into the selectParents method.
+ *
+ * If tournament size less than 1 or greater than size of genotypes, an
+ * error will be thrown.
  */
 public class TournamentSelector implements ISelector {
     private IRandom _random;
@@ -26,6 +29,11 @@ public class TournamentSelector implements ISelector {
 
     public TournamentSelector(int tournamentSize, FitnessEvaluator fitnessEvaluator,
                               IFitnessComparator fitnessComparator, IRandom random) {
+
+        if (tournamentSize < 1) {
+            throw new Errors.TournamentSizeOutOfBounds("Minimum tournament size can't be less than 1.");
+        }
+
         _tournamentSize = tournamentSize;
         _fitnessEvaluator = fitnessEvaluator;
         _fitnessComparator = fitnessComparator;
@@ -33,6 +41,15 @@ public class TournamentSelector implements ISelector {
     }
 
     public List<Genotype> selectParents(List<Genotype> genotypes) {
+
+        if (_tournamentSize > genotypes.size()) {
+            throw new Errors.TournamentSizeOutOfBounds("Maximum tournament size can't be greater than population.");
+        }
+
+        if (genotypes.size() == 1) {
+            return genotypes;
+        }
+
         int populationSize = genotypes.size();
         ArrayList<Genotype> parentGenotypes = new ArrayList<Genotype>();
         ArrayList<Pair<Double, Genotype>> tournament = new ArrayList<Pair<Double, Genotype>>();
