@@ -240,4 +240,22 @@ public class RecombinatorTest {
         assertEquals("123856749", newGenotypes.get(0).toString());
         assertEquals("523419786", newGenotypes.get(1).toString());
     }
+
+    @Test
+    public void testRecombineEXBookExample() throws Exception {
+
+        MockRandom random = new MockRandom();
+        ArrayList<Integer> sequenceInt = new ArrayList<Integer>(Arrays.asList(
+                new Integer[]{0,0,1}));
+        random.setIntegerSequence(sequenceInt);
+        EdgeCrossover crossover = new EdgeCrossover();
+
+        Genotype g1 = new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)});
+        Genotype g2 = new Genotype(new Allele[]{new Allele(9),new Allele(3),new Allele(7),
+                new Allele(8),new Allele(2),new Allele(6),new Allele(5),new Allele(1),new Allele(4)});
+        List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
+
+        assertEquals("156287394", newGenotypes.get(0).toString());
+    }
 }
