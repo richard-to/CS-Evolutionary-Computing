@@ -132,6 +132,9 @@ public class EdgeCrossover implements ICrossoverOperator {
                 if (shortestEdgeLists.size() == 1) {
                     currentAllele = shortestEdgeLists.get(0);
                 } else if (shortestEdgeLists.size() > 1) {
+                    /**
+                     * Breaks ties by randomly selecting allele.
+                     */
                     alleleIndex = random.nextInt(shortestEdgeLists.size());
                     currentAllele = shortestEdgeLists.get(alleleIndex);
                 }
