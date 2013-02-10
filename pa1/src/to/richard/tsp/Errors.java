@@ -79,4 +79,11 @@ public class Errors {
             super(msg);
         }
     }
+
+    public static class TournamentSizeOutOfBounds extends Error {
+        public TournamentSizeOutOfBounds() {}
+        public TournamentSizeOutOfBounds(String msg) {
+            super(msg);
+        }
+    }
 }
