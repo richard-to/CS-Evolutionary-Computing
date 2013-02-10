@@ -120,4 +120,61 @@ public class RecombinatorTest {
 
         assertEquals("932456718", newGenotypes.get(0).toString());
     }
+
+    @Test
+    public void testRecombineOXBookExample() throws Exception {
+
+        MockRandom random = new MockRandom();
+        ArrayList<Integer> sequenceInt = new ArrayList<Integer>(Arrays.asList(
+                new Integer[]{2,7}));
+        random.setIntegerSequence(sequenceInt);
+
+        OrderCrossover crossover = new OrderCrossover();
+
+        Genotype g1 = new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)});
+        Genotype g2 = new Genotype(new Allele[]{new Allele(9),new Allele(3),new Allele(7),
+                new Allele(8),new Allele(2),new Allele(6),new Allele(5),new Allele(1),new Allele(4)});
+        List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
+
+        assertEquals("382456719", newGenotypes.get(0).toString());
+    }
+
+    @Test
+    public void testRecombineOX() throws Exception {
+
+        MockRandom random = new MockRandom();
+        ArrayList<Integer> sequenceInt = new ArrayList<Integer>(Arrays.asList(
+                new Integer[]{3,4}));
+        random.setIntegerSequence(sequenceInt);
+
+        OrderCrossover crossover = new OrderCrossover();
+
+        Genotype g1 = new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)});
+        Genotype g2 = new Genotype(new Allele[]{new Allele(9),new Allele(3),new Allele(7),
+                new Allele(8),new Allele(2),new Allele(6),new Allele(5),new Allele(1),new Allele(4)});
+        List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
+
+        assertEquals("937826514", newGenotypes.get(0).toString());
+    }
+
+    @Test
+    public void testRecombineOX2() throws Exception {
+
+        MockRandom random = new MockRandom();
+        ArrayList<Integer> sequenceInt = new ArrayList<Integer>(Arrays.asList(
+                new Integer[]{4,8}));
+        random.setIntegerSequence(sequenceInt);
+
+        OrderCrossover crossover = new OrderCrossover();
+
+        Genotype g1 = new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)});
+        Genotype g2 = new Genotype(new Allele[]{new Allele(9),new Allele(3),new Allele(7),
+                new Allele(8),new Allele(2),new Allele(4),new Allele(5),new Allele(1),new Allele(6)});
+        List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
+
+        assertEquals("324516789", newGenotypes.get(0).toString());
+    }
 }
