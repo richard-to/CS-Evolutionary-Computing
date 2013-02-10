@@ -6,6 +6,7 @@ package to.richard.tsp;
  */
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class GenotypeValidator {
 
     private int _geneLength;
     private HashSet<Allele> _alleleValueSet;
-    private HashSet<Genotype> _genotypeCache;
+    private HashMap<Genotype, Boolean> _genotypeCache;
     /**
      * Constructor accepts a cost matrix, which will
      * allow the validator to get the needed validation
@@ -36,7 +37,7 @@ public class GenotypeValidator {
      */
     public GenotypeValidator(CostMatrix costMatrix) {
         _alleleValueSet = new HashSet<Allele>();
-        _genotypeCache = new HashSet<Genotype>();
+        _genotypeCache = new HashMap<Genotype, Boolean>();
         Allele[] alleles = costMatrix.getAlleles();
         for (Allele allele : alleles) {
             _alleleValueSet.add(allele);
@@ -50,24 +51,37 @@ public class GenotypeValidator {
 
     public boolean validate(List<Genotype> genotypes) {
         HashSet<Allele> duplicationCheck = new HashSet<Allele>();
+        boolean valid = true;
         for (Genotype genotype : genotypes) {
-            if (!_genotypeCache.contains(genotype)) {
+            valid = true;
+            if (!_genotypeCache.containsKey(genotype)) {
                 duplicationCheck.clear();
 
                 if (genotype.length() != _geneLength) {
+                    valid = false;
+
+                } else {
+                    for (Allele allele : genotype) {
+                        if (!_alleleValueSet.contains(allele)) {
+                           valid = false;
+                           break;
+                        }
+
+                        if (!duplicationCheck.add(allele)) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+                _genotypeCache.put(genotype, valid);
+                if (valid == false) {
                     return false;
                 }
-
-                for (Allele allele : genotype) {
-                    if (!_alleleValueSet.contains(allele)) {
-                        return false;
-                    }
-
-                    if (!duplicationCheck.add(allele)) {
-                        return false;
-                    }
+            } else {
+                valid = _genotypeCache.get(genotype);
+                if (!valid) {
+                    return false;
                 }
-                _genotypeCache.add(genotype);
             }
         }
         return true;
