@@ -1,5 +1,8 @@
 package to.richard.tsp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -25,6 +28,68 @@ public class OrderCrossover implements ICrossoverOperator {
     }
 
     public List<Genotype> crossover(Genotype genotype1, Genotype genotype2, IRandom random) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+
+        if (genotype1.equals(genotype2)) {
+            return Arrays.asList(new Genotype[]{genotype1, genotype2});
+        }
+
+        int genotypeLength = genotype1.length();
+
+        ArrayList<Genotype> newOffspring = new ArrayList<Genotype>();
+
+        /**
+         * Select two crossover boundaries. Exclusive.
+         */
+        int start = random.nextInt(genotypeLength);
+        int end = random.nextInt(genotypeLength);
+        int temp;
+        if (start > end) {
+            temp = start;
+            start = end;
+            end = temp;
+        }
+
+        newOffspring.add(crossover(genotype1, genotype2, start, end));
+        newOffspring.add(crossover(genotype2, genotype1, start, end));
+        return newOffspring;
+    }
+
+    private Genotype crossover(Genotype parent1, Genotype parent2, int start, int end) {
+        int genotypeLength = parent1.length();
+
+        MutableGenotype offspring = new MutableGenotype(genotypeLength);
+        HashSet<Allele> inheritedAlleles = new HashSet<Allele>();
+
+        int offspringGenePosition = end;
+        int p2GenePosition = end;
+        int genePositionCount = 0;
+        Allele currentAllele = null;
+
+        /**
+         * Add alleles between selected crossover boundaries to offspring.
+         */
+        for (int i = start + 1; i < end; i++) {
+            inheritedAlleles.add(parent1.getAllele(i));
+            offspring.setAllele(parent1.getAllele(i), i);
+        }
+
+        /**
+         * Cycle through p2 from crossover point 2 (wrap to beginning). If not in offspring,
+         * add to gene position starting from end.
+         *
+         * If allele is added, the gene position is incremented. Wraps to beginning
+         * once it gets to the end.
+         */
+        while (genePositionCount < genotypeLength) {
+            currentAllele = parent2.getAllele(p2GenePosition);
+            if (!inheritedAlleles.contains(currentAllele)) {
+                offspring.setAllele(currentAllele, offspringGenePosition);
+                offspringGenePosition = (offspringGenePosition + 1) % genotypeLength;
+            }
+            genePositionCount++;
+            p2GenePosition = (p2GenePosition + 1) % genotypeLength;
+        }
+
+        return offspring;
     }
 }
