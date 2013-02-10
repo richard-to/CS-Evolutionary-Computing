@@ -67,6 +67,6 @@ public class TournamentSelector implements ISelector {
             }
             parentGenotypes.add(mostFitGenotype.getSecondValue());
         }
-        return (List<Genotype>)parentGenotypes;
+        return parentGenotypes;
     }
 }

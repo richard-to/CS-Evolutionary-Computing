@@ -64,6 +64,6 @@ public class FitnessProportionateSelector implements ISelector {
             fitness = _fitnessEvaluator.evaluate(genotype);
             fitnessPairs.add(new Pair<Double, Genotype>(fitness, genotype));
         }
-        return (List<Genotype>)_sampler.sample(fitnessPairs, populationSize);
+        return _sampler.sample(fitnessPairs, populationSize);
     }
 }
