@@ -20,7 +20,7 @@ public class RecombinatorTest {
         PartiallyMappedCrossover pmx = new PartiallyMappedCrossover();
         MockRandom random = new MockRandom();
         ArrayList<Double> sequence = new ArrayList<Double>(Arrays.asList(
-                new Double[]{.6}));
+                new Double[]{.6, .94}));
         ArrayList<Integer> sequenceInt = new ArrayList<Integer>(Arrays.asList(
                 new Integer[]{1,5}));
         random.setDoubleSequence(sequence);
@@ -28,6 +28,10 @@ public class RecombinatorTest {
         Recombinator recombinator = new Recombinator(Pc, pmx, random);
 
         ArrayList<Genotype> genotypes = new ArrayList<Genotype>() {{
+            add(new Genotype(new Allele[]{new Allele(0),new Allele(1),new Allele(2),
+                    new Allele(3),new Allele(4),new Allele(5),new Allele(6)}));
+            add(new Genotype(new Allele[]{new Allele(0),new Allele(1),new Allele(5),
+                    new Allele(3),new Allele(4),new Allele(6),new Allele(2)}));
             add(new Genotype(new Allele[]{new Allele(0),new Allele(1),new Allele(2),
                     new Allele(3),new Allele(4),new Allele(5),new Allele(6)}));
             add(new Genotype(new Allele[]{new Allele(0),new Allele(1),new Allele(5),
@@ -43,5 +47,7 @@ public class RecombinatorTest {
         // 02 - 0153426
         assertEquals("0123465", newGenotypes.get(0).toString());
         assertEquals("0153426", newGenotypes.get(1).toString());
+        assertEquals("0123456", newGenotypes.get(2).toString());
+        assertEquals("0153462", newGenotypes.get(3).toString());
     }
 }
