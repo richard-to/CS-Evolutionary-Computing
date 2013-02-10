@@ -79,7 +79,7 @@ public class Recombinator {
             if (probability < _recombinationRate) {
                 newGenotypes.addAll(_crossoverOperator.crossover(genotypes.get(index1), genotypes.get(index2), _random));
             } else {
-                for (int g = 0; g < offSpringPerCrossover; i++) {
+                for (int g = 0; g < offSpringPerCrossover; g++) {
                     newGenotypes.add(genotypes.get(index1 + g));
                 }
             }
