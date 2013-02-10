@@ -89,6 +89,7 @@ public class PartiallyMappedCrossover implements ICrossoverOperator {
                  */
                 genePositionCount = 0;
                 tempGenePosition = i;
+
                 /**
                  * Look at the allele in the same position as parent2 in offspring1.
                  * Take that allele value and find its position in parent2.
