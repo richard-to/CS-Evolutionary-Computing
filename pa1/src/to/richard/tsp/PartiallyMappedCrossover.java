@@ -70,7 +70,7 @@ public class PartiallyMappedCrossover implements ICrossoverOperator {
         int genePositionCount = 0;
         Integer tempGenePosition = null;
         Allele currentAllele = null;
-
+        Allele tempAllele = null;
 
         /**
          * Add alleles between selected crossover boundaries to offspring.
@@ -89,7 +89,6 @@ public class PartiallyMappedCrossover implements ICrossoverOperator {
                  */
                 genePositionCount = 0;
                 tempGenePosition = i;
-
                 /**
                  * Look at the allele in the same position as parent2 in offspring1.
                  * Take that allele value and find its position in parent2.
@@ -103,15 +102,16 @@ public class PartiallyMappedCrossover implements ICrossoverOperator {
                  * is correct and the genotypes are valid.
                  */
                 while (genePositionCount < genotypeLength) {
-                    tempGenePosition = parent2.findAllele(offspring.getAllele(i));
-                    if (offspring.hasAlleleAt(tempGenePosition)) {
+                    tempAllele = offspring.getAllele(tempGenePosition);
+                    tempGenePosition = parent2.findAllele(tempAllele);
+                    if (!offspring.hasAlleleAt(tempGenePosition)) {
                         break;
                     } else {
                         genePositionCount++;
                     }
                 }
 
-                if (genePositionCount < genotypeLength) {
+                if (genePositionCount >= genotypeLength) {
                     throw new Errors.CrossoverFailed("Could not find open gene position to place allele.");
                 }
 
