@@ -31,13 +31,13 @@ public class PartiallyMappedCrossover implements ICrossoverOperator {
     }
 
     public List<Genotype> crossover(
-            Genotype genotype1, Genotype genotype2, IRandom random) {
+            Genotype parent1, Genotype parent2, IRandom random) {
 
-        if (genotype1.equals(genotype2)) {
-            return Arrays.asList(new Genotype[]{genotype1, genotype2});
+        if (parent1.equals(parent2)) {
+            return Arrays.asList(new Genotype[]{parent1, parent2});
         }
 
-        int genotypeLength = genotype1.length();
+        int genotypeLength = parent1.length();
 
         ArrayList<Genotype> newOffspring = new ArrayList<Genotype>();
 
@@ -53,8 +53,8 @@ public class PartiallyMappedCrossover implements ICrossoverOperator {
             end = temp;
         }
 
-        newOffspring.add(crossover(genotype1, genotype2, start, end));
-        newOffspring.add(crossover(genotype2, genotype1, start, end));
+        newOffspring.add(crossover(parent1, parent2, start, end));
+        newOffspring.add(crossover(parent2, parent1, start, end));
         return newOffspring;
     }
 

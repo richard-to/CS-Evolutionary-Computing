@@ -26,12 +26,12 @@ public class CycleCrossover implements ICrossoverOperator {
         return Recombinator.OFFSPRING.PAIR;
     }
 
-    public List<Genotype> crossover(Genotype genotype1, Genotype genotype2, IRandom random) {
-        if (genotype1.equals(genotype2)) {
-            return Arrays.asList(new Genotype[]{genotype1, genotype2});
+    public List<Genotype> crossover(Genotype parent1, Genotype parent2, IRandom random) {
+        if (parent1.equals(parent2)) {
+            return Arrays.asList(new Genotype[]{parent1, parent2});
         }
 
-        int genotypeLength = genotype1.length();
+        int genotypeLength = parent1.length();
         ArrayList<Genotype> newOffspring = new ArrayList<Genotype>();
         MutableGenotype offspring1 = new MutableGenotype(genotypeLength);
         MutableGenotype offspring2 = new MutableGenotype(genotypeLength);
@@ -53,15 +53,15 @@ public class CycleCrossover implements ICrossoverOperator {
             if (!visitedGenePositions.contains(i)) {
                 currentCycle = new HashSet<Integer>();
                 currentCycle.add(i);
-                startAllele = genotype1.getAllele(i);
-                p2Allele = genotype2.getAllele(i);
+                startAllele = parent1.getAllele(i);
+                p2Allele = parent2.getAllele(i);
                 genePositionCount = 0;
                 while (!startAllele.equals(p2Allele) && genePositionCount < genotypeLength) {
                     genePositionCount++;
-                    nextPosition = genotype1.findAllele(p2Allele);
+                    nextPosition = parent1.findAllele(p2Allele);
                     visitedGenePositions.add(nextPosition);
                     currentCycle.add(nextPosition);
-                    p2Allele = genotype2.getAllele(nextPosition);
+                    p2Allele = parent2.getAllele(nextPosition);
                 }
 
                 if (genePositionCount >= genotypeLength) {
@@ -78,8 +78,8 @@ public class CycleCrossover implements ICrossoverOperator {
          */
         for (HashSet<Integer> cycle : cycleTable) {
             for (Integer position : cycle) {
-                p1Allele = genotype1.getAllele(position);
-                p2Allele = genotype2.getAllele(position);
+                p1Allele = parent1.getAllele(position);
+                p2Allele = parent2.getAllele(position);
                 if (crossCycle) {
                     offspring1.setAllele(p2Allele, position);
                     offspring2.setAllele(p1Allele, position);

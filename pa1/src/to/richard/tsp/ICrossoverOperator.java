@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface ICrossoverOperator {
     public Recombinator.OFFSPRING numberOfOffspring();
-    public List<Genotype> crossover(Genotype genotype1, Genotype genotype2, IRandom random);
+    public List<Genotype> crossover(Genotype parent1, Genotype parent2, IRandom random);
 }
