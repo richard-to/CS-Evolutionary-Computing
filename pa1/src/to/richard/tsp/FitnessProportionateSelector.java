@@ -36,14 +36,26 @@ public class FitnessProportionateSelector implements ISelector {
     private IRandom _random;
     private ISampler<Genotype> _sampler;
     private FitnessEvaluator _fitnessEvaluator;
+    private List<IFPSPreprocessor> _fitnessPreprocessors;
+
     public FitnessProportionateSelector(
-            IRandom random, ISampler<Genotype> sampler,
-            FitnessEvaluator fitnessEvaluator, List<IFPSPreprocessor> preprocessorList) {
+            FitnessEvaluator fitnessEvaluator, ISampler<Genotype> sampler, IRandom random) {
+        init(fitnessEvaluator, sampler, random, new ArrayList<IFPSPreprocessor>());
+    }
+
+    public FitnessProportionateSelector(
+            FitnessEvaluator fitnessEvaluator, ISampler<Genotype> sampler,
+            IRandom random,  List<IFPSPreprocessor> fitnessPreprocessors) {
+        init(fitnessEvaluator, sampler, random, fitnessPreprocessors);
+    }
+
+    private void init(FitnessEvaluator fitnessEvaluator, ISampler<Genotype> sampler,
+                 IRandom random, List<IFPSPreprocessor> fitnessPreprocessors) {
         _random = random;
         _sampler = sampler;
         _fitnessEvaluator = fitnessEvaluator;
+        _fitnessPreprocessors = fitnessPreprocessors;
     }
-
     public List<Genotype> selectParents(List<Genotype> genotypes) {
         int populationSize = genotypes.size();
         double fitness = 0.0;

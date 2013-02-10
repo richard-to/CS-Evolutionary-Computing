@@ -27,7 +27,7 @@ public class FitnessProportionateSelectorTest {
 
         FitnessEvaluator fitnessEvaluator = new FitnessEvaluator(costMatrix);
         FitnessProportionateSelector fps = new FitnessProportionateSelector(
-                random, wheel, fitnessEvaluator);
+                fitnessEvaluator, wheel, random);
 
         //82 + 61 = 143
         ArrayList<Genotype> genotypes = new ArrayList<Genotype>() {{
