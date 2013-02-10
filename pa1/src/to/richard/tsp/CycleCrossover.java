@@ -1,5 +1,8 @@
 package to.richard.tsp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -24,6 +27,73 @@ public class CycleCrossover implements ICrossoverOperator {
     }
 
     public List<Genotype> crossover(Genotype genotype1, Genotype genotype2, IRandom random) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        if (genotype1.equals(genotype2)) {
+            return Arrays.asList(new Genotype[]{genotype1, genotype2});
+        }
+
+        int genotypeLength = genotype1.length();
+        ArrayList<Genotype> newOffspring = new ArrayList<Genotype>();
+        MutableGenotype offspring1 = new MutableGenotype(genotypeLength);
+        MutableGenotype offspring2 = new MutableGenotype(genotypeLength);
+
+        ArrayList<HashSet<Integer>> cycleTable = new ArrayList<HashSet<Integer>>();
+        HashSet<Integer> currentCycle = null;
+        HashSet<Integer> visitedGenePositions = new HashSet<Integer>();
+        Allele startAllele = null;
+        Allele p1Allele = null;
+        Allele p2Allele = null;
+        int genePositionCount = 0;
+        int nextPosition = 0;
+        boolean crossCycle = false;
+
+        /**
+         * Find all cycles
+         */
+        for (int i = 0; i < genotypeLength; i++) {
+            if (!visitedGenePositions.contains(i)) {
+                currentCycle = new HashSet<Integer>();
+                currentCycle.add(i);
+                startAllele = genotype1.getAllele(i);
+                p2Allele = genotype2.getAllele(i);
+                genePositionCount = 0;
+                while (!startAllele.equals(p2Allele) && genePositionCount < genotypeLength) {
+                    genePositionCount++;
+                    nextPosition = genotype1.findAllele(p2Allele);
+                    visitedGenePositions.add(nextPosition);
+                    currentCycle.add(nextPosition);
+                    p2Allele = genotype2.getAllele(nextPosition);
+                }
+
+                if (genePositionCount >= genotypeLength) {
+                    throw new Errors.CrossoverFailed("Could not find cycle to complete cycle crossover");
+                }
+
+                cycleTable.add(currentCycle);
+            }
+        }
+
+        /**
+         * Go through all cycles in cycle table.
+         * Pattern goes same - swap - same - swap, etc.
+         */
+        for (HashSet<Integer> cycle : cycleTable) {
+            for (Integer position : cycle) {
+                p1Allele = genotype1.getAllele(position);
+                p2Allele = genotype2.getAllele(position);
+                if (crossCycle) {
+                    offspring1.setAllele(p2Allele, position);
+                    offspring2.setAllele(p1Allele, position);
+                } else {
+                    offspring1.setAllele(p1Allele, position);
+                    offspring2.setAllele(p2Allele, position);
+                }
+            }
+            crossCycle = (crossCycle) ? false : true;
+        }
+
+        newOffspring.add(offspring1);
+        newOffspring.add(offspring2);
+
+        return newOffspring;
     }
 }

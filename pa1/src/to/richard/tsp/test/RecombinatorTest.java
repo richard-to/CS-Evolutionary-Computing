@@ -177,4 +177,67 @@ public class RecombinatorTest {
 
         assertEquals("324516789", newGenotypes.get(0).toString());
     }
+
+    @Test
+    public void testRecombineCXBookExample() throws Exception {
+
+        MockRandom random = new MockRandom();
+        CycleCrossover crossover = new CycleCrossover();
+
+        Genotype g1 = new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)});
+        Genotype g2 = new Genotype(new Allele[]{new Allele(9),new Allele(3),new Allele(7),
+                new Allele(8),new Allele(2),new Allele(6),new Allele(5),new Allele(1),new Allele(4)});
+        List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
+
+        assertEquals("137426589", newGenotypes.get(0).toString());
+        assertEquals("923856714", newGenotypes.get(1).toString());
+    }
+
+    @Test
+    public void testRecombineCXSame() throws Exception {
+
+        MockRandom random = new MockRandom();
+        CycleCrossover crossover = new CycleCrossover();
+
+        Genotype g1 = new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)});
+        Genotype g2 = new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)});
+        List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
+
+        assertEquals("123456789", newGenotypes.get(0).toString());
+        assertEquals("123456789", newGenotypes.get(1).toString());
+    }
+
+    @Test
+    public void testRecombineCX() throws Exception {
+
+        MockRandom random = new MockRandom();
+        CycleCrossover crossover = new CycleCrossover();
+
+        Genotype g1 = new Genotype(new Allele[]{new Allele(1),new Allele(2),new Allele(3),
+                new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)});
+        Genotype g2 = new Genotype(new Allele[]{new Allele(5),new Allele(2),new Allele(3),
+                new Allele(8),new Allele(1),new Allele(9),new Allele(7),new Allele(4),new Allele(6)});
+        List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
+
+        // Parents
+        // 123456789
+        // 523819746
+        // Offspring
+        // X___X____
+        // 0, 4
+        // XX__X____ CROSS
+        // 1
+        // XXX_X____
+        // 2
+        // XXXXX__X_ CROSS
+        // 3,7
+        // XXXXXX_XX
+        // 5, 8
+        // 6         CROSS
+        assertEquals("123856749", newGenotypes.get(0).toString());
+        assertEquals("523419786", newGenotypes.get(1).toString());
+    }
 }
