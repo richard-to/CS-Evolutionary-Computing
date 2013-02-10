@@ -12,12 +12,6 @@ import java.util.Arrays;
  * built incrementally and modified.
  *
  * This is useful for Recombination, Mutation, etc.
- *
- * Currently there is the issue of using alleles that are
- * primitive integers. This prevents the use of nulls,
- * and forces 0 to be considered an empty value.
- *
- * This may not work for all cases. Maybe add an Allele class.
  */
 public class MutableGenotype extends Genotype {
 

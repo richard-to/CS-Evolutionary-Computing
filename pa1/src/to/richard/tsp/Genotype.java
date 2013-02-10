@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Immutable Genotype for Traveling Sales Person problem.
+ * Immutable Genotype.
  *
  * Representation of genes is permutations.
  *

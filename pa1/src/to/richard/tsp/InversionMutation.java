@@ -8,7 +8,11 @@ package to.richard.tsp;
 /**
  * Performs inversion mutation on genotypes.
  *
- * Start and end points selected are inclusive.
+ * 1. Select two "crossover" points. Start and end. Inclusive.
+ * 2. Take the alleles within those points and reverse the order.
+ *
+ * Example: 123456789 with crossover points at index 3 and 6 would
+ * look like this - 123654789
  */
 public class InversionMutation implements IMutationOperator {
     public Genotype mutate(Genotype genotype, IRandom random) {

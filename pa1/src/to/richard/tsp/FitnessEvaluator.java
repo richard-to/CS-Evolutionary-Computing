@@ -16,8 +16,7 @@ import java.util.List;
  *
  * FitnessEvaluator will cache fitness values based on genotype toString() value;
  *
- * This class works specifically for Permutations with cost matrix, such as TSP problem.
- * Probably should be renamed!
+ * This class works specifically for TSP type problems, so probably should be renamed!
  */
 public class FitnessEvaluator {
     private CostMatrix _costMatrix;

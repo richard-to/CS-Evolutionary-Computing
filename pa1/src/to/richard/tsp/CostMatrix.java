@@ -8,10 +8,10 @@ package to.richard.tsp;
 import java.util.Arrays;
 
 /**
- * Represents a cost matrix of values from mixing two alleles
+ * Represents a cost matrix used to calculate fitness of genotypes.
  * This data structure is immutable. New values and alleles cannot be added.
  *
- * Home allele is always index 0.
+ * Base allele is always index 0.
  */
 public class CostMatrix {
 

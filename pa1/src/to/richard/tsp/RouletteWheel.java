@@ -13,10 +13,14 @@ import java.util.TreeMap;
 /**
  * Roulette Wheel algorithm implementation.
  *
- * Roulette Wheel is Immutable.
- *
- * Windowing, sigma scaling, and ranking can be
- * applied before adding points.
+ * 1. Take a list of elements and sum up all values.
+ * 2. Divide each value by the sum
+ * 3. Add each value to the roulette wheel starting with position 0.
+ *    - If the current position is .25 and the next value is .3, the new
+ *      position would be .55, etc.
+ * 4. Randomly select a value between 0 and 1.
+ * 5. Pick the element that the number falls between.
+ * 6. Repeat until the desired number of samples have been selected.
  */
 public class RouletteWheel<E> implements ISampler<E> {
 
