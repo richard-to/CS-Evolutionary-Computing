@@ -27,4 +27,12 @@ public class Pair<V1, V2> {
     public V2 getSecondValue() {
         return _secondValue;
     }
+
+    public void setFirstValue(V1 firstValue) {
+        _firstValue = firstValue;
+    };
+
+    public void setSecondValue(V2 secondValue) {
+        _secondValue = secondValue;
+    };
 }
