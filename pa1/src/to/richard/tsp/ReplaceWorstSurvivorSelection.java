@@ -41,12 +41,12 @@ public class ReplaceWorstSurvivorSelection implements ISurvivorSelector {
             fitnessGenotypes.add(_fitnessEvaluator.evaluateAsPair(genotype));
         }
 
-        for (Genotype genotype : parents) {
+        for (Genotype genotype : offspring) {
             fitnessGenotypes.add(_fitnessEvaluator.evaluateAsPair(genotype));
         }
 
         Collections.sort(fitnessGenotypes, _comparator);
-        for (int i = totalPopulation - 1; i >= populationSize; i++) {
+        for (int i = totalPopulation - 1; i >= populationSize; i--) {
             nextGeneration.add(fitnessGenotypes.get(i).getSecondValue());
         }
 
