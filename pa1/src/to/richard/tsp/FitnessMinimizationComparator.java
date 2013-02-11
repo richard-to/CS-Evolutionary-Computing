@@ -10,7 +10,7 @@ import java.util.Comparator;
 /**
  * Implements java Comparator interface for custom sorting and comparison cases.
  *
- * This case compares for lowest fitness value
+ * This case compares for lowest fitness value (Max to Min)
  */
 public class FitnessMinimizationComparator implements Comparator<Pair<Double, Genotype>> {
     @Override
