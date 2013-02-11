@@ -1,6 +1,7 @@
 package to.richard.tsp;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,11 +25,11 @@ import java.util.List;
 public class TournamentSelector implements ISelector {
     private IRandom _random;
     private int _tournamentSize;
-    private IFitnessComparator _fitnessComparator;
+    private Comparator<Pair<Double, Genotype>> _fitnessComparator;
     private FitnessEvaluator _fitnessEvaluator;
 
     public TournamentSelector(int tournamentSize, FitnessEvaluator fitnessEvaluator,
-                              IFitnessComparator fitnessComparator, IRandom random) {
+                              Comparator<Pair<Double, Genotype>> fitnessComparator, IRandom random) {
 
         if (tournamentSize < 1) {
             throw new Errors.TournamentSizeOutOfBounds("Minimum tournament size can't be less than 1.");
@@ -63,7 +64,9 @@ public class TournamentSelector implements ISelector {
             }
             mostFitGenotype = tournament.get(0);
             for (int i = 1; i < tournament.size(); i++) {
-                mostFitGenotype = _fitnessComparator.compare(mostFitGenotype, tournament.get(i));
+                if(_fitnessComparator.compare(mostFitGenotype, tournament.get(i)) == -1) {
+                    mostFitGenotype = tournament.get(i);
+                }
             }
             parentGenotypes.add(mostFitGenotype.getSecondValue());
         }

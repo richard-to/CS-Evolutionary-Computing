@@ -7,6 +7,7 @@ import to.richard.tsp.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class TournamentSelectorTest {
 
         FitnessEvaluator fitnessEvaluator = new FitnessEvaluator(costMatrix);
 
-        IFitnessComparator fitnessComparator = new FitnessMaximizationComparator();
+        Comparator<Pair<Double, Genotype>> fitnessComparator = new FitnessMaximizationComparator();
 
         ArrayList<Integer> sequence = new ArrayList<Integer>(Arrays.asList(
                 new Integer[]{0, 1, 1, 3, 2, 1, 0, 3, 2, 3, 3, 2}));
@@ -56,7 +57,7 @@ public class TournamentSelectorTest {
 
         FitnessEvaluator fitnessEvaluator = new FitnessEvaluator(costMatrix);
 
-        IFitnessComparator fitnessComparator = new FitnessMinimizationComparator();
+        Comparator<Pair<Double, Genotype>> fitnessComparator = new FitnessMinimizationComparator();
 
         ArrayList<Integer> sequence = new ArrayList<Integer>(Arrays.asList(
                 new Integer[]{0, 1, 1, 3, 2, 1, 0, 3, 2, 3, 3, 2}));

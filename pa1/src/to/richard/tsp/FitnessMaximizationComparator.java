@@ -5,14 +5,22 @@ package to.richard.tsp;
  * Date: 2/10/13
  */
 
-/**
- * Returns the genotype with the highest fitness value. In the case of
- * ties, the first genotype gets returned.
- */
-public class FitnessMaximizationComparator implements IFitnessComparator {
+import java.util.Comparator;
 
+/**
+ * Implements java Comparator interface for custom sorting and comparison cases.
+ *
+ * This case compares for highest fitness value
+ */
+public class FitnessMaximizationComparator implements Comparator<Pair<Double, Genotype>> {
     @Override
-    public Pair<Double, Genotype> compare(Pair<Double, Genotype> pair1, Pair<Double, Genotype> pair2) {
-        return (pair1.getFirstValue() >= pair2.getFirstValue()) ? pair1 : pair2;
+    public int compare(Pair<Double, Genotype> doubleGenotypePair, Pair<Double, Genotype> doubleGenotypePair2) {
+        if (doubleGenotypePair.getFirstValue() > doubleGenotypePair2.getFirstValue()) {
+            return 1;
+        } else if (doubleGenotypePair.getFirstValue() < doubleGenotypePair2.getFirstValue()) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }
