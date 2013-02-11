@@ -11,10 +11,10 @@ import java.util.List;
 /**
  * This interface is used by the FitnessProportionateSelector.
  *
- * This basically a hook, to allow preprocessing of fitness values to make them
+ * This basically a hook, to allow transformation of fitness values to make them
  * work better (avoiding premature convergence and/or stagnation)
  * for roulette wheel and SUS algorithms.
  */
-public interface IFPSPreprocessor {
-    public List<Pair<Double, Genotype>> preprocess(List<Pair<Double, Genotype>> genotypeFitnessList);
+public interface IFPSTransform {
+    public List<Pair<Double, Genotype>> transform(List<Pair<Double, Genotype>> genotypeFitnessList);
 }

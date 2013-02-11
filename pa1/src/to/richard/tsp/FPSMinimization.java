@@ -20,10 +20,10 @@ import java.util.List;
  * 1. Find total fitness
  * 2. Subtract fitness from total fitness
  */
-public class FPSMinimization implements IFPSPreprocessor {
+public class FPSMinimization implements IFPSTransform {
 
     @Override
-    public List<Pair<Double, Genotype>> preprocess(List<Pair<Double, Genotype>> genotypeFitnessList) {
+    public List<Pair<Double, Genotype>> transform(List<Pair<Double, Genotype>> genotypeFitnessList) {
         double totalFitness = 0;
         ArrayList<Pair<Double, Genotype>> newList = new ArrayList<Pair<Double, Genotype>>();
 

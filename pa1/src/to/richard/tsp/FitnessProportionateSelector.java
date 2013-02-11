@@ -16,7 +16,7 @@ import java.util.List;
  * FPS optimizations such as windowing, sigma scaling, and linear normalization (Rank Selection?)
  * are possible using the IFPSProcessor interface.
  *
- * Concrete implementations are FPSWindowing, FPSSigmaScaling, FPSLinearNormalization.
+ * Concrete implementations are FPSWindowing, FPSLinearNormalization, FPSExponential, FPSSigmaScaling (not implemented)
  *
  * For minimization problems, we need to make the lowest fitness have the largest value.
  * In this case, we will do so by adding up the total value and subtracting the real fitness
@@ -36,25 +36,25 @@ public class FitnessProportionateSelector implements ISelector {
     private IRandom _random;
     private ISampler<Genotype> _sampler;
     private FitnessEvaluator _fitnessEvaluator;
-    private List<IFPSPreprocessor> _fitnessPreprocessors;
+    private List<IFPSTransform> _transforms;
 
     public FitnessProportionateSelector(
             FitnessEvaluator fitnessEvaluator, ISampler<Genotype> sampler, IRandom random) {
-        init(fitnessEvaluator, sampler, random, new ArrayList<IFPSPreprocessor>());
+        init(fitnessEvaluator, sampler, random, new ArrayList<IFPSTransform>());
     }
 
     public FitnessProportionateSelector(
             FitnessEvaluator fitnessEvaluator, ISampler<Genotype> sampler,
-            IRandom random,  List<IFPSPreprocessor> fitnessPreprocessors) {
-        init(fitnessEvaluator, sampler, random, fitnessPreprocessors);
+            IRandom random,  List<IFPSTransform> transforms) {
+        init(fitnessEvaluator, sampler, random, transforms);
     }
 
     private void init(FitnessEvaluator fitnessEvaluator, ISampler<Genotype> sampler,
-                 IRandom random, List<IFPSPreprocessor> fitnessPreprocessors) {
+                 IRandom random, List<IFPSTransform> transforms) {
         _random = random;
         _sampler = sampler;
         _fitnessEvaluator = fitnessEvaluator;
-        _fitnessPreprocessors = fitnessPreprocessors;
+        _transforms = transforms;
     }
     public List<Genotype> selectParents(List<Genotype> genotypes) {
         int populationSize = genotypes.size();

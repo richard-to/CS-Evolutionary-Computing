@@ -53,7 +53,7 @@ public class FitnessProportionateSelectorTest {
             add(new Pair<Double, Genotype>(90.0, new MutableGenotype(3)));
         }};
 
-        List<Pair<Double, Genotype>> newPairs = fpsMinimization.preprocess(pairs);
+        List<Pair<Double, Genotype>> newPairs = fpsMinimization.transform(pairs);
         assertEquals(140.0, newPairs.get(0).getFirstValue(), 0.1);
         assertEquals(100.0, newPairs.get(1).getFirstValue(), 0.1);
         assertEquals(60.0, newPairs.get(2).getFirstValue(), 0.1);
