@@ -40,7 +40,7 @@ public class ElitismSurvivorSelection implements ISurvivorSelector {
         }
         Collections.sort(fitnessParents, _comparator);
 
-        for (Genotype genotype : parents) {
+        for (Genotype genotype : offspring) {
             fitnessOffspring.add(_fitnessEvaluator.evaluateAsPair(genotype));
         }
         Collections.sort(fitnessOffspring, _comparator);
@@ -50,7 +50,7 @@ public class ElitismSurvivorSelection implements ISurvivorSelector {
         }
 
         fittestGenotypePair = fitnessParents.get(fitnessParents.size() - 1);
-        if (fittestGenotypePair.getFirstValue() > fitnessOffspring.get(0).getFirstValue()) {
+        if (_comparator.compare(fittestGenotypePair, fitnessOffspring.get(0)) > 0) {
             nextGeneration.set(0, fittestGenotypePair.getSecondValue());
         }
 
