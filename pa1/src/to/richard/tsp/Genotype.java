@@ -35,7 +35,7 @@ public class Genotype implements Iterable<Allele> {
 
     protected Allele[] _genes;
     protected String _genotypeString;
-    protected double _fitness;
+
     /**
      * Protected constructor. Only used to make inheritance work.
      */
