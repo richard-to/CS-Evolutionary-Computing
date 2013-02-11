@@ -22,6 +22,8 @@ import java.util.List;
  * bit representations.
  *
  * A mutation algorithm needs to be passed in. Ie. Swap, Scramble, or Inversion for this case.
+ *
+ * Currently only InversionMutation is implemented.
  */
 public class Mutator {
 
