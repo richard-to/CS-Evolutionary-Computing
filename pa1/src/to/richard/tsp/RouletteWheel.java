@@ -76,9 +76,11 @@ public class RouletteWheel<E> implements ISampler<E> {
         }
 
         for (Pair<Double, E> pair : valueMap) {
-            probability = pair.getFirstValue() / totalWeight;
-            totalProbability += probability;
-            wheel.put(totalProbability, pair.getSecondValue());
+            if (pair.getFirstValue() > 0) {
+                probability = pair.getFirstValue() / totalWeight;
+                totalProbability += probability;
+                wheel.put(totalProbability, pair.getSecondValue());
+            }
         }
         return wheel;
     }
