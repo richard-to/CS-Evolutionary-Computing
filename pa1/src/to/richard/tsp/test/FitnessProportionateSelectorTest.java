@@ -96,4 +96,19 @@ public class FitnessProportionateSelectorTest {
         assertEquals(40.0, newPairs.get(2).getFirstValue(), 0.1);
         assertEquals(40.0, newPairs.get(3).getFirstValue(), 0.1);
     }
+
+    @Test
+    public void testFPSExponential() throws Exception {
+        FPSExponential fpsTransform = new FPSExponential();
+        ArrayList<Pair<Double, Genotype>> pairs = new ArrayList<Pair<Double, Genotype>>() {{
+            add(new Pair<Double, Genotype>(16.0, new MutableGenotype(new Allele[]{new Allele(1)})));
+            add(new Pair<Double, Genotype>(9.0, new MutableGenotype(new Allele[]{new Allele(2)})));
+            add(new Pair<Double, Genotype>(25.0, new MutableGenotype(new Allele[]{new Allele(3)})));
+        }};
+
+        List<Pair<Double, Genotype>> newPairs = fpsTransform.transform(pairs);
+        assertEquals(5.0, newPairs.get(0).getFirstValue(), 0.1);
+        assertEquals(4.0, newPairs.get(1).getFirstValue(), 0.1);
+        assertEquals(6.0, newPairs.get(2).getFirstValue(), 0.1);
+    }
 }

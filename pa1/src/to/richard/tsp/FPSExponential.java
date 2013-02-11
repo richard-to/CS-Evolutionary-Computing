@@ -18,7 +18,7 @@ public class FPSExponential implements IFPSTransform {
     public List<Pair<Double, Genotype>> transform(List<Pair<Double, Genotype>> genotypeFitnessList) {
         ArrayList<Pair<Double, Genotype>> newList = new ArrayList<Pair<Double, Genotype>>();
         for (Pair<Double, Genotype> pair : genotypeFitnessList) {
-            newList.add(new Pair<Double, Genotype>(Math.sqrt(pair.getFirstValue()) + 1, pair.getSecondValue()));
+            newList.add(new Pair<Double, Genotype>(Math.sqrt(pair.getFirstValue()) + 1.0, pair.getSecondValue()));
         }
         return newList;
     }
