@@ -18,13 +18,17 @@ import java.util.List;
  *
  * 1. Find the lowest fitness
  * 2. Subtract that fitness value from population.
+ *
+ * Note that windowing only works when high fitness is considered best.
+ * If working with lowest fitness, then FPSMinimization may need to be used
+ * first.
  */
 public class FPSWindowing implements IFPSTransform {
 
-    private Comparator<Pair<Double, Genotype>> _comparator;
+    private FitnessMaximizationComparator _comparator;
 
-    public FPSWindowing(Comparator<Pair<Double, Genotype>> comparator) {
-        _comparator = comparator;
+    public FPSWindowing() {
+        _comparator = new FitnessMaximizationComparator();
     }
 
     @Override
