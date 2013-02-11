@@ -38,7 +38,7 @@ public class FPSLinearNormalization implements IFPSTransform {
 
         Collections.sort(listToSort, _comparator);
 
-        for (int i = 0; i < population; i++) {
+        for (int i = population - 1; i >= 0; i--) {
             currentPair = listToSort.get(i);
             if (currentPair.getFirstValue() == previousFitness) {
                 sameFitnessIndex.add(i);
@@ -46,18 +46,18 @@ public class FPSLinearNormalization implements IFPSTransform {
                 if (sameFitnessIndex.size() > 1) {
                     avgRank = totalRank = 0;
                     for (Integer index : sameFitnessIndex) {
-                        totalRank += population - index;
+                        totalRank += index + 1;
                     }
                     avgRank = totalRank / sameFitnessIndex.size();
                     for (Integer index : sameFitnessIndex) {
                         newList.get(index).setFirstValue(avgRank);
                     }
-                    sameFitnessIndex.clear();
                 }
                 previousFitness = currentPair.getFirstValue();
+                sameFitnessIndex.clear();
                 sameFitnessIndex.add(i);
             }
-            newList.add(new Pair<Double, Genotype>((double)(population - i), currentPair.getSecondValue()));
+            newList.add(new Pair<Double, Genotype>((double)(i + 1), currentPair.getSecondValue()));
         }
         return newList;
     }

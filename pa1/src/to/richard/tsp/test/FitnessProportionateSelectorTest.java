@@ -58,4 +58,25 @@ public class FitnessProportionateSelectorTest {
         assertEquals(100.0, newPairs.get(1).getFirstValue(), 0.1);
         assertEquals(60.0, newPairs.get(2).getFirstValue(), 0.1);
     }
+
+    @Test
+    public void testFPSLinearNormalization() throws Exception {
+        FPSLinearNormalization fpsTransform = new FPSLinearNormalization(new FitnessMinimizationComparator());
+        ArrayList<Pair<Double, Genotype>> pairs = new ArrayList<Pair<Double, Genotype>>() {{
+            add(new Pair<Double, Genotype>(90.0, new MutableGenotype(new Allele[]{new Allele(1)})));
+            add(new Pair<Double, Genotype>(10.0, new MutableGenotype(new Allele[]{new Allele(2)})));
+            add(new Pair<Double, Genotype>(50.0, new MutableGenotype(new Allele[]{new Allele(3)})));
+            add(new Pair<Double, Genotype>(50.0, new MutableGenotype(new Allele[]{new Allele(4)})));
+        }};
+
+        List<Pair<Double, Genotype>> newPairs = fpsTransform.transform(pairs);
+        assertEquals(4, newPairs.get(0).getFirstValue(), 0.1);
+        assertEquals(2.5, newPairs.get(1).getFirstValue(), 0.1);
+        assertEquals(2.5, newPairs.get(2).getFirstValue(), 0.1);
+        assertEquals(1, newPairs.get(3).getFirstValue(), 0.1);
+
+        assertEquals("2", newPairs.get(0).getSecondValue().toString());
+        assertEquals("1", newPairs.get(3).getSecondValue().toString());
+
+    }
 }
