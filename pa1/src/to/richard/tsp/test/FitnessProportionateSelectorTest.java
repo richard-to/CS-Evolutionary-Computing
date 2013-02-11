@@ -43,4 +43,19 @@ public class FitnessProportionateSelectorTest {
         assertEquals("21", parentGenotypes.get(0).toString());
         assertEquals("12", parentGenotypes.get(1).toString());
     }
+
+    @Test
+    public void testFPSMinimization() throws Exception {
+        FPSMinimization fpsMinimization = new FPSMinimization();
+        ArrayList<Pair<Double, Genotype>> pairs = new ArrayList<Pair<Double, Genotype>>() {{
+            add(new Pair<Double, Genotype>(10.0, new MutableGenotype(3)));
+            add(new Pair<Double, Genotype>(50.0, new MutableGenotype(3)));
+            add(new Pair<Double, Genotype>(90.0, new MutableGenotype(3)));
+        }};
+
+        List<Pair<Double, Genotype>> newPairs = fpsMinimization.preprocess(pairs);
+        assertEquals(140.0, newPairs.get(0).getFirstValue(), 0.1);
+        assertEquals(100.0, newPairs.get(1).getFirstValue(), 0.1);
+        assertEquals(60.0, newPairs.get(2).getFirstValue(), 0.1);
+    }
 }
