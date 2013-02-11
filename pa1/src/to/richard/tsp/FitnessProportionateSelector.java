@@ -56,19 +56,22 @@ public class FitnessProportionateSelector implements ISelector {
         _fitnessEvaluator = fitnessEvaluator;
         _transforms = transforms;
     }
+
     public List<Genotype> selectParents(List<Genotype> genotypes) {
         int populationSize = genotypes.size();
         double fitness = 0.0;
-        List<Pair<Double, Genotype>> fitnessPairs = new ArrayList<Pair<Double, Genotype>>();
 
-        for (IFPSTransform transform : _transforms) {
-            fitnessPairs = transform.transform(fitnessPairs);
-        }
+        List<Pair<Double, Genotype>> fitnessPairs = new ArrayList<Pair<Double, Genotype>>();
 
         for (Genotype genotype : genotypes) {
             fitness = _fitnessEvaluator.evaluate(genotype);
             fitnessPairs.add(new Pair<Double, Genotype>(fitness, genotype));
         }
+
+        for (IFPSTransform transform : _transforms) {
+            fitnessPairs = transform.transform(fitnessPairs);
+        }
+
         return _sampler.sample(fitnessPairs, populationSize);
     }
 }

@@ -7,6 +7,7 @@ import to.richard.tsp.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -110,5 +111,50 @@ public class FitnessProportionateSelectorTest {
         assertEquals(5.0, newPairs.get(0).getFirstValue(), 0.1);
         assertEquals(4.0, newPairs.get(1).getFirstValue(), 0.1);
         assertEquals(6.0, newPairs.get(2).getFirstValue(), 0.1);
+    }
+
+    @Test
+    public void testFPSWithWindowingAndMinimization() throws Exception {
+        int tournamentSize = 3;
+
+        int[][] costMatrixArray = {{20, 30, 10, 75}, {40, 21, 23, 200}, {42, 11, 101, 2}, {12, 211, 11, 56}};
+        CostMatrix costMatrix = new CostMatrix(costMatrixArray);
+
+        FitnessEvaluator fitnessEvaluator = new FitnessEvaluator(costMatrix);
+
+        ArrayList<IFPSTransform> transforms = new ArrayList<IFPSTransform>() {{
+            add(new FPSMinimization());
+            add(new FPSWindowing());
+        }};
+
+        MockRandom random = new MockRandom();
+        ArrayList<Double> sequence = new ArrayList<Double>(Arrays.asList(
+                new Double[]{.93, .70, .2, .59}));
+        random.setDoubleSequence(sequence);
+        RouletteWheel<Genotype> wheel = new RouletteWheel<Genotype>(random);
+
+        FitnessProportionateSelector parentSelector = new FitnessProportionateSelector(
+                fitnessEvaluator, wheel, random, transforms);
+
+        // 934 // 470
+        ArrayList<Genotype> genotypes = new ArrayList<Genotype>() {{
+            // Fitness 67  = 867 = 284 = .604
+            add(new Genotype(new Allele[]{new Allele(1), new Allele(2), new Allele(3)}));
+
+            // Fitness 233 = 701 = 118 = .25
+            add(new Genotype(new Allele[]{new Allele(2), new Allele(1), new Allele(3)}));
+
+            // Fitness 283 = 651 = 68 = .14
+            add(new Genotype(new Allele[]{new Allele(1), new Allele(3), new Allele(2)}));
+
+            // Fitness 351 = 583 = 0
+            add(new Genotype(new Allele[]{new Allele(3), new Allele(1), new Allele(2)}));
+        }};
+
+        List<Genotype> parentGenotypes = parentSelector.selectParents(genotypes);
+        assertEquals(genotypes.get(2), parentGenotypes.get(0));
+        assertEquals(genotypes.get(1), parentGenotypes.get(1));
+        assertEquals(genotypes.get(0), parentGenotypes.get(2));
+        assertEquals(genotypes.get(0), parentGenotypes.get(3));
     }
 }
