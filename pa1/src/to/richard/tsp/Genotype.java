@@ -17,6 +17,9 @@ import java.util.List;
  * Alleles must be distinct. This is not checked by Genotype.
  * Use GenotypeValidator to validate Genotype (length, valid values, distinctness).
  * Fitness is evaluated using a FitnessEvaluator.
+ *
+ * In hindsight, the fitness should have been added to this class.
+ * Current solution seems kind of inefficient.
  */
 public class Genotype implements Iterable<Allele> {
 
@@ -43,7 +46,7 @@ public class Genotype implements Iterable<Allele> {
      */
     public Genotype(Allele[] alleles) {
         _genes =  Arrays.copyOf(alleles, alleles.length);
-        _genotypeString = buildGenotypeString(_genes);
+        _genotypeString = null;
     }
 
     /**
@@ -52,7 +55,7 @@ public class Genotype implements Iterable<Allele> {
      */
     public Genotype(Genotype genotype) {
         _genes =  Arrays.copyOf(genotype._genes, genotype._genes.length);
-        _genotypeString = buildGenotypeString(_genes);
+        _genotypeString = null;
     }
 
     /**
@@ -114,6 +117,10 @@ public class Genotype implements Iterable<Allele> {
      */
     @Override
     public String toString() {
+
+        if (_genotypeString == null) {
+            buildGenotypeString(_genes);
+        }
         return new String(_genotypeString);
     }
 

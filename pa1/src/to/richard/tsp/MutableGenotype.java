@@ -21,7 +21,7 @@ public class MutableGenotype extends Genotype {
      */
     public MutableGenotype(int length) {
         _genes = new Allele[length];
-        _genotypeString = buildGenotypeString(_genes);
+        _genotypeString = null;
     }
 
     /**
@@ -36,7 +36,7 @@ public class MutableGenotype extends Genotype {
      */
     public MutableGenotype(Genotype genotype) {
         _genes = Arrays.copyOf(genotype._genes.clone(), genotype._genes.length);
-        _genotypeString = buildGenotypeString(_genes);
+        _genotypeString = null;
     }
 
     /**
@@ -49,7 +49,7 @@ public class MutableGenotype extends Genotype {
             throw new Errors.AllelesDoNotMatchGenes();
         }
         _genes = Arrays.copyOf(alleles, alleles.length);
-        _genotypeString = buildGenotypeString(_genes);
+        _genotypeString = null;
     }
 
     /**
@@ -62,7 +62,7 @@ public class MutableGenotype extends Genotype {
             throw new IndexOutOfBoundsException();
         }
         _genes[geneIndex] = value;
-        _genotypeString = buildGenotypeString(_genes);
+        _genotypeString = null;
     }
 
 
