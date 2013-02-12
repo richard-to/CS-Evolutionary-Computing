@@ -32,10 +32,9 @@ public class CostMatrixBuilder {
      *
      * Min and max values cannot be less than 0.
      *
-     * The number of allele names must batch the size.
+     * The number of allele names must be less than or equal to the size.
      */
     public CostMatrix buildMatrix(int size, int minValue, int maxValue, String[] alleleNames) {
-
         if (minValue < 1 || maxValue < 1) {
             throw new Errors.ValueLessThanZero();
         }

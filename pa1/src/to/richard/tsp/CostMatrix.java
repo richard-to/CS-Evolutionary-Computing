@@ -34,12 +34,12 @@ public class CostMatrix {
      * Same as other constructor, but allows the addition of
      * named alleles.
      *
-     * The number of names must match the rows of the matrix.
+     * The number of names must be less than the rows of the matrix.
      */
     public CostMatrix(int[][] costMatrix,  String[] alleleNames) {
         if (alleleNames != null) {
-            if (costMatrix.length != alleleNames.length) {
-                throw new Errors.MatrixRowsNotEqualToNamedAlleles();
+            if (costMatrix.length > alleleNames.length) {
+                throw new Errors.MatrixRowsGreaterThanEqualToNamedAlleles();
             }
             _alleleNames = Arrays.copyOf(alleleNames, alleleNames.length);
         }
