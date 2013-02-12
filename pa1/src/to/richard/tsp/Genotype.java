@@ -137,6 +137,14 @@ public class Genotype implements Iterable<Allele> {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Genotype) {
+            return toString().equals(obj.toString());
+        }
+        return false;
+    }
+
+    @Override
     public Iterator<Allele> iterator() {
         Iterator<Allele> geneIterator = new Iterator<Allele>() {
 
