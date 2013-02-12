@@ -30,4 +30,8 @@ public class FitnessResult {
     public double getBest() {
         return _best;
     }
+
+    public String toString() {
+        return String.format("Sum: %.2f, Avg: %.2f, Best: %.2f", _sum, _avg, _best);
+    }
 }
