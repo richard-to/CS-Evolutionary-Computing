@@ -45,6 +45,6 @@ public class FitnessAnalyzer {
         avg = sum / count;
         best = bestPair.getFirstValue();
 
-        return new FitnessResult(sum, avg, best);
+        return new FitnessResult(sum, avg, best, bestPair.getSecondValue());
     }
 }
