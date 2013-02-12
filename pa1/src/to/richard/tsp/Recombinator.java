@@ -74,7 +74,7 @@ public class Recombinator {
 
         for (int i = 0; i < pairs; i++) {
             index1 = i * offSpringPerCrossover;
-            index2 = i * offSpringPerCrossover + 1;
+            index2 = (i * offSpringPerCrossover + 1) % pairs;
             probability = _random.nextDouble();
             if (probability < _recombinationRate) {
                 newGenotypes.addAll(_crossoverOperator.crossover(genotypes.get(index1), genotypes.get(index2), _random));
