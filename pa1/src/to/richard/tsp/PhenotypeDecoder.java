@@ -29,7 +29,7 @@ public class PhenotypeDecoder {
         Allele fromAllele = home;
         int count = 1;
         for (Allele toAllele : genotype) {
-            genotypeStringBuilder.append(String.format("%2d. %s/%s(%.0f)%n", count++,
+            genotypeStringBuilder.append(String.format("%d. %s/%s(%.0f)%n", count++,
                     _costMatrix.getAlleleName(fromAllele), _costMatrix.getAlleleName(toAllele),
                     _costMatrix.getCost(fromAllele, toAllele)));
             fromAllele = toAllele;
