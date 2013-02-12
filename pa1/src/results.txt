@@ -1,0 +1,847 @@
+Author: Richard To
+Date:   2/12/2012
+
+Summary of TSP Genetic Algorithm Simulation
+++++++++++++++++++++++++++++++++++++++++++++++
+
+My results didn't fit in a table. I used 50 cities in my cost matrix, so the output
+got very long. Instead of I just listed the settings, best run with fitness as a long list
+for the 12 runs. It's still a bit hard to read though.
+
+I forgot to change the generations to higher number for this run. In previous a
+previous test with just PMX, I had tried 1000 generations and I still saw improvement.
+
+Unfortunately I'm running out of time (need to study for test!), so I'm leaving it at 500.
+
+The best performer was EX and PMX. EX was slightly better.
+
+CX and OX did worse, but not by much. All the crossover operators fell within
+a similar range.
+
+Run 1
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: PMX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Tulsa(411)
+2. Tulsa/Omaha(1041)
+3. Omaha/Wichita(124)
+4. Wichita/Virginia Beach(1601)
+5. Virginia Beach/Kansas City(123)
+6. Kansas City/Raleigh(629)
+7. Raleigh/Detroit(722)
+8. Detroit/Oakland(331)
+9. Oakland/Phoenix(372)
+10. Phoenix/Los Angeles(1004)
+11. Los Angeles/Austin(996)
+12. Austin/Philadelphia(405)
+13. Philadelphia/Atlanta(482)
+14. Atlanta/San Diego(234)
+15. San Diego/El Paso(210)
+16. El Paso/Miami(469)
+17. Miami/Nashville-Davidson(751)
+18. Nashville-Davidson/Columbus(211)
+19. Columbus/Minneapolis(546)
+20. Minneapolis/Portland(705)
+21. Portland/Denver(214)
+22. Denver/Sacramento(722)
+23. Sacramento/Fresno(103)
+24. Fresno/New York(114)
+25. New York/Cleveland(398)
+26. Cleveland/Albuquerque(956)
+27. Albuquerque/Louisville-Jefferson County(786)
+28. Louisville-Jefferson County/Milwaukee(595)
+29. Milwaukee/Long Beach(329)
+30. Long Beach/Washington(381)
+31. Washington/Chicago(761)
+32. Chicago/Indianapolis(246)
+33. Indianapolis/Tucson(945)
+34. Tucson/Fort Worth(268)
+35. Fort Worth/Colorado Springs(665)
+36. Colorado Springs/Charlotte(169)
+37. Charlotte/Houston(163)
+38. Houston/Boston(252)
+39. Boston/Oklahoma City(186)
+40. Oklahoma City/Memphis(167)
+41. Memphis/Dallas(560)
+42. Dallas/Seattle(342)
+43. Seattle/Jacksonville(741)
+44. Jacksonville/Mesa(148)
+45. Mesa/Las Vegas(512)
+46. Las Vegas/San Francisco(434)
+47. San Francisco/San Jose(460)
+48. San Jose/San Antonio(237)
+49. San Antonio/Baltimore(609)
+50. Baltimore/Anchorage(1640)
+------------------------------
+Total Cost (Fitness): 25470
+
+
+Run 2
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: PMX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Omaha(766)
+2. Omaha/Wichita(124)
+3. Wichita/Detroit(238)
+4. Detroit/San Francisco(648)
+5. San Francisco/Philadelphia(273)
+6. Philadelphia/San Jose(546)
+7. San Jose/Oakland(298)
+8. Oakland/Houston(238)
+9. Houston/Kansas City(595)
+10. Kansas City/Sacramento(100)
+11. Sacramento/Albuquerque(249)
+12. Albuquerque/Washington(1158)
+13. Washington/Dallas(495)
+14. Dallas/Milwaukee(1152)
+15. Milwaukee/Jacksonville(100)
+16. Jacksonville/Baltimore(321)
+17. Baltimore/Portland(1256)
+18. Portland/San Diego(1386)
+19. San Diego/El Paso(210)
+20. El Paso/Memphis(1054)
+21. Memphis/Minneapolis(191)
+22. Minneapolis/Denver(713)
+23. Denver/San Antonio(554)
+24. San Antonio/Fort Worth(1495)
+25. Fort Worth/Boston(369)
+26. Boston/Oklahoma City(186)
+27. Oklahoma City/Raleigh(803)
+28. Raleigh/Tucson(1081)
+29. Tucson/Long Beach(240)
+30. Long Beach/Colorado Springs(1088)
+31. Colorado Springs/Miami(141)
+32. Miami/Atlanta(696)
+33. Atlanta/Fresno(552)
+34. Fresno/Los Angeles(407)
+35. Los Angeles/Virginia Beach(919)
+36. Virginia Beach/Tulsa(1085)
+37. Tulsa/Columbus(456)
+38. Columbus/Charlotte(847)
+39. Charlotte/Seattle(536)
+40. Seattle/Chicago(705)
+41. Chicago/Nashville-Davidson(503)
+42. Nashville-Davidson/New York(107)
+43. New York/Phoenix(689)
+44. Phoenix/Las Vegas(693)
+45. Las Vegas/Louisville-Jefferson County(140)
+46. Louisville-Jefferson County/Austin(227)
+47. Austin/Mesa(265)
+48. Mesa/Cleveland(299)
+49. Cleveland/Indianapolis(854)
+50. Indianapolis/Anchorage(1030)
+------------------------------
+Total Cost (Fitness): 29078
+
+
+Run 3
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: PMX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Mesa(672)
+2. Mesa/Albuquerque(139)
+3. Albuquerque/Portland(978)
+4. Portland/Jacksonville(162)
+5. Jacksonville/Atlanta(649)
+6. Atlanta/San Diego(234)
+7. San Diego/Tucson(234)
+8. Tucson/Miami(434)
+9. Miami/Virginia Beach(711)
+10. Virginia Beach/Dallas(186)
+11. Dallas/Fort Worth(357)
+12. Fort Worth/Wichita(261)
+13. Wichita/Long Beach(559)
+14. Long Beach/Cleveland(710)
+15. Cleveland/Omaha(215)
+16. Omaha/Oakland(369)
+17. Oakland/Chicago(515)
+18. Chicago/Charlotte(1041)
+19. Charlotte/Raleigh(897)
+20. Raleigh/Milwaukee(438)
+21. Milwaukee/Baltimore(312)
+22. Baltimore/Fresno(741)
+23. Fresno/San Francisco(148)
+24. San Francisco/Boston(111)
+25. Boston/Los Angeles(731)
+26. Los Angeles/Seattle(133)
+27. Seattle/Detroit(131)
+28. Detroit/Las Vegas(498)
+29. Las Vegas/Phoenix(304)
+30. Phoenix/Sacramento(158)
+31. Sacramento/Kansas City(680)
+32. Kansas City/Memphis(1789)
+33. Memphis/Indianapolis(189)
+34. Indianapolis/Washington(603)
+35. Washington/Philadelphia(1324)
+36. Philadelphia/San Jose(546)
+37. San Jose/Nashville-Davidson(110)
+38. Nashville-Davidson/Minneapolis(836)
+39. Minneapolis/Denver(713)
+40. Denver/San Antonio(554)
+41. San Antonio/Colorado Springs(176)
+42. Colorado Springs/Oklahoma City(1445)
+43. Oklahoma City/Tulsa(159)
+44. Tulsa/Houston(1249)
+45. Houston/El Paso(147)
+46. El Paso/Austin(188)
+47. Austin/Columbus(594)
+48. Columbus/New York(683)
+49. New York/Louisville-Jefferson County(328)
+50. Louisville-Jefferson County/Anchorage(607)
+------------------------------
+Total Cost (Fitness): 25948
+
+
+Run 4
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: EX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Milwaukee(1068)
+2. Milwaukee/Memphis(543)
+3. Memphis/Sacramento(377)
+4. Sacramento/Kansas City(680)
+5. Kansas City/Fresno(208)
+6. Fresno/Dallas(793)
+7. Dallas/Long Beach(463)
+8. Long Beach/Washington(381)
+9. Washington/Seattle(147)
+10. Seattle/Las Vegas(613)
+11. Las Vegas/Denver(1570)
+12. Denver/Detroit(415)
+13. Detroit/Oakland(331)
+14. Oakland/Phoenix(372)
+15. Phoenix/Columbus(805)
+16. Columbus/Minneapolis(546)
+17. Minneapolis/San Antonio(407)
+18. San Antonio/Jacksonville(188)
+19. Jacksonville/Mesa(148)
+20. Mesa/San Diego(747)
+21. San Diego/Raleigh(536)
+22. Raleigh/Colorado Springs(417)
+23. Colorado Springs/Los Angeles(423)
+24. Los Angeles/Boston(575)
+25. Boston/Fort Worth(570)
+26. Fort Worth/San Francisco(308)
+27. San Francisco/Oklahoma City(364)
+28. Oklahoma City/Baltimore(399)
+29. Baltimore/Cleveland(1653)
+30. Cleveland/San Jose(908)
+31. San Jose/Louisville-Jefferson County(475)
+32. Louisville-Jefferson County/Austin(227)
+33. Austin/Virginia Beach(822)
+34. Virginia Beach/Wichita(1005)
+35. Wichita/New York(1431)
+36. New York/Nashville-Davidson(288)
+37. Nashville-Davidson/Atlanta(194)
+38. Atlanta/Houston(183)
+39. Houston/Miami(514)
+40. Miami/Portland(213)
+41. Portland/Omaha(210)
+42. Omaha/Tucson(732)
+43. Tucson/Philadelphia(1011)
+44. Philadelphia/El Paso(1602)
+45. El Paso/Chicago(684)
+46. Chicago/Indianapolis(246)
+47. Indianapolis/Charlotte(368)
+48. Charlotte/Albuquerque(281)
+49. Albuquerque/Tulsa(424)
+50. Tulsa/Anchorage(192)
+------------------------------
+Total Cost (Fitness): 28057
+
+
+Run 5
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: EX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Fresno(1208)
+2. Fresno/Charlotte(1085)
+3. Charlotte/Louisville-Jefferson County(416)
+4. Louisville-Jefferson County/Memphis(1592)
+5. Memphis/Omaha(363)
+6. Omaha/Oakland(369)
+7. Oakland/Kansas City(143)
+8. Kansas City/Oklahoma City(593)
+9. Oklahoma City/Indianapolis(932)
+10. Indianapolis/Dallas(156)
+11. Dallas/Cleveland(151)
+12. Cleveland/Denver(258)
+13. Denver/Chicago(485)
+14. Chicago/Sacramento(152)
+15. Sacramento/Houston(1361)
+16. Houston/Miami(514)
+17. Miami/Virginia Beach(711)
+18. Virginia Beach/Baltimore(151)
+19. Baltimore/Nashville-Davidson(569)
+20. Nashville-Davidson/El Paso(142)
+21. El Paso/Boston(225)
+22. Boston/Minneapolis(291)
+23. Minneapolis/San Antonio(407)
+24. San Antonio/Jacksonville(188)
+25. Jacksonville/Columbus(270)
+26. Columbus/Philadelphia(145)
+27. Philadelphia/Wichita(848)
+28. Wichita/Tulsa(155)
+29. Tulsa/Austin(266)
+30. Austin/Milwaukee(434)
+31. Milwaukee/Portland(1781)
+32. Portland/San Jose(615)
+33. San Jose/Raleigh(1562)
+34. Raleigh/Colorado Springs(417)
+35. Colorado Springs/Los Angeles(423)
+36. Los Angeles/Washington(807)
+37. Washington/San Francisco(617)
+38. San Francisco/Mesa(241)
+39. Mesa/Phoenix(610)
+40. Phoenix/Tucson(748)
+41. Tucson/Fort Worth(268)
+42. Fort Worth/Seattle(476)
+43. Seattle/Detroit(131)
+44. Detroit/Albuquerque(111)
+45. Albuquerque/Atlanta(293)
+46. Atlanta/San Diego(234)
+47. San Diego/Las Vegas(151)
+48. Las Vegas/Long Beach(385)
+49. Long Beach/New York(575)
+50. New York/Anchorage(145)
+------------------------------
+Total Cost (Fitness): 25170
+
+
+Run 6
++++++++++++++++++++++++
+
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: EX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Tulsa(411)
+2. Tulsa/Dallas(116)
+3. Dallas/Denver(1059)
+4. Denver/Long Beach(622)
+5. Long Beach/Seattle(135)
+6. Seattle/Washington(619)
+7. Washington/Indianapolis(993)
+8. Indianapolis/Austin(789)
+9. Austin/Oklahoma City(304)
+10. Oklahoma City/Baltimore(399)
+11. Baltimore/Nashville-Davidson(569)
+12. Nashville-Davidson/New York(107)
+13. New York/Kansas City(350)
+14. Kansas City/Fresno(208)
+15. Fresno/Phoenix(202)
+16. Phoenix/Atlanta(608)
+17. Atlanta/San Diego(234)
+18. San Diego/Mesa(214)
+19. Mesa/Las Vegas(512)
+20. Las Vegas/Colorado Springs(453)
+21. Colorado Springs/Albuquerque(197)
+22. Albuquerque/Charlotte(711)
+23. Charlotte/Detroit(948)
+24. Detroit/Wichita(587)
+25. Wichita/Louisville-Jefferson County(108)
+26. Louisville-Jefferson County/Milwaukee(595)
+27. Milwaukee/Jacksonville(100)
+28. Jacksonville/Columbus(270)
+29. Columbus/Philadelphia(145)
+30. Philadelphia/Los Angeles(848)
+31. Los Angeles/Virginia Beach(919)
+32. Virginia Beach/Tucson(1585)
+33. Tucson/San Jose(104)
+34. San Jose/Miami(1356)
+35. Miami/Chicago(615)
+36. Chicago/San Francisco(1252)
+37. San Francisco/Memphis(755)
+38. Memphis/Omaha(363)
+39. Omaha/Cleveland(393)
+40. Cleveland/San Antonio(365)
+41. San Antonio/Houston(296)
+42. Houston/Sacramento(466)
+43. Sacramento/El Paso(933)
+44. El Paso/Portland(507)
+45. Portland/Raleigh(749)
+46. Raleigh/Oakland(152)
+47. Oakland/Fort Worth(524)
+48. Fort Worth/Boston(369)
+49. Boston/Minneapolis(291)
+50. Minneapolis/Anchorage(372)
+------------------------------
+Total Cost (Fitness): 25779
+
+
+Run 7
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: OX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Raleigh(1680)
+2. Raleigh/Milwaukee(438)
+3. Milwaukee/Phoenix(190)
+4. Phoenix/Sacramento(158)
+5. Sacramento/Portland(1496)
+6. Portland/Denver(214)
+7. Denver/Mesa(964)
+8. Mesa/Indianapolis(119)
+9. Indianapolis/Columbus(558)
+10. Columbus/San Francisco(199)
+11. San Francisco/Miami(930)
+12. Miami/San Antonio(232)
+13. San Antonio/Nashville-Davidson(451)
+14. Nashville-Davidson/Memphis(299)
+15. Memphis/Dallas(560)
+16. Dallas/San Diego(116)
+17. San Diego/Philadelphia(181)
+18. Philadelphia/Louisville-Jefferson County(638)
+19. Louisville-Jefferson County/Charlotte(1072)
+20. Charlotte/Atlanta(947)
+21. Atlanta/New York(936)
+22. New York/Omaha(461)
+23. Omaha/Wichita(124)
+24. Wichita/Baltimore(657)
+25. Baltimore/Chicago(545)
+26. Chicago/El Paso(620)
+27. El Paso/Virginia Beach(157)
+28. Virginia Beach/Fort Worth(1172)
+29. Fort Worth/Los Angeles(1386)
+30. Los Angeles/Seattle(133)
+31. Seattle/Las Vegas(613)
+32. Las Vegas/Colorado Springs(453)
+33. Colorado Springs/Minneapolis(1183)
+34. Minneapolis/San Jose(250)
+35. San Jose/Oakland(298)
+36. Oakland/Tulsa(116)
+37. Tulsa/Austin(266)
+38. Austin/Oklahoma City(304)
+39. Oklahoma City/Boston(357)
+40. Boston/Houston(254)
+41. Houston/Tucson(653)
+42. Tucson/Long Beach(240)
+43. Long Beach/Washington(381)
+44. Washington/Jacksonville(403)
+45. Jacksonville/Cleveland(614)
+46. Cleveland/Albuquerque(956)
+47. Albuquerque/Kansas City(932)
+48. Kansas City/Fresno(208)
+49. Fresno/Detroit(165)
+50. Detroit/Anchorage(156)
+------------------------------
+Total Cost (Fitness): 26435
+
+
+Run 8
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: OX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Milwaukee(1068)
+2. Milwaukee/Fresno(643)
+3. Fresno/Omaha(938)
+4. Omaha/Kansas City(401)
+5. Kansas City/Sacramento(100)
+6. Sacramento/New York(797)
+7. New York/Oakland(292)
+8. Oakland/Denver(1055)
+9. Denver/Los Angeles(541)
+10. Los Angeles/Indianapolis(1514)
+11. Indianapolis/Portland(287)
+12. Portland/Houston(170)
+13. Houston/Washington(901)
+14. Washington/Mesa(694)
+15. Mesa/Raleigh(1055)
+16. Raleigh/Atlanta(541)
+17. Atlanta/El Paso(211)
+18. El Paso/San Antonio(446)
+19. San Antonio/Charlotte(262)
+20. Charlotte/Jacksonville(308)
+21. Jacksonville/Boston(505)
+22. Boston/Colorado Springs(983)
+23. Colorado Springs/Tucson(1359)
+24. Tucson/Long Beach(240)
+25. Long Beach/Fort Worth(279)
+26. Fort Worth/San Jose(289)
+27. San Jose/Chicago(153)
+28. Chicago/Seattle(262)
+29. Seattle/Las Vegas(613)
+30. Las Vegas/Phoenix(304)
+31. Phoenix/San Diego(563)
+32. San Diego/San Francisco(669)
+33. San Francisco/Memphis(755)
+34. Memphis/Tulsa(1355)
+35. Tulsa/Virginia Beach(286)
+36. Virginia Beach/Dallas(186)
+37. Dallas/Albuquerque(1300)
+38. Albuquerque/Minneapolis(133)
+39. Minneapolis/Columbus(284)
+40. Columbus/Austin(849)
+41. Austin/Baltimore(194)
+42. Baltimore/Detroit(232)
+43. Detroit/Miami(295)
+44. Miami/Nashville-Davidson(751)
+45. Nashville-Davidson/Wichita(209)
+46. Wichita/Louisville-Jefferson County(108)
+47. Louisville-Jefferson County/Oklahoma City(1576)
+48. Oklahoma City/Cleveland(1494)
+49. Cleveland/Philadelphia(290)
+50. Philadelphia/Anchorage(196)
+------------------------------
+Total Cost (Fitness): 28936
+
+
+Run 9
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: OX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Dallas(103)
+2. Dallas/Cleveland(151)
+3. Cleveland/Los Angeles(556)
+4. Los Angeles/Washington(807)
+5. Washington/Seattle(147)
+6. Seattle/Oklahoma City(1449)
+7. Oklahoma City/Portland(516)
+8. Portland/Austin(1327)
+9. Austin/Baltimore(194)
+10. Baltimore/Detroit(232)
+11. Detroit/Houston(1074)
+12. Houston/Boston(252)
+13. Boston/Charlotte(767)
+14. Charlotte/Indianapolis(610)
+15. Indianapolis/Columbus(558)
+16. Columbus/Minneapolis(546)
+17. Minneapolis/Jacksonville(346)
+18. Jacksonville/Atlanta(649)
+19. Atlanta/San Francisco(159)
+20. San Francisco/Fort Worth(176)
+21. Fort Worth/El Paso(504)
+22. El Paso/Fresno(262)
+23. Fresno/Philadelphia(1250)
+24. Philadelphia/Nashville-Davidson(663)
+25. Nashville-Davidson/Denver(1562)
+26. Denver/Las Vegas(723)
+27. Las Vegas/Mesa(352)
+28. Mesa/San Antonio(283)
+29. San Antonio/Tucson(1107)
+30. Tucson/Milwaukee(416)
+31. Milwaukee/San Jose(218)
+32. San Jose/Chicago(153)
+33. Chicago/Omaha(1539)
+34. Omaha/Kansas City(401)
+35. Kansas City/New York(214)
+36. New York/Louisville-Jefferson County(328)
+37. Louisville-Jefferson County/Wichita(1310)
+38. Wichita/Tulsa(155)
+39. Tulsa/Memphis(881)
+40. Memphis/Oakland(669)
+41. Oakland/Albuquerque(583)
+42. Albuquerque/Virginia Beach(335)
+43. Virginia Beach/Long Beach(430)
+44. Long Beach/Sacramento(378)
+45. Sacramento/San Diego(1344)
+46. San Diego/Raleigh(536)
+47. Raleigh/Colorado Springs(417)
+48. Colorado Springs/Miami(141)
+49. Miami/Phoenix(512)
+50. Phoenix/Anchorage(743)
+------------------------------
+Total Cost (Fitness): 29028
+
+
+Run 10
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: CX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Philadelphia(379)
+2. Philadelphia/Colorado Springs(693)
+3. Colorado Springs/Dallas(486)
+4. Dallas/Tulsa(1154)
+5. Tulsa/San Jose(657)
+6. San Jose/Louisville-Jefferson County(475)
+7. Louisville-Jefferson County/Boston(865)
+8. Boston/Raleigh(461)
+9. Raleigh/Atlanta(541)
+10. Atlanta/Houston(183)
+11. Houston/Nashville-Davidson(711)
+12. Nashville-Davidson/San Antonio(624)
+13. San Antonio/Jacksonville(188)
+14. Jacksonville/Wichita(158)
+15. Wichita/San Diego(1056)
+16. San Diego/Virginia Beach(287)
+17. Virginia Beach/Mesa(1019)
+18. Mesa/Seattle(616)
+19. Seattle/Memphis(236)
+20. Memphis/Sacramento(377)
+21. Sacramento/Oakland(145)
+22. Oakland/Minneapolis(610)
+23. Minneapolis/Indianapolis(485)
+24. Indianapolis/Columbus(558)
+25. Columbus/Kansas City(1891)
+26. Kansas City/Fresno(208)
+27. Fresno/Las Vegas(457)
+28. Las Vegas/Long Beach(385)
+29. Long Beach/Fort Worth(279)
+30. Fort Worth/El Paso(504)
+31. El Paso/Tucson(462)
+32. Tucson/Denver(331)
+33. Denver/Oklahoma City(1468)
+34. Oklahoma City/Detroit(514)
+35. Detroit/New York(1078)
+36. New York/Albuquerque(644)
+37. Albuquerque/Austin(1071)
+38. Austin/Baltimore(194)
+39. Baltimore/Charlotte(434)
+40. Charlotte/Milwaukee(248)
+41. Milwaukee/Phoenix(190)
+42. Phoenix/Washington(798)
+43. Washington/San Francisco(617)
+44. San Francisco/Miami(930)
+45. Miami/Portland(213)
+46. Portland/Omaha(210)
+47. Omaha/Los Angeles(1930)
+48. Los Angeles/Chicago(466)
+49. Chicago/Cleveland(525)
+50. Cleveland/Anchorage(729)
+------------------------------
+Total Cost (Fitness): 29740
+
+
+Run 11
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: CX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Long Beach(258)
+2. Long Beach/Philadelphia(649)
+3. Philadelphia/Atlanta(482)
+4. Atlanta/San Jose(176)
+5. San Jose/Nashville-Davidson(110)
+6. Nashville-Davidson/San Diego(1662)
+7. San Diego/Miami(334)
+8. Miami/Dallas(439)
+9. Dallas/Milwaukee(1152)
+10. Milwaukee/Cleveland(431)
+11. Cleveland/Baltimore(408)
+12. Baltimore/Chicago(545)
+13. Chicago/Denver(319)
+14. Denver/Portland(504)
+15. Portland/Omaha(210)
+16. Omaha/Fresno(699)
+17. Fresno/Columbus(195)
+18. Columbus/Detroit(1326)
+19. Detroit/Seattle(193)
+20. Seattle/Washington(619)
+21. Washington/Jacksonville(403)
+22. Jacksonville/Mesa(148)
+23. Mesa/Tucson(514)
+24. Tucson/Fort Worth(268)
+25. Fort Worth/Boston(369)
+26. Boston/Sacramento(1226)
+27. Sacramento/Albuquerque(249)
+28. Albuquerque/Indianapolis(1658)
+29. Indianapolis/Los Angeles(469)
+30. Los Angeles/Austin(996)
+31. Austin/Kansas City(417)
+32. Kansas City/El Paso(641)
+33. El Paso/Houston(509)
+34. Houston/Oklahoma City(446)
+35. Oklahoma City/Tulsa(159)
+36. Tulsa/Phoenix(337)
+37. Phoenix/San Francisco(1136)
+38. San Francisco/Memphis(755)
+39. Memphis/San Antonio(183)
+40. San Antonio/Las Vegas(372)
+41. Las Vegas/Minneapolis(1046)
+42. Minneapolis/Raleigh(411)
+43. Raleigh/Oakland(152)
+44. Oakland/Charlotte(1108)
+45. Charlotte/Wichita(257)
+46. Wichita/Louisville-Jefferson County(108)
+47. Louisville-Jefferson County/Colorado Springs(1709)
+48. Colorado Springs/New York(1051)
+49. New York/Virginia Beach(345)
+50. Virginia Beach/Anchorage(333)
+------------------------------
+Total Cost (Fitness): 28486
+
+
+Run 12
++++++++++++++++++++++++
+
+Settings
+==============================
+Control Parameters: M = 20; G = 500, Pc = 0.90, Pm = 0.10, Pr = 1.00
+Parent Selection: FPS
+Sampling Algorithm: SUS
+FPS Transform: LINEAR_NORMALIZATION
+Crossover Operator: CX
+Mutation Operator: INVERSION
+Survivor Selection: ELITISM
+
+Best Tour (Phenotype)
+------------------------------
+1. Anchorage/Dallas(103)
+2. Dallas/Minneapolis(858)
+3. Minneapolis/Colorado Springs(674)
+4. Colorado Springs/Charlotte(169)
+5. Charlotte/New York(727)
+6. New York/Nashville-Davidson(288)
+7. Nashville-Davidson/El Paso(142)
+8. El Paso/Oklahoma City(1107)
+9. Oklahoma City/Virginia Beach(187)
+10. Virginia Beach/Columbus(1050)
+11. Columbus/Omaha(956)
+12. Omaha/Wichita(124)
+13. Wichita/Baltimore(657)
+14. Baltimore/Mesa(879)
+15. Mesa/San Diego(747)
+16. San Diego/Indianapolis(174)
+17. Indianapolis/Los Angeles(469)
+18. Los Angeles/Seattle(133)
+19. Seattle/Washington(619)
+20. Washington/Jacksonville(403)
+21. Jacksonville/Denver(848)
+22. Denver/Chicago(485)
+23. Chicago/Raleigh(302)
+24. Raleigh/Portland(194)
+25. Portland/Miami(1410)
+26. Miami/Houston(882)
+27. Houston/Kansas City(595)
+28. Kansas City/San Antonio(208)
+29. San Antonio/Austin(403)
+30. Austin/Boston(315)
+31. Boston/Long Beach(664)
+32. Long Beach/Fort Worth(279)
+33. Fort Worth/Oakland(827)
+34. Oakland/Albuquerque(583)
+35. Albuquerque/Detroit(1156)
+36. Detroit/Tucson(537)
+37. Tucson/San Jose(104)
+38. San Jose/Tulsa(619)
+39. Tulsa/Philadelphia(175)
+40. Philadelphia/Memphis(148)
+41. Memphis/Sacramento(377)
+42. Sacramento/Fresno(103)
+43. Fresno/Milwaukee(1522)
+44. Milwaukee/Las Vegas(324)
+45. Las Vegas/Louisville-Jefferson County(140)
+46. Louisville-Jefferson County/Atlanta(1840)
+47. Atlanta/San Francisco(159)
+48. San Francisco/Phoenix(279)
+49. Phoenix/Cleveland(800)
+50. Cleveland/Anchorage(729)
+------------------------------
+Total Cost (Fitness): 27473
