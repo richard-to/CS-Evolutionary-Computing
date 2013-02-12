@@ -39,13 +39,13 @@ public class TSPSimulator {
         int populationSize = 10;
 
         // Number of generations must be greater than 0.
-        int generations = 100;
+        int generations = 300;
 
         // Seed for cost matrix PRNG.
         int costMatrixSeed = 1;
 
         // Number of cities in cost matrix must be greater 1.
-        int cities = 5;
+        int cities = 10;
 
         // Minimum price of 1-way airfare. Must be greater than 0. Inclusive.
         int minPrice = 99;
@@ -114,7 +114,7 @@ public class TSPSimulator {
         FitnessAnalyzer fitnessAnalyzer = new FitnessAnalyzer(opts.fitnessEvaluator, opts.comparator);
 
         GenePoolInitializer genePoolInitializer = new GenePoolInitializer(
-                opts.populationSize, opts.costMatrix, opts.random);
+                opts.cities, opts.costMatrix, opts.random);
 
         IParentSelector parentSelector = buildParentSelector(opts);
 
