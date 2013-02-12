@@ -1,5 +1,7 @@
 package to.richard.tsp;
 
+import sun.beans.editors.DoubleEditor;
+
 import java.util.*;
 
 /**
@@ -32,7 +34,7 @@ public class FPSLinearNormalization implements IFPSTransform {
         double previousFitness = 0;
         Pair<Double, Genotype> currentPair;
         Pair<Double, Genotype> tempPair;
-        ArrayList<Integer> sameFitnessIndex = new ArrayList<Integer>();
+        HashSet<Integer> sameFitnessIndex = new HashSet<Integer>();
         ArrayList<Pair<Double, Genotype>> listToSort = new ArrayList<Pair<Double, Genotype>>(genotypeFitnessList);
         ArrayList<Pair<Double, Genotype>> newList = new ArrayList<Pair<Double, Genotype>>();
 
@@ -50,7 +52,7 @@ public class FPSLinearNormalization implements IFPSTransform {
                     }
                     avgRank = totalRank / sameFitnessIndex.size();
                     for (Integer index : sameFitnessIndex) {
-                        newList.get(index).setFirstValue(avgRank);
+                        newList.get(population - 1 -index).setFirstValue(avgRank);
                     }
                 }
                 previousFitness = currentPair.getFirstValue();
@@ -59,6 +61,7 @@ public class FPSLinearNormalization implements IFPSTransform {
             }
             newList.add(new Pair<Double, Genotype>((double)(i + 1), currentPair.getSecondValue()));
         }
+
         return newList;
     }
 }
