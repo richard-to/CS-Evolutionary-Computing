@@ -37,9 +37,9 @@ public class Errors {
         }
     }
 
-    public static class MatrixRowsNotEqualToNamedAlleles extends Error {
-        public MatrixRowsNotEqualToNamedAlleles() {}
-        public MatrixRowsNotEqualToNamedAlleles(String msg) {
+    public static class MatrixRowsGreaterThanEqualToNamedAlleles extends Error {
+        public MatrixRowsGreaterThanEqualToNamedAlleles() {}
+        public MatrixRowsGreaterThanEqualToNamedAlleles(String msg) {
             super(msg);
         }
     }
