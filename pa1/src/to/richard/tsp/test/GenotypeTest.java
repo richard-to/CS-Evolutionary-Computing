@@ -135,4 +135,12 @@ public class GenotypeTest {
         MutableGenotype genotype = new MutableGenotype(3);
         assertEquals(false, genotype.hasAlleleAt(2));
     }
+
+    @Test
+    public void testGenotypeEquality() {
+        Allele[] alleles = {new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)};
+        MutableGenotype genotype = new MutableGenotype(3);
+        Genotype genotypeSame = genotype.copy();
+        assertEquals(genotype, genotypeSame);
+    }
 }
