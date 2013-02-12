@@ -36,22 +36,25 @@ public class TSPSimulator {
         // ------------------------
 
         // Population size must be greater 1.
-        int populationSize = 20;
+        public int populationSize = 20;
 
         // Number of generations must be greater than 0.
-        int generations = 1000;
+        public int generations = 1000;
 
         // Seed for cost matrix PRNG.
-        int costMatrixSeed = 1;
+        public int costMatrixSeed = 1;
 
         // Number of cities in cost matrix must be greater 1.
-        int cities = 50;
+        public int cities = 51;
+
+        // Optional list of city names. Must match number of cities.
+        public String[] cityNames = null;
 
         // Minimum price of 1-way airfare. Must be greater than 0. Inclusive.
-        int minPrice = 99;
+        public int minPrice = 99;
 
         // Maximum price of 1-way airfare. Must be greater than min price. Inclusive.
-        int maxPrice = 2000;
+        public int maxPrice = 2000;
 
         // Default to minimization problem since we are looking for lowest price.
         public PROBLEM_TYPE problemType = PROBLEM_TYPE.MINIMIZATION;
@@ -69,7 +72,7 @@ public class TSPSimulator {
         public SAMPLER sampler = SAMPLER.SUS;
 
         // Used for tournament selection. Size must be greater than 0.
-        int tournamentSize = 2;
+        public int tournamentSize = 2;
 
         //Crossover algorithm. PMX is default.
         public CROSSOVER crossover = CROSSOVER.PMX;
@@ -105,7 +108,11 @@ public class TSPSimulator {
 
         CostMatrixBuilder costMatrixBuilder = new CostMatrixBuilder(new Random(opts.costMatrixSeed));
         opts.costMatrix = costMatrixBuilder.buildMatrix(
-                opts.populationSize, opts.minPrice, opts.maxPrice);
+                opts.cities, opts.minPrice, opts.maxPrice, opts.cityNames);
+
+        FitnessResult result = null;
+
+        PhenotypeDecoder decoder = new PhenotypeDecoder(opts.costMatrix);
 
         opts.fitnessEvaluator = new FitnessEvaluator(opts.costMatrix);
 
@@ -114,7 +121,7 @@ public class TSPSimulator {
         FitnessAnalyzer fitnessAnalyzer = new FitnessAnalyzer(opts.fitnessEvaluator, opts.comparator);
 
         GenePoolInitializer genePoolInitializer = new GenePoolInitializer(
-                opts.cities, opts.costMatrix, opts.random);
+                opts.populationSize, opts.costMatrix, opts.random);
 
         IParentSelector parentSelector = buildParentSelector(opts);
 
@@ -146,7 +153,10 @@ public class TSPSimulator {
 
             currentGeneration++;
         }
-        System.out.println(fitnessAnalyzer.analyze(population));
+
+        result = fitnessAnalyzer.analyze(population);
+        System.out.println(result);
+        System.out.println(decoder.decode(result.getGenotype()));
     }
 
     /**
