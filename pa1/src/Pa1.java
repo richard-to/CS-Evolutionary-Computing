@@ -3,11 +3,7 @@
  * Date: 1/30/13
  */
 
-import to.richard.tsp.*;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import to.richard.tsp.TSPSimulator;
 
 /**
  * Main class for to solve TSP problem using Genetic Algorithm.
