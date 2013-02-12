@@ -70,8 +70,9 @@ public class Genotype implements Iterable<Allele> {
             } else {
                 genotypeStringBuilder.append(allele.getValue());
             }
+            genotypeStringBuilder.append("-");
         }
-        return genotypeStringBuilder.toString();
+        return genotypeStringBuilder.deleteCharAt(genotypeStringBuilder.length() - 1).toString();
     }
 
     /**

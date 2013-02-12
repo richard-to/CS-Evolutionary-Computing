@@ -35,8 +35,8 @@ public class MutatorTest {
                     new Allele(3),new Allele(4),new Allele(6),new Allele(2),new Allele(7)}));
         }};
         List<Genotype> genotypesNew = mutator.mutate(genotypes);
-        assertEquals("43210567", genotypesNew.get(0).toString());
-        assertEquals("01534627", genotypesNew.get(1).toString());
+        assertEquals("4-3-2-1-0-5-6-7", genotypesNew.get(0).toString());
+        assertEquals("0-1-5-3-4-6-2-7", genotypesNew.get(1).toString());
     }
 
     @Test
@@ -50,12 +50,12 @@ public class MutatorTest {
         InversionMutation inversion = new InversionMutation();
 
         Genotype newGenotype = inversion.mutate(genotype, random);
-        assertEquals("43210567", newGenotype.toString());
+        assertEquals("4-3-2-1-0-5-6-7", newGenotype.toString());
 
         newGenotype = inversion.mutate(genotype, random);
-        assertEquals("01234567", newGenotype.toString());
+        assertEquals("0-1-2-3-4-5-6-7", newGenotype.toString());
 
         newGenotype = inversion.mutate(genotype, random);
-        assertEquals("03214567", newGenotype.toString());
+        assertEquals("0-3-2-1-4-5-6-7", newGenotype.toString());
     }
 }

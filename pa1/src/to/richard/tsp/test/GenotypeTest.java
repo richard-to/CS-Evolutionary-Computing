@@ -120,13 +120,13 @@ public class GenotypeTest {
     public void testGenotypeToString() {
         Allele[] alleles = {new Allele(0),new Allele(1),new Allele(2),new Allele(3),new Allele(4)};
         Genotype genotype = new Genotype(alleles);
-        assertEquals("01234", genotype.toString());
+        assertEquals("0-1-2-3-4", genotype.toString());
     }
 
     @Test
     public void testMutableGenotypeToString() {
         MutableGenotype genotype = new MutableGenotype(3);
-        assertEquals("___", genotype.toString());
+        assertEquals("_-_-_", genotype.toString());
     }
 
     @Test

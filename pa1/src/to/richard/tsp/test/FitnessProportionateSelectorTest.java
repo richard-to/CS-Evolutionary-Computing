@@ -41,8 +41,8 @@ public class FitnessProportionateSelectorTest {
         }};
 
         List<Genotype> parentGenotypes = fps.selectParents(genotypes);
-        assertEquals("21", parentGenotypes.get(0).toString());
-        assertEquals("12", parentGenotypes.get(1).toString());
+        assertEquals("2-1", parentGenotypes.get(0).toString());
+        assertEquals("1-2", parentGenotypes.get(1).toString());
     }
 
     @Test

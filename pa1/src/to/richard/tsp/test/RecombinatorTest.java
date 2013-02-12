@@ -45,10 +45,10 @@ public class RecombinatorTest {
         // Offspring
         // O1 - 0123465
         // 02 - 0153426
-        assertEquals("0123465", newGenotypes.get(0).toString());
-        assertEquals("0153426", newGenotypes.get(1).toString());
-        assertEquals("0123456", newGenotypes.get(2).toString());
-        assertEquals("0153462", newGenotypes.get(3).toString());
+        assertEquals("0-1-2-3-4-6-5", newGenotypes.get(0).toString());
+        assertEquals("0-1-5-3-4-2-6", newGenotypes.get(1).toString());
+        assertEquals("0-1-2-3-4-5-6", newGenotypes.get(2).toString());
+        assertEquals("0-1-5-3-4-6-2", newGenotypes.get(3).toString());
     }
 
     @Test
@@ -78,8 +78,8 @@ public class RecombinatorTest {
         // Offspring
         // O1 - 0123465
         // 02 - 0153246
-        assertEquals("0123465", newGenotypes.get(0).toString());
-        assertEquals("0153246", newGenotypes.get(1).toString());
+        assertEquals("0-1-2-3-4-6-5", newGenotypes.get(0).toString());
+        assertEquals("0-1-5-3-2-4-6", newGenotypes.get(1).toString());
     }
 
     @Test
@@ -98,8 +98,8 @@ public class RecombinatorTest {
                 new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)});
         List<Genotype> newGenotypes = pmx.crossover(g1, g2, random);
 
-        assertEquals("123456789", newGenotypes.get(0).toString());
-        assertEquals("123456789", newGenotypes.get(1).toString());
+        assertEquals("1-2-3-4-5-6-7-8-9", newGenotypes.get(0).toString());
+        assertEquals("1-2-3-4-5-6-7-8-9", newGenotypes.get(1).toString());
     }
 
     @Test
@@ -118,7 +118,7 @@ public class RecombinatorTest {
                 new Allele(8),new Allele(2),new Allele(6),new Allele(5),new Allele(1),new Allele(4)});
         List<Genotype> newGenotypes = pmx.crossover(g1, g2, random);
 
-        assertEquals("932456718", newGenotypes.get(0).toString());
+        assertEquals("9-3-2-4-5-6-7-1-8", newGenotypes.get(0).toString());
     }
 
     @Test
@@ -137,7 +137,7 @@ public class RecombinatorTest {
                 new Allele(8),new Allele(2),new Allele(6),new Allele(5),new Allele(1),new Allele(4)});
         List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
 
-        assertEquals("382456719", newGenotypes.get(0).toString());
+        assertEquals("3-8-2-4-5-6-7-1-9", newGenotypes.get(0).toString());
     }
 
     @Test
@@ -156,7 +156,7 @@ public class RecombinatorTest {
                 new Allele(8),new Allele(2),new Allele(6),new Allele(5),new Allele(1),new Allele(4)});
         List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
 
-        assertEquals("937826514", newGenotypes.get(0).toString());
+        assertEquals("9-3-7-8-2-6-5-1-4", newGenotypes.get(0).toString());
     }
 
     @Test
@@ -175,7 +175,7 @@ public class RecombinatorTest {
                 new Allele(8),new Allele(2),new Allele(4),new Allele(5),new Allele(1),new Allele(6)});
         List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
 
-        assertEquals("324516789", newGenotypes.get(0).toString());
+        assertEquals("3-2-4-5-1-6-7-8-9", newGenotypes.get(0).toString());
     }
 
     @Test
@@ -190,8 +190,8 @@ public class RecombinatorTest {
                 new Allele(8),new Allele(2),new Allele(6),new Allele(5),new Allele(1),new Allele(4)});
         List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
 
-        assertEquals("137426589", newGenotypes.get(0).toString());
-        assertEquals("923856714", newGenotypes.get(1).toString());
+        assertEquals("1-3-7-4-2-6-5-8-9", newGenotypes.get(0).toString());
+        assertEquals("9-2-3-8-5-6-7-1-4", newGenotypes.get(1).toString());
     }
 
     @Test
@@ -206,8 +206,8 @@ public class RecombinatorTest {
                 new Allele(4),new Allele(5),new Allele(6),new Allele(7),new Allele(8),new Allele(9)});
         List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
 
-        assertEquals("123456789", newGenotypes.get(0).toString());
-        assertEquals("123456789", newGenotypes.get(1).toString());
+        assertEquals("1-2-3-4-5-6-7-8-9", newGenotypes.get(0).toString());
+        assertEquals("1-2-3-4-5-6-7-8-9", newGenotypes.get(1).toString());
     }
 
     @Test
@@ -237,8 +237,8 @@ public class RecombinatorTest {
         // XXXXXX_XX
         // 5, 8
         // 6         CROSS
-        assertEquals("123856749", newGenotypes.get(0).toString());
-        assertEquals("523419786", newGenotypes.get(1).toString());
+        assertEquals("1-2-3-8-5-6-7-4-9", newGenotypes.get(0).toString());
+        assertEquals("5-2-3-4-1-9-7-8-6", newGenotypes.get(1).toString());
     }
 
     @Test
@@ -256,7 +256,7 @@ public class RecombinatorTest {
                 new Allele(8),new Allele(2),new Allele(6),new Allele(5),new Allele(1),new Allele(4)});
         List<Genotype> newGenotypes = crossover.crossover(g1, g2, random);
 
-        assertEquals("156287394", newGenotypes.get(0).toString());
+        assertEquals("1-5-6-2-8-7-3-9-4", newGenotypes.get(0).toString());
     }
 
     @Test
@@ -284,9 +284,9 @@ public class RecombinatorTest {
         }};
         List<Genotype> newGenotypes = recombinator.recombine(genotypes);
 
-        assertEquals("123456789", newGenotypes.get(0).toString());
-        assertEquals("156287394", newGenotypes.get(1).toString());
-        assertEquals("937826514", newGenotypes.get(2).toString());
-        assertEquals("123456789", newGenotypes.get(3).toString());
+        assertEquals("1-2-3-4-5-6-7-8-9", newGenotypes.get(0).toString());
+        assertEquals("1-5-6-2-8-7-3-9-4", newGenotypes.get(1).toString());
+        assertEquals("9-3-7-8-2-6-5-1-4", newGenotypes.get(2).toString());
+        assertEquals("1-2-3-4-5-6-7-8-9", newGenotypes.get(3).toString());
     }
 }
