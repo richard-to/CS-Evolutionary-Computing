@@ -12,6 +12,6 @@ import java.util.List;
  *
  * Ie. FPS, Tournament
  */
-public interface ISelector {
+public interface IParentSelector {
     public List<Genotype> selectParents(List<Genotype> genotypes);
 }

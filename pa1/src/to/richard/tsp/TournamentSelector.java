@@ -22,7 +22,7 @@ import java.util.List;
  * If tournament size less than 1 or greater than size of genotypes, an
  * error will be thrown.
  */
-public class TournamentSelector implements ISelector {
+public class TournamentSelector implements IParentSelector {
     private IRandom _random;
     private int _tournamentSize;
     private Comparator<Pair<Double, Genotype>> _fitnessComparator;

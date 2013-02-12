@@ -32,7 +32,7 @@ import java.util.List;
  * The other parameter is a FitnessEvaluator class. This provides a way to calculate the fitness of a
  * genotype since genotypes cannot calculate that value themselves in my implementation.
  */
-public class FitnessProportionateSelector implements ISelector {
+public class FitnessProportionateSelector implements IParentSelector {
     private IRandom _random;
     private ISampler<Genotype> _sampler;
     private FitnessEvaluator _fitnessEvaluator;
