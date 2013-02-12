@@ -55,10 +55,10 @@ public class CostMatrixTest {
         costMatrix.getCost(new Allele(4), new Allele(2));
     }
 
-    @Test(expected = Errors.MatrixRowsNotEqualToNamedAlleles.class)
+    @Test(expected = Errors.MatrixRowsGreaterThanEqualToNamedAlleles.class)
     public void testCityNamesNotEqualToMatrix() throws Exception {
         int[][] matrix = {{10, 20}, {30, 40}};
-        String[] cityNames = {"City0", "City1", "City3"};
+        String[] cityNames = {"City0"};
         CostMatrix costMatrix = new CostMatrix(matrix, cityNames);
     }
 }
