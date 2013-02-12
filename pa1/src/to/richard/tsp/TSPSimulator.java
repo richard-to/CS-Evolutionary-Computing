@@ -36,16 +36,16 @@ public class TSPSimulator {
         // ------------------------
 
         // Population size must be greater 1.
-        int populationSize = 10;
+        int populationSize = 20;
 
         // Number of generations must be greater than 0.
-        int generations = 300;
+        int generations = 1000;
 
         // Seed for cost matrix PRNG.
         int costMatrixSeed = 1;
 
         // Number of cities in cost matrix must be greater 1.
-        int cities = 10;
+        int cities = 50;
 
         // Minimum price of 1-way airfare. Must be greater than 0. Inclusive.
         int minPrice = 99;
