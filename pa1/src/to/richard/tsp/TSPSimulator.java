@@ -35,17 +35,28 @@ public class TSPSimulator {
         // Public Simulator Options
         // ------------------------
 
+        // Print best genotype and fitness after each generation.
+        // Best to leave this false since the output is rather large for
+        // many generations and a large city count.
+        public boolean printResultsForEachGeneration = false;
+
         // Population size must be greater 1.
         public int populationSize = 20;
 
-        // Number of generations must be greater than 0.
-        public int generations = 1000;
+        // Use custom random class if you want to specify your own seed.
+        // This does not effect the cost grid seed.
+        // If null a random class will be created automatically using
+        // a random seed.
+        public Random random = null;
 
         // Seed for cost matrix PRNG.
         public int costMatrixSeed = 1;
 
+        // Number of generations must be greater than 0.
+        public int generations = 500;
+
         // Number of cities in cost matrix must be greater 1.
-        public int cities = 51;
+        public int cities = 50;
 
         // Optional list of city names. Must match number of cities.
         public String[] cityNames = null;
@@ -91,7 +102,6 @@ public class TSPSimulator {
         // Private Simulator Options
         // ------------------------
 
-        private Random random;
         private CostMatrix costMatrix;
         private FitnessEvaluator fitnessEvaluator;
         private Comparator<Pair<Double, Genotype>> comparator;
@@ -99,12 +109,16 @@ public class TSPSimulator {
 
     /**
      * Simulate TSP problem with given options.
+     *
+     * @TODO: Separate view code from data code.
      */
     public void simulate(Options opts) {
 
         int currentGeneration = 0;
 
-        opts.random = new Random();
+        if (opts.random == null) {
+            opts.random =  new Random();
+        }
 
         CostMatrixBuilder costMatrixBuilder = new CostMatrixBuilder(new Random(opts.costMatrixSeed));
         opts.costMatrix = costMatrixBuilder.buildMatrix(
@@ -135,7 +149,10 @@ public class TSPSimulator {
 
         List<Genotype> population = genePoolInitializer.initializeGenePool();
 
-        System.out.println(fitnessAnalyzer.analyze(population));
+        printSettings(opts);
+
+        result = fitnessAnalyzer.analyze(population);
+        printResults("Generation " + currentGeneration, result, decoder);
 
         while (currentGeneration < opts.generations) {
 
@@ -152,13 +169,43 @@ public class TSPSimulator {
             population = survivorSelector.replace(parents, mutatedOffspring);
 
             currentGeneration++;
-        }
 
-        result = fitnessAnalyzer.analyze(population);
-        System.out.println(result);
-        System.out.println(decoder.decode(result.getGenotype()));
+            // Print results
+            if (opts.printResultsForEachGeneration || currentGeneration == opts.generations) {
+                result = fitnessAnalyzer.analyze(population);
+                printResults("Generation " + currentGeneration, result, decoder);
+            }
+        }
     }
 
+    private void printSettings(Options opts) {
+        System.out.println("Settings");
+        System.out.println("==============================");
+        System.out.format("Control Parameters: M = %d; G = %d, Pc = %.2f, Pm = %.2f, Pr = 1.00%n",
+                opts.populationSize, opts.generations, opts.probabilityCrossover, opts.probabilityMutation);
+        System.out.format("Parent Selection: %s\n", opts.parentSelection.toString());
+
+        if (opts.parentSelection == PARENT_SELECTION.FPS) {
+            System.out.format("Sampling Algorithm: %s\n", opts.sampler.toString());
+            System.out.format("FPS Transform: %s\n", opts.transforms.toString());
+        }
+
+        System.out.format("Crossover Operator: %s\n", opts.crossover.toString());
+        System.out.format("Mutation Operator: %s\n", opts.mutation.toString());
+        System.out.format("Survivor Selection: %s\n", opts.survivorSelection.toString());
+
+        System.out.println();
+    }
+
+    private void printResults(String header, FitnessResult result, PhenotypeDecoder decoder) {
+        System.out.println(header);
+        System.out.println("==============================\n");
+        System.out.println("Best Tour (Phenotype)");
+        System.out.println("------------------------------");
+        System.out.println(decoder.decode(result.getGenotype()));
+        System.out.println("------------------------------");
+        System.out.format("Total Cost (Fitness): %.0f%n%n%n", result.getBest());
+    }
     /**
      * Factor method to build comparator based on problem type (MIN, MAX)
      */
