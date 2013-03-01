@@ -95,7 +95,7 @@ def compareBestFitness(best, challenger, numVariables, fitness):
 
 def createGeneration0(numParents, variables, initialSigma=1.0):
     """
-    Creates the initial population by generating genotypes for the specified 
+    Creates the initial population by generating chromosomes for the specified 
     number of parents.
 
     Args:
@@ -104,7 +104,7 @@ def createGeneration0(numParents, variables, initialSigma=1.0):
         initialSigma: The starting sigma value defaults to one
     
     Returns:
-        A list of randomly generated genotypes
+        A list of randomly generated chromosomes
     """
     sigmaList = [initialSigma] * len(variables)
     return [[uniform(*v) for v in variables] + sigmaList for i in range(numParents)]
@@ -121,14 +121,14 @@ def recombination(parents, numVariables, numOffspring, vRecombination, sRecombin
     are implemented.
 
     Args:
-        parents: A list of genotypes. Each row is a list of values followed by step sizes
+        parents: A list of chromosomes. Each row is a list of values followed by step sizes
         numVariables: Number variables or values that want to find
         numOffspring: The number of offspring to produce from parents
         vRecombination: Recombination variant for values
         sRecombination: Recombination variant for steps
 
     Returns:
-        A list of genotypes that consist of the offspring from recombined parents
+        A list of chromosomes that consist of the offspring from recombined parents
     """
     values, steps = sliceMatrix(parents, numVariables)
     newValues = vRecombination(values, numOffspring)
@@ -140,14 +140,14 @@ def discreteGlobalRecombination(parents, numOffspring):
     """
     Performs discrete global recombination.
 
-    For each value and or step in the genotype, we randomly select two parents from
+    For each value and or step in the chromosome, we randomly select two parents from
     the population. We then randomly choose an allele from the selected 
     parents.
 
     This is repeated until the specified number of offspring are created.
 
     Args:
-        parents: A list of genotypes. Each row is a list of values followed by step sizes 
+        parents: A list of chromosomes. Each row is a list of values followed by step sizes 
         numOffspring: The number of offspring to produce from parents 
     
     Returns:
@@ -161,13 +161,13 @@ def intermediateGlobalRecombination(parents, numOffspring):
     """
     Performs intermediate global recombination.
 
-    For each value and or step in the genotype, we randomly select two parents from
+    For each value and or step in the chromosome, we randomly select two parents from
     the population and average out their allele values.
 
     This is repeated until the specified number of offspring are created.
 
     Args:
-        parents: A list of genotypes. Each row is a list of values followed by step sizes 
+        parents: A list of chromosomes. Each row is a list of values followed by step sizes 
         numOffspring: The number of offspring to produce from parents 
     
     Returns:
@@ -227,9 +227,8 @@ def mutation(offspring, numVariables):
         numVariables: Number of variables. Also acts as step size.
 
     Returns:
-        A 2d list of mutated genotype offsprings
+        A 2d list of mutated chromosome offsprings
     """
-
     overall = overallLearningRate(numVariables) * gauss(0, 1)
     specific = specificLearningRate(numVariables)
 
@@ -244,7 +243,7 @@ def mutation(offspring, numVariables):
     return [mutatedValues[i] + mutatedSteps[i] for i in range(len(offspring))]
 
 
-def surviorSelection(parents, offspring, fitness, max=True):
+def survivorSelectionOffspring(parents, offspring, numVariables, fitness, max=True):
     """
     Survivor selection using (mu, lambda). Offspring are ranked from best to worst based 
     on the specified fitness function.
@@ -253,15 +252,18 @@ def surviorSelection(parents, offspring, fitness, max=True):
     by the number of the parents.
 
     Args:
-        parents: A list of parent genotypes
-        offspring: A list of offspring genotypes
-        fitness: Used to evaluate fitness of a genotype
+        parents: A list of parent chromosomes
+        offspring: A list of offspring chromosomes
+        numVariables: Number of variables
+        fitness: Used to evaluate fitness of a chromosome
         max: Defaults to true. This sorts the fitness values from highest to lowest. Descending order
 
     Returns:
         New parents selected from offspring ranked by fitness
     """
-    return sorted(offspring, key=lambda child: fitness(child[0], child[1]), reverse=max)[:len(parents)] 
+    return rank(offspring, numVariables, len(parents), fitness, max) 
+
+
 def survivorSelectionWithParents(parents, offspring, numVariables, fitness, max=True):
     """
     Survivor selection using (mu + lambda). Offspring and parents are ranked from best to worst based 
@@ -291,13 +293,13 @@ if __name__ == '__main__':
     x2Range = (4, 6)
     initialSigma = 1.0
     terminationCount = 10
-
+    survivorSelection = survivorSelectionOffspring
+    currentBest = None
     parents = createGeneration0(numParents, (x1Range, x2Range), initialSigma)
-    print parents
 
     for i in xrange(terminationCount):
         offspring = recombination(parents, numVariables, numOffspring, 
             discreteGlobalRecombination, intermediateGlobalRecombination)      
         mutatedOffspring = mutation(offspring, numVariables) 
-        parents = surviorSelection(parents, mutatedOffspring, fitness)
+        parents = survivorSelection(parents, mutatedOffspring, numVariables, fitness)
     print parents
