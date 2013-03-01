@@ -93,21 +93,21 @@ def compareBestFitness(best, challenger, numVariables, fitness):
     return best if fitness(*best[:numVariables]) > fitness(*challenger[:numVariables]) else challenger
 
 
-def createGeneration0(numParents, variables, initialSigma=1.0):
+def createGeneration0(numParents, constraints, initialSigma=1.0):
     """
     Creates the initial population by generating chromosomes for the specified 
     number of parents.
 
     Args:
         numParents: Number of parents to generate
-        variables: A tuple of min/max tuples specifying constraints for each variable.
+        constraints: A tuple of min/max tuples specifying constraints for each variable.
         initialSigma: The starting sigma value defaults to one
     
     Returns:
         A list of randomly generated chromosomes
     """
-    sigmaList = [initialSigma] * len(variables)
-    return [[uniform(*v) for v in variables] + sigmaList for i in range(numParents)]
+    sigmaList = [initialSigma] * len(constraints)
+    return [[uniform(*v) for v in constraints] + sigmaList for i in range(numParents)]
 
 
 def recombination(parents, numVariables, numOffspring, vRecombination, sRecombination):
@@ -284,25 +284,48 @@ def survivorSelectionWithParents(parents, offspring, numVariables, fitness, max=
     return rank(parents + offspring, numVariables, len(parents), fitness, max)
 
 
-if __name__ == '__main__':
+def deathPenalty(offspring, constraints):
+    """
+    Make sure offspring values meet constraints. Offspring that do not meet 
+    constraints will be removed from list. We must then do recombination 
+    again until lambda offspring are created.
 
+    Args:
+        offspring: List of chromosomes created through recombination and mutation
+        constraints: Values fall within specified constraints to be valid
+
+    Returns:
+        List of offspring that are valid
+    """
+    return filter(lambda o: all(checkRange(o[i], *constraints[i]) for i in range(len(constraints))), offspring)
+
+
+if __name__ == '__main__':
     numParents = 3
     numOffspring = 21
     numVariables = 2
     x1Range = (-3, 12)
     x2Range = (4, 6)
+    constraints = (x1Range, x2Range)
     initialSigma = 1.0
-    terminationCount = 10
+    terminationCount = 10000
     survivorSelection = survivorSelectionOffspring
 
-    parents = createGeneration0(numParents, (x1Range, x2Range), initialSigma)
+    parents = createGeneration0(numParents, constraints, initialSigma)
     parents = rank(parents, numVariables, len(parents), fitness)
     currentBest = parents[0]
 
     for i in xrange(terminationCount):
+        validOffspring = []
+        offspringNeeded = numOffspring
+        while offspringNeeded > 0:
+            offspring = recombination(parents, numVariables, offspringNeeded, 
+                discreteGlobalRecombination, intermediateGlobalRecombination)      
+            mutatedOffspring = mutation(offspring, numVariables)
+            validOffspring.extend(deathPenalty(mutatedOffspring, constraints))
+            offspringNeeded = numOffspring - len(validOffspring)
+        parents = survivorSelection(parents, validOffspring, numVariables, fitness)
         currentBest = compareBestFitness(currentBest, parents[0], numVariables, fitness)
-        offspring = recombination(parents, numVariables, numOffspring, 
-            discreteGlobalRecombination, intermediateGlobalRecombination)      
-        mutatedOffspring = mutation(offspring, numVariables) 
-        parents = survivorSelection(parents, mutatedOffspring, numVariables, fitness)
+
+    print currentBest
     print parents
