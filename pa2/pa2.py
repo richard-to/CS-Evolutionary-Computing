@@ -77,6 +77,22 @@ def fitness(x1, x2):
     return 21.5 + x1 * sin(4.0 * pi * x1) + x2 * sin(20.0 * pi * x2)
 
 
+def compareBestFitness(best, challenger, numVariables, fitness):
+    """
+    Compares fitness values. Expects maximization problem.
+
+    Args:
+        best: Current best chromosome 
+        challenger: Best chromosome for currrent generation
+
+    Returns:
+        Chromsome with best fitness
+
+    TODO: Doesn't handle minimization problems.
+    """
+    return best if fitness(*best[:numVariables]) > fitness(*challenger[:numVariables]) else challenger
+
+
 def createGeneration0(numParents, variables, initialSigma=1.0):
     """
     Creates the initial population by generating genotypes for the specified 
