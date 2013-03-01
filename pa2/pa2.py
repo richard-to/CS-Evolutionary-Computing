@@ -230,6 +230,24 @@ def surviorSelection(parents, offspring, fitness, max=True):
         New parents selected from offspring ranked by fitness
     """
     return sorted(offspring, key=lambda child: fitness(child[0], child[1]), reverse=max)[:len(parents)] 
+def survivorSelectionWithParents(parents, offspring, numVariables, fitness, max=True):
+    """
+    Survivor selection using (mu + lambda). Offspring and parents are ranked from best to worst based 
+    on the specified fitness function.
+
+    We select the best parents and offspring until we populated the next generation, which is specified 
+    by the number of the parents.
+
+    Args:
+        parents: A list of parent chromosomes
+        offspring: A list of offspring chromosomes
+        fitness: Used to evaluate fitness of a chromosome
+        max: Defaults to true. This sorts the fitness values from highest to lowest. Descending order
+
+    Returns:
+        New parents selected from both parents and offspring ranked by fitness
+    """
+    return rank(parents + offspring, numVariables, len(parents), fitness, max)
 
 
 if __name__ == '__main__':
