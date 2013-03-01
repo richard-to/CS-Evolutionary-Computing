@@ -117,6 +117,7 @@ def discreteGlobalRecombination(parents, numOffspring):
     Args:
         parents: A list of genotypes. Each row is a list of values followed by step sizes 
         numOffspring: The number of offspring to produce from parents 
+    
     Returns:
         Offspring recombined using discrete global recombination
     """
@@ -136,6 +137,7 @@ def intermediateGlobalRecombination(parents, numOffspring):
     Args:
         parents: A list of genotypes. Each row is a list of values followed by step sizes 
         numOffspring: The number of offspring to produce from parents 
+    
     Returns:
         Offspring recombined using intermediate global recombination
     """    
@@ -151,6 +153,7 @@ def overallLearningRate(n):
 
     Args:
         n: Step size
+    
     Returns:
         Learning rate
     """
@@ -164,6 +167,7 @@ def specificLearningRate(n):
 
     Args:
         n: Step size
+    
     Returns:
         Learning rate for a specific variable
     """
