@@ -46,6 +46,22 @@ def checkRange(x, min, max):
     return min <= x <= max
 
 
+def rank(chromosomes, numVariables, top, fitness, max=True):
+    """
+    Ranks chromosomes based on fitness values and select the top x.
+
+    Args:
+        chromosomes: List of chromosomes to rank
+        top: Number of chromosomes to select
+        fitness: Fitness function used to evaluate chromosomes
+        max: Is this maximization problem? Defaults to true. If not, then it is minimization.
+
+    Returns:
+        A list of the top chromosomes
+    """
+    return sorted(chromosomes, key=lambda c: fitness(*c[:numVariables]), reverse=max)[:top] 
+
+
 def fitness(x1, x2):
     """
     Fitness function for PA2. This is a maximization problem, so 
