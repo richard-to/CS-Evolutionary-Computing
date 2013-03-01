@@ -294,10 +294,13 @@ if __name__ == '__main__':
     initialSigma = 1.0
     terminationCount = 10
     survivorSelection = survivorSelectionOffspring
-    currentBest = None
+
     parents = createGeneration0(numParents, (x1Range, x2Range), initialSigma)
+    parents = rank(parents, numVariables, len(parents), fitness)
+    currentBest = parents[0]
 
     for i in xrange(terminationCount):
+        currentBest = compareBestFitness(currentBest, parents[0], numVariables, fitness)
         offspring = recombination(parents, numVariables, numOffspring, 
             discreteGlobalRecombination, intermediateGlobalRecombination)      
         mutatedOffspring = mutation(offspring, numVariables) 
