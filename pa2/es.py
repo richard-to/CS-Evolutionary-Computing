@@ -34,7 +34,7 @@ def sliceMatrix(matrix, index):
     return [m[:index] for m in matrix], [m[index:] for m in matrix]
 
 
-def checkRange(x, min, max):
+def checkRange(x, *args):
     """
     Helper function to check that variables are within a range of values. Inclusive.
     In PA2, there are constraints on x1 and x2 that we need to enforce.
@@ -47,7 +47,7 @@ def checkRange(x, min, max):
     Returns:
         Whether x value falls within min and max values
     """
-    return min <= x <= max
+    return True if (args[0] == None) else args[0] <= x <= args[1]
 
 
 class PA2Fitness():
@@ -103,7 +103,6 @@ class PA2Fitness():
 
         TODO: Make sure 2 args passed. If not, should throw an exception.
         """
-
         return 21.5 + args[0] * sin(4.0 * pi * args[0]) + args[1] * sin(20.0 * pi * args[1])
 
     def compare(self, c1, c2):
@@ -158,7 +157,9 @@ def rank(chromosomes, top, fitness):
     Returns:
         A list of the top chromosomes
     """
-    return sorted(chromosomes, cmp=fitness.compare)[:top] 
+    sortedChromosomes = sorted(chromosomes, cmp=fitness.compare)
+    sortedChromosomes.reverse()
+    return sortedChromosomes[:top]
 
 
 def createGeneration0(numParents, fitness, initialSigma=1.0, uniform=random.uniform):
