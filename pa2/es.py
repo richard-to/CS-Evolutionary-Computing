@@ -1,10 +1,12 @@
+"""
+Implementation of evolutionary strategies algorithm for PA2.
+"""
+
+
 import random
 
 from math import e, pi, pow, sin, sqrt
 
-"""
-Implementation of evolutionary strategies algorithm for PA2.
-"""
 
 def transpose(matrix):
     """

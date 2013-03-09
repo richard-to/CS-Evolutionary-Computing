@@ -1,6 +1,4 @@
-import random
-
-import es
+#!/usr/bin/env python
 
 """
 Main program for PA2
@@ -10,6 +8,12 @@ maximize the following function:
 
 f(x1, x2) = 21.5 + x1 * sin(4 * pi * x1) + x2 * sin(20 * pi * x2)
 """
+
+
+import random
+
+import es
+
 
 """
 Logging Settings
@@ -36,13 +40,13 @@ vRecombination: The recombination algorithm to use on function variables
 sRecombination: The recombination algorithm to to use on step values
 survivorSelection: Either (mu, lambda) or (mu + lambda) to select survivor
 """ 
-seed = 1
+seed = 30340934
 numParents = 3
-numOffspring = 21
+numOffspring = 500
 initialSigma = 1.0
-maxGenerations = 10000
+maxGenerations = 500
 fitness = es.PA2Fitness()
-vRecombination = es.discreteGlobalRecombination
+vRecombination = es.intermediateGlobalRecombination
 sRecombination = es.intermediateGlobalRecombination
 survivorSelection = es.survivorSelectionOffspring
 

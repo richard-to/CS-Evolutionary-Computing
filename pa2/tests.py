@@ -1,9 +1,12 @@
-import es
-import unittest
+#!/usr/bin/env python
 
 """
 Tests for evolutionary strategies functions for PA2.
 """
+
+import es
+import unittest
+
 
 class MockRandom():
     """
