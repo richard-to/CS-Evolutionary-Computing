@@ -1,1 +1,1 @@
-Assignments for CS407 Evolutionary Computing course.
+Assignments for Evolutionary Computing course.
