@@ -106,7 +106,7 @@ public class MyTinyGp
         }
     }
 
-    int fitnessFunction(char[] Prog) {å
+    int fitnessFunction(char[] Prog) {
         int i = 0; 
         int len;
         boolean result;
