@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 
 public class MyTinyGp 
 {
-    double[] fitness;
+    int[] fitness;
     char[][] pop;
     static Random rd = new Random();
     static final int NOT = 110; 
@@ -84,7 +84,7 @@ public class MyTinyGp
             minrandom = Double.parseDouble(tokens.nextToken().trim());
             maxrandom = Double.parseDouble(tokens.nextToken().trim());
             fitnesscases = Integer.parseInt(tokens.nextToken().trim());
-            targets = new double[fitnesscases][varnumber+1];
+            targets = new boolean[fitnesscases][varnumber+1];
             if (varnumber + randomnumber >= FSET_START) { 
                 System.out.println("too many variables and constants");
             }
@@ -106,10 +106,10 @@ public class MyTinyGp
         }
     }
 
-    int fitnessFunction(char [] Prog) {
+    int fitnessFunction(char[] Prog) {
         int i = 0; 
         int len;
-        int result, 
+        boolean result;
         int fit = 0;
         
         len = traverse(Prog, 0);
@@ -144,10 +144,9 @@ public class MyTinyGp
         } else {
             prim = (char) (rd.nextInt(FSET_END - FSET_START + 1) + FSET_START);
             switch(prim) {
-            case ADD: 
-            case SUB: 
-            case MUL: 
-            case DIV:
+            case NOT: 
+            case AND: 
+            case OR: 
                 buffer[pos] = prim;
                 one_child = grow(buffer, pos+1, max,depth-1);
                 if (one_child < 0) {
@@ -159,8 +158,10 @@ public class MyTinyGp
         return(0); // should never get here
     }
     
-    int print_indiv(char []buffer, int buffercounter) {
-        int a1=0, a2;
+    int printIndiv(char[] buffer, int buffercounter) {
+        int a1=0; 
+        int a2 = 0;
+        
         if (buffer[buffercounter] < FSET_START) {
             if (buffer[buffercounter] < varnumber) {
                 System.out.print("X"+ (buffer[buffercounter] + 1)+ " ");
@@ -171,31 +172,29 @@ public class MyTinyGp
         }
         
         switch(buffer[buffercounter]) {
-            case ADD: System.out.print("(");
-                a1=print_indiv(buffer, ++buffercounter); 
-                System.out.print(" + "); 
+            case NOT: System.out.print("!(");
+                a1=printIndiv(buffer, ++buffercounter);
+                a2=a1;
                 break;
-            case SUB: System.out.print("(");
-                a1=print_indiv(buffer, ++buffercounter); 
-                System.out.print(" - "); 
+            case AND: System.out.print("(");
+                a1=printIndiv(buffer, ++buffercounter); 
+                System.out.print(" && "); 
+                a2=printIndiv(buffer, a1); 
                 break;
-            case MUL: System.out.print("(");
-                a1=print_indiv(buffer, ++buffercounter); 
-                System.out.print(" * "); 
-                break;
-            case DIV: System.out.print("(");
-                a1=print_indiv(buffer, ++buffercounter); 
-                System.out.print(" / "); 
+            case OR: System.out.print("(");
+                a1=printIndiv(buffer, ++buffercounter); 
+                System.out.print(" || ");
+                a2=printIndiv(buffer, a1);  
                 break;
         }
-        a2=print_indiv(buffer, a1); 
+
         System.out.print(")"); 
         return(a2);
     }
     
 
     static char [] buffer = new char[MAX_LEN];
-    char [] create_random_indiv(int depth) {
+    char [] createRandomIndiv(int depth) {
         char [] ind;
         int len;
 
@@ -211,19 +210,19 @@ public class MyTinyGp
         return(ind);
     }
 
-    char [][] create_random_pop(int n, int depth, double [] fitness) {
-        char [][]pop = new char[n][];
+    char[][] createRandomPop(int n, int depth, int[] fitness) {
+        char[][]pop = new char[n][];
         int i;
         
         for (i = 0; i < n; i ++) {
-            pop[i] = create_random_indiv(depth);
+            pop[i] = createRandomIndiv(depth);
             fitness[i] = fitnessFunction(pop[i]);
         }
         return(pop);
     }
 
 
-    void stats(double [] fitness, char [][] pop, int gen) {
+    void stats(int[] fitness, char [][] pop, int gen) {
         int i, best = rd.nextInt(POPSIZE);
         int node_count = 0;
         fbestpop = fitness[best];
@@ -242,12 +241,12 @@ public class MyTinyGp
         System.out.print("Generation="+gen+" Avg Fitness="+(-favgpop)+
                          " Best Fitness="+(-fbestpop)+" Avg Size="+avg_len+
                          "\nBest Individual: ");
-        print_indiv(pop[best], 0);
+        printIndiv(pop[best], 0);
         System.out.print("\n");
         System.out.flush();
     }
 
-    int tournament(double [] fitness, int tsize) {
+    int tournament(int[] fitness, int tsize) {
         int best = rd.nextInt(POPSIZE), i, competitor;
         double    fbest = -1.0e34;
         
@@ -261,7 +260,7 @@ public class MyTinyGp
         return(best);
     }
     
-    int negative_tournament(double [] fitness, int tsize) {
+    int negativeTournament(int[] fitness, int tsize) {
         int worst = rd.nextInt(POPSIZE), i, competitor;
         double fworst = 1e34;
         
@@ -275,7 +274,7 @@ public class MyTinyGp
         return(worst);
     }
     
-    char [] crossover(char []parent1, char [] parent2) {
+    char[] crossover(char[] parent1, char[] parent2) {
         int xo1start, xo1end, xo2start, xo2end;
         char [] offspring;
         int len1 = traverse(parent1, 0);
@@ -302,7 +301,7 @@ public class MyTinyGp
         return(offspring);
     }
     
-    char [] mutation(char [] parent, double pmut) {
+    char[] mutation(char[] parent, double pmut) {
         int len = traverse(parent, 0), i;
         int mutsite;
         char [] parentcopy = new char [len];
@@ -315,10 +314,9 @@ public class MyTinyGp
                     parentcopy[mutsite] = (char) rd.nextInt(varnumber+randomnumber);
                 } else {
                     switch(parentcopy[mutsite]) {
-                    case ADD: 
-                    case SUB: 
-                    case MUL: 
-                    case DIV:
+                    case NOT: 
+                    case AND: 
+                    case OR: 
                          parentcopy[mutsite] = 
                                 (char) (rd.nextInt(FSET_END - FSET_START + 1) 
                                              + FSET_START);
@@ -329,8 +327,8 @@ public class MyTinyGp
         return(parentcopy);
     }
     
-    void print_parms() {
-     System.out.print("-- TINY GP (Java version) --\n");
+    void printParams() {
+     System.out.print("-- MY TINY GP (Java version) --\n");
      System.out.print("SEED="+seed+"\nMAX_LEN="+MAX_LEN+
                 "\nPOPSIZE="+POPSIZE+"\nDEPTH="+DEPTH+
                         "\nCROSSOVER_PROB="+CROSSOVER_PROB+
@@ -343,23 +341,24 @@ public class MyTinyGp
     }
 
     public MyTinyGp(String fname, long s) {
-        fitness =    new double[POPSIZE];
+        fitness = new int[POPSIZE];
         seed = s;
         if (seed >= 0) {
             rd.setSeed(seed);
         }
         setupFitness(fname);
+        /*
         for (int i = 0; i < FSET_START; i ++) {
             x[i]= (maxrandom-minrandom)*rd.nextDouble()+minrandom;
         }
-        pop = create_random_pop(POPSIZE, DEPTH, fitness);
+        pop = createRandomPop(POPSIZE, DEPTH, fitness);*/
     }
 
     void evolve() {
         int gen = 0, indivs, offspring, parent1, parent2, parent;
-        double newfit;
+        int newfit;
         char []newind;
-        print_parms();
+        printParams();
         stats(fitness, pop, 0);
         for (gen = 1; gen < GENERATIONS; gen ++) {
             if (fbestpop > -1e-5) {
@@ -376,7 +375,7 @@ public class MyTinyGp
                     newind = mutation(pop[parent], PMUT_PER_NODE);
                 }
                 newfit = fitnessFunction(newind);
-                offspring = negative_tournament(fitness, TSIZE);
+                offspring = negativeTournament(fitness, TSIZE);
                 pop[offspring] = newind;
                 fitness[offspring] = newfit;
             }
@@ -399,6 +398,6 @@ public class MyTinyGp
         }
         
         MyTinyGp gp = new MyTinyGp(fname, s);
-        gp.evolve();
+        // gp.evolve();
     }
 };
