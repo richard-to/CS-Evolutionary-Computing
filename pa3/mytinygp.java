@@ -405,8 +405,8 @@ public class MyTinyGp
                     case AND: 
                     case OR: 
                          parentcopy[mutsite] = 
-                                (char) (rd.nextInt(FSET_END - FSET_START + 1) 
-                                             + FSET_START);
+                                (char) (rd.nextInt(FSET_END - FSET_START) 
+                                             + FSET_START + 1);
                     }
                 }
             }
