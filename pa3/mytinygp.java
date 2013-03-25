@@ -32,7 +32,7 @@ public class MyTinyGp
     static long seed;
     static double avg_len; 
     static final int MAX_LEN = 10000;   
-    static final int POPSIZE = 100000;
+    static final int POPSIZE = 1; //100000;
     static final int DEPTH = 5;
     static final int GENERATIONS = 100;
     static final int TSIZE = 2;
@@ -59,9 +59,9 @@ public class MyTinyGp
         }
         
         switch(buffer[buffercount]) {
-            case NOT: 
+            case NOT:
                 return(traverse(buffer, ++buffercount));
-            case OR: 
+            case OR:
             case AND:
                 return(traverse(buffer, traverse(buffer, ++buffercount)));             
         }
@@ -125,7 +125,7 @@ public class MyTinyGp
         return(-fit);
     }
 
-    int grow(char [] buffer, int pos, int max, int depth) {
+    int grow(char[] buffer, int pos, int max, int depth) {
         char prim = (char) rd.nextInt(2);
         int one_child;
 
@@ -144,7 +144,10 @@ public class MyTinyGp
         } else {
             prim = (char) (rd.nextInt(FSET_END - FSET_START + 1) + FSET_START);
             switch(prim) {
-            case NOT: 
+            case NOT: {
+                buffer[pos] = prim;
+                return grow(buffer, pos+1, max,depth-1);
+            }
             case AND: 
             case OR: 
                 buffer[pos] = prim;
@@ -161,7 +164,7 @@ public class MyTinyGp
     int printIndiv(char[] buffer, int buffercounter) {
         int a1=0; 
         int a2 = 0;
-        
+
         if (buffer[buffercounter] < FSET_START) {
             if (buffer[buffercounter] < varnumber) {
                 System.out.print("X"+ (buffer[buffercounter] + 1)+ " ");
@@ -211,7 +214,7 @@ public class MyTinyGp
     }
 
     char[][] createRandomPop(int n, int depth, int[] fitness) {
-        char[][]pop = new char[n][];
+        char[][] pop = new char[n][];
         int i;
         
         for (i = 0; i < n; i ++) {
@@ -347,11 +350,12 @@ public class MyTinyGp
             rd.setSeed(seed);
         }
         setupFitness(fname);
-        /*
+        
         for (int i = 0; i < FSET_START; i ++) {
-            x[i]= (maxrandom-minrandom)*rd.nextDouble()+minrandom;
+            x[i]= (rd.nextInt(2) > 0) ? true : false;
         }
-        pop = createRandomPop(POPSIZE, DEPTH, fitness);*/
+        pop = createRandomPop(POPSIZE, DEPTH, fitness);
+        //printIndiv(pop[0], 0);
     }
 
     void evolve() {
