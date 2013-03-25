@@ -32,9 +32,9 @@ public class MyTinyGp
     static long seed;
     static double avg_len; 
     static final int MAX_LEN = 10000;   
-    static final int POPSIZE = 2; //100000;
+    static final int POPSIZE = 100000;
     static final int DEPTH = 5;
-    static final int GENERATIONS = 1;
+    static final int GENERATIONS = 100;
     static final int TSIZE = 2;
     public static final double PMUT_PER_NODE = 0.05;
     public static final double CROSSOVER_PROB = 0.9;
@@ -107,11 +107,18 @@ public class MyTinyGp
     }
 
     int fitnessFunction(char[] Prog) {
+        tcount++;
+
         int i = 0; 
         int len;
         boolean result;
         int fit = 0;
-        
+        if (tcount == 100620) {
+            for(int g = 0; g < Prog.length; g++) {
+                System.out.println(new Integer(Prog[g]));
+            }
+            printIndiv(Prog, 0);
+        }
         len = traverse(Prog, 0);
         for (i = 0; i < fitnesscases; i ++) {
             for (int j = 0; j < varnumber; j ++) {
@@ -146,7 +153,12 @@ public class MyTinyGp
             switch(prim) {
             case NOT: {
                 buffer[pos] = prim;
-                return grow(buffer, pos+1, max,depth-1);
+                one_child = grow(buffer, pos+1, max,depth-1);
+                if (one_child < 0) {
+                    return -1;
+                } else {
+                    return one_child;
+                }
             }
             case AND: 
             case OR: 
@@ -312,12 +324,11 @@ public class MyTinyGp
         System.arraycopy(parent, 0, parentcopy, 0, len);
         for (i = 0; i < len; i ++) {    
             if (rd.nextDouble() < pmut) {
-                mutsite =    i;
+                mutsite = i;
                 if (parentcopy[mutsite] < FSET_START) {
                     parentcopy[mutsite] = (char) rd.nextInt(varnumber+randomnumber);
                 } else {
                     switch(parentcopy[mutsite]) {
-                    case NOT: 
                     case AND: 
                     case OR: 
                          parentcopy[mutsite] = 
@@ -361,7 +372,7 @@ public class MyTinyGp
         printParams();
         stats(fitness, pop, 0);
         for (gen = 1; gen < GENERATIONS; gen ++) {
-            if (fbestpop > Integer.MIN_VALUE) {
+            if (fbestpop == 0) {
                 System.out.print("PROBLEM SOLVED\n");
                 System.exit(0);
             }
