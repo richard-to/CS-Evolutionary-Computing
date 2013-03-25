@@ -106,19 +106,11 @@ public class MyTinyGp
         }
     }
 
-    int fitnessFunction(char[] Prog) {
-        tcount++;
-
+    int fitnessFunction(char[] Prog) {å
         int i = 0; 
         int len;
         boolean result;
         int fit = 0;
-        if (tcount == 100620) {
-            for(int g = 0; g < Prog.length; g++) {
-                System.out.println(new Integer(Prog[g]));
-            }
-            printIndiv(Prog, 0);
-        }
         len = traverse(Prog, 0);
         for (i = 0; i < fitnesscases; i ++) {
             for (int j = 0; j < varnumber; j ++) {
