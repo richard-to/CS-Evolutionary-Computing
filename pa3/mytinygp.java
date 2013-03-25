@@ -41,6 +41,17 @@ public class MyTinyGp
     public static final double CROSSOVER_PROB = 0.9;
     static boolean[][] targets;
 
+    /**
+     * Runs program using preorder tree traversal.
+     *
+     * Before applying OR or AND operators, 
+     * make sure to run results from both branches, 
+     * otherwise the short circuit will change the 
+     * the program that is being run.
+     *
+     * This is due to how the program array is set up 
+     * with the nodes in preorder already.
+     */
     boolean run() { /* Interpreter */
         boolean x1, x2;
         char primitive = program[PC++];
@@ -60,7 +71,19 @@ public class MyTinyGp
         }
         return(false); // should never get here
     }
-                    
+     
+    /**
+     * Recursively traverse tree to count size of buffer,
+     * which should be the size of the array?
+     * 
+     * This looks like an artificat from porting from c?
+     * 
+     * Maybe there is a case where the tree terminates at terminals 
+     * earlier?
+     *
+     * Additionally can provide some error detection for invalid trees - 
+     * Array index out of bounds exception.
+     */         
     int traverse(char[] buffer, int buffercount) {
         if (buffer[buffercount] < FSET_START) {
             return(++buffercount);
@@ -76,6 +99,10 @@ public class MyTinyGp
         return(0); // should never get here
     }
 
+    /**
+     * Loads data file and converts "true"| "false" values 
+     * in fitness cases to booleans.
+     */
     void setupFitness(String fname) {
         try {
             int i,j;
@@ -114,6 +141,14 @@ public class MyTinyGp
         }
     }
 
+    /**
+     * Calculates fitness of boolean equation.
+     *
+     * Zero is the optimal fitness.
+     * 
+     * Every time the result does not match the truth table result 
+     * 1 will be subtracted from the overall fitness.
+     */
     int fitnessFunction(char[] Prog) {
         int i = 0; 
         int len;
@@ -132,6 +167,9 @@ public class MyTinyGp
         return(-fit);
     }
 
+    /**
+     * Recursively grows a random tree (equation)
+     */
     int grow(char[] buffer, int pos, int max, int depth) {
         char prim = (char) rd.nextInt(2);
         int one_child;
@@ -173,6 +211,9 @@ public class MyTinyGp
         return(0); // should never get here
     }
     
+    /**
+     * Prints the generated boolean equation. 
+     */
     int printIndiv(char[] buffer, int buffercounter) {
         int a1 = 0; 
         int a2 = 0;
@@ -209,6 +250,10 @@ public class MyTinyGp
     
 
     static char [] buffer = new char[MAX_LEN];
+
+    /**
+     * Creates a random individual by growing a tree (equation)
+     */
     char [] createRandomIndiv(int depth) {
         char [] ind;
         int len;
@@ -225,6 +270,9 @@ public class MyTinyGp
         return(ind);
     }
 
+    /**
+     * Creates a population of random trees (equations)
+     */
     char[][] createRandomPop(int n, int depth, int[] fitness) {
         char[][] pop = new char[n][];
         int i;
@@ -236,6 +284,11 @@ public class MyTinyGp
         return(pop);
     }
 
+    /**
+     * Prints out the generation number, avg. fitness,
+     * best fitness, avg. size, and the best individual 
+     * for the current generation.
+     */
     void stats(int[] fitness, char [][] pop, int gen) {
         int i, best = rd.nextInt(POPSIZE);
         int node_count = 0;
@@ -260,6 +313,10 @@ public class MyTinyGp
         System.out.flush();
     }
 
+    /**
+     * Parent selection using tournament selection.
+     * Best fitness is a maximum.
+     */
     int tournament(int[] fitness, int tsize) {
         int best = rd.nextInt(POPSIZE), i, competitor;
         int fbest = Integer.MIN_VALUE;
@@ -273,7 +330,11 @@ public class MyTinyGp
         }
         return(best);
     }
-    
+ 
+    /**
+     * Parent selection using tournament selection.
+     * Best fitness is a minimum.
+     */   
     int negativeTournament(int[] fitness, int tsize) {
         int worst = rd.nextInt(POPSIZE), i, competitor;
         int fworst = Integer.MAX_VALUE;
@@ -288,6 +349,9 @@ public class MyTinyGp
         return(worst);
     }
     
+    /**
+     * Subtree crossover
+     */
     char[] crossover(char[] parent1, char[] parent2) {
         int xo1start, xo1end, xo2start, xo2end;
         char [] offspring;
@@ -315,6 +379,16 @@ public class MyTinyGp
         return(offspring);
     }
     
+    /**
+     * Point mutation.
+     *
+     * Due to the preorder tree traversal array, other types of 
+     * mutation algorithms not easy to implement?
+     *
+     * The NOT operator cannot be mutated since we only have 
+     * one unary operator. An invalid tree will occur if we 
+     * try to swap in an AND or OR operator. 
+     */
     char[] mutation(char[] parent, double pmut) {
         int len = traverse(parent, 0), i;
         int mutsite;
@@ -340,9 +414,12 @@ public class MyTinyGp
         return(parentcopy);
     }
     
+    /**
+     * Prints parameters/settings for the run
+     */
     void printParams() {
-     System.out.print("-- MY TINY GP (Java version) --\n");
-     System.out.print("SEED="+seed+"\nMAX_LEN="+MAX_LEN+
+        System.out.print("-- MY TINY GP (Java version) --\n");
+        System.out.print("SEED="+seed+"\nMAX_LEN="+MAX_LEN+
                 "\nPOPSIZE="+POPSIZE+"\nDEPTH="+DEPTH+
                         "\nCROSSOVER_PROB="+CROSSOVER_PROB+
                         "\nPMUT_PER_NODE="+PMUT_PER_NODE+
@@ -353,6 +430,9 @@ public class MyTinyGp
                         "\n----------------------------------\n");
     }
 
+    /**
+     * Constructor (loads data and builds initial population)
+     */
     public MyTinyGp(String fname, long s) {
         fitness = new int[POPSIZE];
         seed = s;
@@ -364,6 +444,12 @@ public class MyTinyGp
         pop = createRandomPop(POPSIZE, DEPTH, fitness);
     }
 
+    /**
+     * This function evolves the population through the generations 
+     * using subtree crossover and point mutation.
+     * 
+     * Evolution stops after best fitness found or max generations reached.
+     */
     void evolve() {
         int gen = 0, indivs, offspring, parent1, parent2, parent;
         int newfit;
@@ -395,6 +481,13 @@ public class MyTinyGp
         System.exit(1);
     }
 
+    /**
+     * Main program method.
+     *
+     * Optioanl command line arg formats:
+     * - filename 
+     * - seed filename
+     */
     public static void main(String[] args) {
         String fname = "problem.dat";
         long s = -1;
