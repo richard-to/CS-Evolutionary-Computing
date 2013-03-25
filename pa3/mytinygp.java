@@ -2,7 +2,7 @@
  * Implementation of tiny gp that evolves a program 
  * representing a booealn expression.
  *
- * Source modified from MyTinyGp originally developed by 
+ * Source modified from tiny_gp program, which was developed by 
  * Riccardo Poli (http://cswww.essex.ac.uk/staff/rpoli/MyTinyGP/)
  *
  * Author: Richard To
