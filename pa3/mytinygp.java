@@ -28,7 +28,8 @@ public class MyTinyGp
     static char[] program;
     static int PC;
     static int varnumber, fitnesscases, randomnumber;
-    static int fbestpop = 0, favgpop = 0;
+    static int fbestpop = 0;
+    static double favgpop = 0;
     static long seed;
     static double avg_len; 
     static final int MAX_LEN = 10000;   
@@ -41,14 +42,21 @@ public class MyTinyGp
     static boolean[][] targets;
 
     boolean run() { /* Interpreter */
+        boolean x1, x2;
         char primitive = program[PC++];
         if (primitive < FSET_START) {
             return(x[primitive]);
         }
         switch (primitive) {
             case NOT : return(!run());
-            case OR : return(run() || run());
-            case AND : return(run() && run());
+            case OR :
+                x1 = run();
+                x2 = run();
+                return x1 || x2;
+            case AND :
+                x1 = run();
+                x2 = run();
+                return x1 && x2;
         }
         return(false); // should never get here
     }
@@ -228,15 +236,14 @@ public class MyTinyGp
         return(pop);
     }
 
-
     void stats(int[] fitness, char [][] pop, int gen) {
         int i, best = rd.nextInt(POPSIZE);
         int node_count = 0;
         fbestpop = fitness[best];
         favgpop = 0;
 
-        for (i = 0; i < POPSIZE; i ++) {
-            node_count +=    traverse(pop[i], 0);
+        for (i = 0; i < POPSIZE; i++) {
+            node_count += traverse(pop[i], 0);
             favgpop += fitness[i];
             if (fitness[i] > fbestpop) {
                 best = i;
