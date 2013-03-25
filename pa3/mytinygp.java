@@ -28,13 +28,13 @@ public class MyTinyGp
     static char[] program;
     static int PC;
     static int varnumber, fitnesscases, randomnumber;
-    static double fbestpop = 0.0, favgpop = 0.0;
+    static int fbestpop = 0, favgpop = 0;
     static long seed;
     static double avg_len; 
     static final int MAX_LEN = 10000;   
-    static final int POPSIZE = 1; //100000;
+    static final int POPSIZE = 2; //100000;
     static final int DEPTH = 5;
-    static final int GENERATIONS = 100;
+    static final int GENERATIONS = 1;
     static final int TSIZE = 2;
     public static final double PMUT_PER_NODE = 0.05;
     public static final double CROSSOVER_PROB = 0.9;
@@ -49,7 +49,7 @@ public class MyTinyGp
             case NOT : return(!run());
             case OR : return(run() || run());
             case AND : return(run() && run());
-         }
+        }
         return(false); // should never get here
     }
                     
@@ -93,7 +93,7 @@ public class MyTinyGp
                 line = in.readLine();
                 tokens = new StringTokenizer(line);
                 for (j = 0; j <= varnumber; j++) {
-                    targets[i][j] = (tokens.nextToken().trim() == "true") ? true : false;
+                    targets[i][j] = (tokens.nextToken().trim().equals("true")) ? true : false;
                 }
             }
             in.close();
@@ -162,12 +162,12 @@ public class MyTinyGp
     }
     
     int printIndiv(char[] buffer, int buffercounter) {
-        int a1=0; 
+        int a1 = 0; 
         int a2 = 0;
 
         if (buffer[buffercounter] < FSET_START) {
             if (buffer[buffercounter] < varnumber) {
-                System.out.print("X"+ (buffer[buffercounter] + 1)+ " ");
+                System.out.print("X"+ (buffer[buffercounter] + 1));
             } else {
                 System.out.print(x[buffer[buffercounter]]);
             }
@@ -175,23 +175,23 @@ public class MyTinyGp
         }
         
         switch(buffer[buffercounter]) {
-            case NOT: System.out.print("!(");
+            case NOT: System.out.print("!( ");
                 a1=printIndiv(buffer, ++buffercounter);
                 a2=a1;
                 break;
-            case AND: System.out.print("(");
+            case AND: System.out.print("( ");
                 a1=printIndiv(buffer, ++buffercounter); 
                 System.out.print(" && "); 
                 a2=printIndiv(buffer, a1); 
                 break;
-            case OR: System.out.print("(");
+            case OR: System.out.print("( ");
                 a1=printIndiv(buffer, ++buffercounter); 
                 System.out.print(" || ");
                 a2=printIndiv(buffer, a1);  
                 break;
         }
 
-        System.out.print(")"); 
+        System.out.print(" )"); 
         return(a2);
     }
     
@@ -229,7 +229,7 @@ public class MyTinyGp
         int i, best = rd.nextInt(POPSIZE);
         int node_count = 0;
         fbestpop = fitness[best];
-        favgpop = 0.0;
+        favgpop = 0;
 
         for (i = 0; i < POPSIZE; i ++) {
             node_count +=    traverse(pop[i], 0);
@@ -251,7 +251,7 @@ public class MyTinyGp
 
     int tournament(int[] fitness, int tsize) {
         int best = rd.nextInt(POPSIZE), i, competitor;
-        double    fbest = -1.0e34;
+        int fbest = Integer.MIN_VALUE;
         
         for (i = 0; i < tsize; i ++) {
             competitor = rd.nextInt(POPSIZE);
@@ -265,7 +265,7 @@ public class MyTinyGp
     
     int negativeTournament(int[] fitness, int tsize) {
         int worst = rd.nextInt(POPSIZE), i, competitor;
-        double fworst = 1e34;
+        int fworst = Integer.MAX_VALUE;
         
         for (i = 0; i < tsize; i ++) {
             competitor = rd.nextInt(POPSIZE);
@@ -351,11 +351,7 @@ public class MyTinyGp
         }
         setupFitness(fname);
         
-        for (int i = 0; i < FSET_START; i ++) {
-            x[i]= (rd.nextInt(2) > 0) ? true : false;
-        }
         pop = createRandomPop(POPSIZE, DEPTH, fitness);
-        //printIndiv(pop[0], 0);
     }
 
     void evolve() {
@@ -365,7 +361,7 @@ public class MyTinyGp
         printParams();
         stats(fitness, pop, 0);
         for (gen = 1; gen < GENERATIONS; gen ++) {
-            if (fbestpop > -1e-5) {
+            if (fbestpop > Integer.MIN_VALUE) {
                 System.out.print("PROBLEM SOLVED\n");
                 System.exit(0);
             }
@@ -391,7 +387,7 @@ public class MyTinyGp
 
     public static void main(String[] args) {
         String fname = "problem.dat";
-        long s = -1;
+        long s = 1;
         
         if (args.length == 2) {
             s = Integer.valueOf(args[0]).intValue();
@@ -402,6 +398,6 @@ public class MyTinyGp
         }
         
         MyTinyGp gp = new MyTinyGp(fname, s);
-        // gp.evolve();
+        gp.evolve();
     }
 };
