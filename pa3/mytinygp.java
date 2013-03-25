@@ -15,18 +15,17 @@ import java.text.DecimalFormat;
 
 public class MyTinyGp 
 {
-    double [] fitness;
-    char [][] pop;
+    double[] fitness;
+    char[][] pop;
     static Random rd = new Random();
-    static final int ADD = 110; 
-    static final int SUB = 111; 
-    static final int MUL = 112; 
-    static final int DIV = 113;
-    static final int FSET_START = ADD; 
-    static final int FSET_END = DIV;
-    static double [] x = new double[FSET_START];
+    static final int NOT = 110; 
+    static final int AND = 111; 
+    static final int OR = 112; 
+    static final int FSET_START = NOT; 
+    static final int FSET_END = OR;
+    static boolean[] x = new boolean[FSET_START];
     static double minrandom, maxrandom;
-    static char [] program;
+    static char[] program;
     static int PC;
     static int varnumber, fitnesscases, randomnumber;
     static double fbestpop = 0.0, favgpop = 0.0;
@@ -39,49 +38,41 @@ public class MyTinyGp
     static final int TSIZE = 2;
     public static final double PMUT_PER_NODE = 0.05;
     public static final double CROSSOVER_PROB = 0.9;
-    static double [][] targets;
+    static boolean[][] targets;
 
-    double run() { /* Interpreter */
+    boolean run() { /* Interpreter */
         char primitive = program[PC++];
         if (primitive < FSET_START) {
             return(x[primitive]);
         }
         switch (primitive) {
-            case ADD : return(run() + run());
-            case SUB : return(run() - run());
-            case MUL : return(run() * run());
-            case DIV : { 
-                double num = run(), den = run();
-                if (Math.abs(den) <= 0.001) { 
-                    return(num);
-                } else { 
-                    return(num / den);
-                }
-            }
+            case NOT : return(!run());
+            case OR : return(run() || run());
+            case AND : return(run() && run());
          }
-        return(0.0); // should never get here
+        return(false); // should never get here
     }
                     
-    int traverse(char [] buffer, int buffercount) {
+    int traverse(char[] buffer, int buffercount) {
         if (buffer[buffercount] < FSET_START) {
             return(++buffercount);
         }
         
         switch(buffer[buffercount]) {
-            case ADD: 
-            case SUB: 
-            case MUL: 
-            case DIV: 
-            return(traverse(buffer, traverse(buffer, ++buffercount)));
+            case NOT: 
+                return(traverse(buffer, ++buffercount));
+            case OR: 
+            case AND:
+                return(traverse(buffer, traverse(buffer, ++buffercount)));             
         }
         return(0); // should never get here
     }
 
-    void setup_fitness(String fname) {
+    void setupFitness(String fname) {
         try {
             int i,j;
             String line;
-            
+
             BufferedReader in = 
             new BufferedReader(
                                 new
@@ -102,7 +93,7 @@ public class MyTinyGp
                 line = in.readLine();
                 tokens = new StringTokenizer(line);
                 for (j = 0; j <= varnumber; j++) {
-                    targets[i][j] = Double.parseDouble(tokens.nextToken().trim());
+                    targets[i][j] = (tokens.nextToken().trim() == "true") ? true : false;
                 }
             }
             in.close();
@@ -115,9 +106,11 @@ public class MyTinyGp
         }
     }
 
-    double fitness_function(char [] Prog) {
-        int i = 0, len;
-        double result, fit = 0.0;
+    int fitnessFunction(char [] Prog) {
+        int i = 0; 
+        int len;
+        int result, 
+        int fit = 0;
         
         len = traverse(Prog, 0);
         for (i = 0; i < fitnesscases; i ++) {
@@ -127,7 +120,7 @@ public class MyTinyGp
             program = Prog;
             PC = 0;
             result = run();
-            fit += Math.abs(result - targets[i][varnumber]);
+            fit += (result == targets[i][varnumber]) ? 0 : 1;
         }
         return(-fit);
     }
@@ -224,7 +217,7 @@ public class MyTinyGp
         
         for (i = 0; i < n; i ++) {
             pop[i] = create_random_indiv(depth);
-            fitness[i] = fitness_function(pop[i]);
+            fitness[i] = fitnessFunction(pop[i]);
         }
         return(pop);
     }
@@ -355,7 +348,7 @@ public class MyTinyGp
         if (seed >= 0) {
             rd.setSeed(seed);
         }
-        setup_fitness(fname);
+        setupFitness(fname);
         for (int i = 0; i < FSET_START; i ++) {
             x[i]= (maxrandom-minrandom)*rd.nextDouble()+minrandom;
         }
@@ -382,7 +375,7 @@ public class MyTinyGp
                     parent = tournament(fitness, TSIZE);
                     newind = mutation(pop[parent], PMUT_PER_NODE);
                 }
-                newfit = fitness_function(newind);
+                newfit = fitnessFunction(newind);
                 offspring = negative_tournament(fitness, TSIZE);
                 pop[offspring] = newind;
                 fitness[offspring] = newfit;
