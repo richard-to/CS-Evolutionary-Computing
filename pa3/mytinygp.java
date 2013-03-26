@@ -385,33 +385,37 @@ public class MyTinyGp
      * Due to the preorder tree traversal array, other types of 
      * mutation algorithms not easy to implement?
      *
-     * The NOT operator cannot be mutated since we only have 
-     * one unary operator. An invalid tree will occur if we 
-     * try to swap in an AND or OR operator. 
+     * The NOT operator cannot be mutated with AND or OR since it is unary.
+     * An invalid tree will occur if we try to swap in an AND or OR operator.
+     *
+     * To alleviate this, if the NOT operator is selected for mutation we will 
+     * remove the NOT operator from the parent. 
      */
     char[] mutation(char[] parent, double pmut) {
         int len = traverse(parent, 0), i;
         int mutsite;
         char [] parentcopy = new char [len];
         
-        System.arraycopy(parent, 0, parentcopy, 0, len);
+        int count = 0;
         for (i = 0; i < len; i ++) {    
+            mutsite = i;
             if (rd.nextDouble() < pmut) {
-                mutsite = i;
-                if (parentcopy[mutsite] < FSET_START) {
-                    parentcopy[mutsite] = (char) rd.nextInt(varnumber+randomnumber);
+                if (parent[mutsite] < FSET_START) {
+                    parentcopy[count++] = (char) rd.nextInt(varnumber+randomnumber);
                 } else {
-                    switch(parentcopy[mutsite]) {
+                    switch(parent[mutsite]) {
                     case AND: 
                     case OR: 
-                         parentcopy[mutsite] = 
+                         parentcopy[count++] = 
                                 (char) (rd.nextInt(FSET_END - FSET_START) 
                                              + FSET_START + 1);
                     }
                 }
+            } else {
+                parentcopy[count++] = parent[mutsite];
             }
         }
-        return(parentcopy);
+        return Arrays.copyOfRange(parentcopy, 0, count);
     }
     
     /**
