@@ -32,12 +32,15 @@ public class MyTinyGp
     static double favgpop = 0;
     static long seed;
     static double avg_len; 
+    static final int POINT_MUTATION = 1;
+    static final int SUBTREE_MUTATION = 2;
+    static final int MUTATION_TYPE = SUBTREE_MUTATION;
     static final int MAX_LEN = 10000;   
     static final int POPSIZE = 100000;
     static final int DEPTH = 5;
     static final int GENERATIONS = 100;
     static final int TSIZE = 2;
-    public static final double PMUT_PER_NODE = 0.05;
+    public static final double PMUT_PER_NODE = 0.1;
     public static final double CROSSOVER_PROB = 0.9;
     static boolean[][] targets;
 
@@ -74,15 +77,9 @@ public class MyTinyGp
      
     /**
      * Recursively traverse tree to count size of buffer,
-     * which should be the size of the array?
      * 
-     * This looks like an artificat from porting from c?
-     * 
-     * Maybe there is a case where the tree terminates at terminals 
-     * earlier?
-     *
-     * Additionally can provide some error detection for invalid trees - 
-     * Array index out of bounds exception.
+     * Useful for finding the depth of subtrees. For example,
+     * performing crossover or subtree mutation.
      */         
     int traverse(char[] buffer, int buffercount) {
         if (buffer[buffercount] < FSET_START) {
@@ -354,7 +351,7 @@ public class MyTinyGp
      */
     char[] crossover(char[] parent1, char[] parent2) {
         int xo1start, xo1end, xo2start, xo2end;
-        char [] offspring;
+        char[] offspring;
         int len1 = traverse(parent1, 0);
         int len2 = traverse(parent2, 0);
         int lenoff;
@@ -378,12 +375,62 @@ public class MyTinyGp
 
         return(offspring);
     }
-    
+
+    /**
+     * Mutation operator. Can be either subtree or point mutation.
+     *
+     * Defaults to point mutation if invalid type specified.
+     */
+    char[] mutation(char[] parent, double pmut, int mutationType) {
+        switch(mutationType) {
+            case SUBTREE_MUTATION:
+                return subtreeMutation(parent, pmut);
+            default:
+                return pointMutation(parent, pmut);
+        }
+    }
+
+    /**
+     * Subtree mutation
+     * 
+     * Performs mutation on one subtree if selected for mutation.
+     */
+    char[] subtreeMutation(char[] parent1, double pmut) {
+        int len1 = traverse(parent1, 0);        
+        if (rd.nextDouble() < pmut) {
+            int xo1start, xo1end, xo2start, xo2end;
+            char[] offspring;
+            char[] parent2 = createRandomIndiv(rd.nextInt(DEPTH));
+            int len2 = traverse(parent2, 0);
+            int lenoff;
+            
+            xo1start = rd.nextInt(len1);
+            xo1end = traverse(parent1, xo1start);
+            
+            xo2start = 0;
+            xo2end = len2;
+            
+            lenoff = xo1start + (xo2end - xo2start) + (len1-xo1end);
+
+            offspring = new char[lenoff];
+
+            System.arraycopy(parent1, 0, offspring, 0, xo1start);
+            System.arraycopy(parent2, xo2start, offspring, xo1start,    
+                                (xo2end - xo2start));
+            System.arraycopy(parent1, xo1end, offspring, 
+                                xo1start + (xo2end - xo2start), 
+                                (len1-xo1end));
+
+            return(offspring);
+        } else {
+            char[] parentcopy = new char[len1];
+            System.arraycopy(parent1, 0, parentcopy, 0, len1);
+            return parentcopy;
+        }
+    }
+
     /**
      * Point mutation.
-     *
-     * Due to the preorder tree traversal array, other types of 
-     * mutation algorithms not easy to implement?
      *
      * The NOT operator cannot be mutated with AND or OR since it is unary.
      * An invalid tree will occur if we try to swap in an AND or OR operator.
@@ -391,7 +438,7 @@ public class MyTinyGp
      * To alleviate this, if the NOT operator is selected for mutation we will 
      * remove the NOT operator from the parent. 
      */
-    char[] mutation(char[] parent, double pmut) {
+    char[] pointMutation(char[] parent, double pmut) {
         int len = traverse(parent, 0), i;
         int mutsite;
         char [] parentcopy = new char [len];
@@ -472,7 +519,7 @@ public class MyTinyGp
                     newind = crossover(pop[parent1],pop[parent2]);
                 } else {
                     parent = tournament(fitness, TSIZE);
-                    newind = mutation(pop[parent], PMUT_PER_NODE);
+                    newind = mutation(pop[parent], PMUT_PER_NODE, MUTATION_TYPE);
                 }
                 newfit = fitnessFunction(newind);
                 offspring = negativeTournament(fitness, TSIZE);
